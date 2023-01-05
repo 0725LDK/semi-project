@@ -3,16 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-	
-	.box-container {
-  	display: flex;
-	}
-	
-	</style>
 <meta charset="UTF-8">
 <title>TAKJU</title>
-
 </head>
 <body>
 	<a href="${pageContext.request.contextPath}/home/main">스토어</a>
@@ -37,6 +29,26 @@
 	<p>맛있는 막걸리는 다 있어요</p>
 	
 	<!-- goodsList -->
+	<div>
+		<a href="${pageContext.request.contextPath}/goods/takjuPage">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/3">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	</div>
+	
+	
+	
 	<p>이미지 및 설명 넣기</p>
 	
 	

@@ -9,7 +9,7 @@
 	  background-color: white;    
 	  text-align: center;
 	}
-</style>
+	</style>
 <meta charset="UTF-8">
 <title>EVENT LIST</title>
 </head>

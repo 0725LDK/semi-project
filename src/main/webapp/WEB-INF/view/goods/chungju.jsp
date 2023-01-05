@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -28,6 +28,27 @@
 	<!-- goods 소개 -->	
 	<h3>약/청주</h3>
 	<p>맑고 깨끗한 술의 원조</p>
+	
+	<!--  상품 사진 및 설명 -->
+	<div>
+		<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	 	&ensp;
+	 	<a href="${pageContext.request.contextPath}/#">
+	 		<img src="../img/test.jpg" alt="test" width="200" height="250">
+	 	</a>
+	</div>
+	
+	
 	
 	<p>이미지 및 설명 넣기</p>
 </body>

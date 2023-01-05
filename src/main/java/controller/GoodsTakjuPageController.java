@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class GoodsTakjuController
+ * Servlet implementation class GoodsTakjuPageController
  */
-@WebServlet("/goods/takju")
-public class GoodsTakjuController extends HttpServlet {
-	
+@WebServlet("/goods/takjuPage")
+public class GoodsTakjuPageController extends HttpServlet {
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// takju.jsp
-		request.getRequestDispatcher("/WEB-INF/view/goods/takju.jsp").forward(request, response);
+
+		// takjuPage.jsp
+		request.getRequestDispatcher("/WEB-INF/view/goods/takjuPage.jsp").forward(request, response);
+	
 	}
 
-	// action
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
