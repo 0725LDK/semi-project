@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
-				<td><input type="password" name="PwCheck"></td>
+				<td><input type="password" name="pwCheck"></td>
 			</tr>
 			<tr>
 				<td>이름</td>
