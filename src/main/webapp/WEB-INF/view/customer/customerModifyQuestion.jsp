@@ -6,8 +6,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>문의사항 수정</h2>
-	<form action="${pageContext.request.contextPath}/customer/costomerModifyQuestion" method="post">
+	<h1>문의사항 수정</h1>
+	<!-- 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
+	</div>
+	<form action="${pageContext.request.contextPath}/customer/customerModifyQuestion" method="post">
 		<div>
 			<label>문의번호</label>
 			<input>

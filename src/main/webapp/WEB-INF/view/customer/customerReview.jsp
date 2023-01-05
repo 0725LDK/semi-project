@@ -7,13 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>리뷰</h1>
+	<h1>리뷰 리스트</h1>
+	
 	<!-- 네비메뉴 -->
-	<a href="${pageContext.request.contextPath}/customer/customerOne">회원정보</a>
-	<a href="${pageContext.request.contextPath}/customer/customerOrder">주문내역</a>
-	<a href="${pageContext.request.contextPath}/customer/customerCancle">취소/환불내역</a>
-	<a href="${pageContext.request.contextPath}/customer/customerReview">리뷰</a>
-	<a href="">고객센터</a>
+	<div>
+		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
+	</div>	
 	
 	<table>
 		<tr>
@@ -28,9 +27,9 @@
 			<td><input name="goodsName"></td>
 			<td><input name="orderState"></td>
 			<td><input name="reviewMemo"></td>
-			<td><a href="">리뷰 작성</a></td>
-			<td><a href="">수정</a></td>
-			<td><a href="">삭제</a></td>
+			<td><a href='${pageContext.request.contextPath}/customer/customerAddReview'>리뷰 작성</a></td>
+			<td><a href='${pageContext.request.contextPath}/customer/customerModifyReview'>수정</a></td>
+			<td><a href='${pageContext.request.contextPath}/customer/customerRemoveReview'>삭제</a></td>
 		</tr>
 	</table>
 </body>

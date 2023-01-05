@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/customer/customerReview")
-public class CustomerReviewController extends HttpServlet {
+@WebServlet("/emp/empCustomerOrder")
+public class EmpCustomerOrderController extends HttpServlet {
 	
-	//리뷰 리스트
+	//회원 주문 내역
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerReview.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/emp/empCustomerOrder.jsp").forward(request, response);
 	}
 
 }

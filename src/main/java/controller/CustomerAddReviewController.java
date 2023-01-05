@@ -7,23 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class CustomerRemoveController
- */
-@WebServlet("/customer/customerRemove")
-public class CustomerRemoveController extends HttpServlet {
+
+@WebServlet("/customer/customerAddReview")
+public class CustomerAddReviewController extends HttpServlet {
 	
-	//회원 탈퇴 폼
+	//리뷰 추가 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerRemove.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerAddReview.jsp").forward(request, response);
 	}
 
-	//회원 탈퇴 액션
+	//리뷰 추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("회원탈퇴 성공");
-		response.sendRedirect(request.getContextPath()+"/home/login");
+		System.out.println("리뷰 추가 성공");
+		response.sendRedirect(request.getContextPath()+"/customer/customerReview");
 	}
 
 }

@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/customer/customerReview")
-public class CustomerReviewController extends HttpServlet {
+@WebServlet("/customer/customerQuestion")
+public class CustomerQuestionController extends HttpServlet {
 	
-	//리뷰 리스트
+	//고객센터 리스트
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerReview.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerQuestion.jsp").forward(request, response);
 	}
 
 }
