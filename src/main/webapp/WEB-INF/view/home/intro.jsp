@@ -8,12 +8,20 @@
 </head>
 <body>
 	<a href="${pageContext.request.contextPath}/home/main">스토어</a>
-	<c:if test="${empty loginMember}">
+	<!-- 로그인 안되어 있으면 -->
+	<c:if test="${loginCustomer eq null && loginEmp eq null}">
 		<a href="${pageContext.request.contextPath}/home/login">로그인</a>
 	</c:if>
-	<c:if test="${not empty loginMember}">
-		<a href="#">${loginMember}</a>
+	<!-- 고객 로그인시 -->
+	<c:if test="${loginCustomer.customerId ne null}">
+		<a href="${pageContext.request.contextPath}/customer/customerOne">${loginCustomer.customerId}님</a>
+		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+	</c:if>
+	<!-- 직원 로그인시 -->
+	<c:if test="${loginEmp.empId ne null}">
+		<a href="${pageContext.request.contextPath}/emp/empOne">${loginEmp.empId}님</a>
+		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	</c:if>
 	<a href="${pageContext.request.contextPath}/customer/cart">장바구니</a>
-</body>
+	
 </html>

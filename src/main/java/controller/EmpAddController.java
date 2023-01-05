@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import service.MemberService;
+import service.EmpService;
 import vo.Emp;
 
 
 @WebServlet("/emp/empAdd")
 public class EmpAddController extends HttpServlet {
-	private MemberService memberService;
+	private EmpService empService;
 	// emp 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 되어있으면 /home/intro
@@ -55,8 +56,8 @@ public class EmpAddController extends HttpServlet {
 		emp.setEmpPw(empPw);
 		emp.setEmpName(empName);
 		
-		this.memberService = new MemberService();
-		row = memberService.getAddEmp(emp);
+		this.empService = new EmpService();
+		row = empService.getAddEmp(emp);
 		
 		if(row == 0) {
 			System.out.println("직원 회원가입 실패, EmpAddController");

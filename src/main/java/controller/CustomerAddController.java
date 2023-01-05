@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,14 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import service.MemberService;
+import service.CustomerService;
 import vo.Customer;
-import vo.Customer_address;
 
 
 @WebServlet("/customer/customerAdd")
 public class CustomerAddController extends HttpServlet {
-	private MemberService memberService;
+	private CustomerService customerService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 되어있으면 /home/intro
 		HttpSession session = request.getSession();
@@ -60,8 +60,8 @@ public class CustomerAddController extends HttpServlet {
 		customer.setCustomerName(customerName);
 		customer.setCustomerPhone(customerPhone);
 		
-		this.memberService = new MemberService();
-		row = memberService.getAddCustomer(customer);
+		this.customerService = new CustomerService();
+		row = customerService.getAddCustomer(customer);
 		
 		if(row == 0) {
 			System.out.println("고객 회원가입 실패, CustomerAddController");

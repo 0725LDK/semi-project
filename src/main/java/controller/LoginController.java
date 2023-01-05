@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import service.MemberService;
+import service.CustomerService;
+import service.EmpService;
 import vo.Customer;
 import vo.Emp;
 
 
 @WebServlet("/home/login")
 public class LoginController extends HttpServlet {
-	private MemberService memberService;
+	private CustomerService customerService;
+	private EmpService empService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//login.jsp
@@ -46,14 +49,14 @@ public class LoginController extends HttpServlet {
 		paramCustomer.setCustomerId(loginId);
 		paramCustomer.setCustomerPw(loginPw);
 		
-		this.memberService = new MemberService();
-		Customer returnCustomer =  memberService.CustomerLogin(paramCustomer);
+		this.customerService = new CustomerService();
+		Customer returnCustomer =  customerService.CustomerLogin(paramCustomer);
 		
 		// 고객 로그인 성공 session에 저장
 		if(returnCustomer != null) {
 			System.out.println("고객로그인 성공");
-			session.setAttribute("loginMember", returnCustomer);
-			response.sendRedirect(request.getContextPath()+"/home/intro");
+			session.setAttribute("loginCustomer", returnCustomer);
+			response.sendRedirect(request.getContextPath()+"/home/main");
 			return;
 		}
 		
@@ -62,8 +65,8 @@ public class LoginController extends HttpServlet {
 		paramEmp.setEmpId(loginId);
 		paramEmp.setEmpPw(loginPw);
 		
-		this.memberService = new MemberService();
-		Emp returnEmp = memberService.EmpLogin(paramEmp);
+		this.empService = new EmpService();
+		Emp returnEmp = empService.EmpLogin(paramEmp);
 		if(returnEmp == null) {
 			System.out.println("로그인 실패 : LoginController");
 			response.sendRedirect(request.getContextPath()+"/home/login");
@@ -72,8 +75,8 @@ public class LoginController extends HttpServlet {
 		
 		// 직원 로그인 성공 session에 저장
 		System.out.println("직원로그인 성공");
-		session.setAttribute("loginMember", returnEmp);
-		response.sendRedirect(request.getContextPath()+"/home/intro");
+		session.setAttribute("loginEmp", returnEmp);
+		response.sendRedirect(request.getContextPath()+"/home/main");
 
 	}
 
