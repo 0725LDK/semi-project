@@ -14,12 +14,14 @@
 	</div>	
 	
 	<table>
+		<input type="hidden" name="ordersCode" value="1"><!-- 임시 value -->
 		<tr>
 			<td>상품명</td>
 			<td>상품수량</td>
 			<td>상품가격</td>
 			<td>배송지</td>
 			<td>결제일자</td>
+			<td>고객센터 문의하기</td>
 		</tr>
 		<tr>
 			<td><input name="goodsName"></td>
@@ -27,6 +29,7 @@
 			<td><input name="orderPrice"></td>
 			<td><input name="address"></td>
 			<td><input name="createdate"></td>
+			<td><a href="${pageContext.request.contextPath}/customer/customerAddQuestion?ordersCode=1">문의등록</a></td>
 		</tr>
 		
 	</table>

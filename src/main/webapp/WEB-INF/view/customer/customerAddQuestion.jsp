@@ -14,20 +14,21 @@
 	
 	<form action="${pageContext.request.contextPath}/customer/customerAddQuestion" method="post">
 		<div>
-			<label>문의번호</label>
-			<input>
+			<label>주문번호</label>
+			<input type="text" name="ordersCode" value="${ordersCode }">
 		</div>
+		
 		<div>
 			<label>문의상품</label>
-			<input>
+			<input type="text" name="goodsname">
 		</div>
 		<div>
 			<label>문의사항</label>
-			<input>
+			<input type="text" name="questionMemo">
 		</div>
 		<div>
 			<label>문의일자</label>
-			<input>
+			<input type="text" name="questionCreate">
 		</div>
 		<button type="submit" class="btn">추가</button>
 	</form>

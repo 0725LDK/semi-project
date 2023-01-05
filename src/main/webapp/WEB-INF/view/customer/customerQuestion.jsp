@@ -29,13 +29,11 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td><a type="button" class="btn btn-dark" href='${pageContext.request.contextPath}/customer/customerModifyQuestion'>수정</a></td>
-			<td><a type="button" class="btn btn-dark" href='${pageContext.request.contextPath}/customer/customerRemoveQuestion'>삭제</a></td>
+			<td><a type="button" href='${pageContext.request.contextPath}/customer/customerModifyQuestion'>수정</a></td>
+			<td><a type="button" href='${pageContext.request.contextPath}/customer/customerRemoveQuestion'>삭제</a></td>
 		
 		</tr>
 	</table>
-	<div>
-		<a type="button" class="btn btn-dark" href="${pageContext.request.contextPath}/customer/customerAddQuestion">글추가</a>
-	</div>	
+	
 </body>
 </html>

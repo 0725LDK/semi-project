@@ -20,6 +20,7 @@
 			<td>상품가격</td>
 			<td>취소/환불</td>
 			<td>일자</td>
+			<td>고객센터 문의하기</td>
 		</tr>
 		<tr>
 			<td><input name="goodsName"></td>
@@ -27,7 +28,7 @@
 			<td><input name="orderPrice"></td>
 			<td><input name="orderState"></td>
 			<td><input name="createdate"></td>
-			
+			<td><a href="${pageContext.request.contextPath}/customer/customerAddQuestion">문의등록</a></td>
 		</tr>
 	</table>
 </body>

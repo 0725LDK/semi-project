@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
 		// 직원 로그인 성공 session에 저장
 		System.out.println("직원로그인 성공");
 		session.setAttribute("loginEmp", returnEmp);
-		response.sendRedirect(request.getContextPath()+"/home/main");
+		response.sendRedirect(request.getContextPath()+"/emp/empOne");
 
 	}
 

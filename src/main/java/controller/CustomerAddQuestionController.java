@@ -13,12 +13,24 @@ public class CustomerAddQuestionController extends HttpServlet {
 	
 	//고객센터 추가 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int ordersCode = Integer.parseInt(request.getParameter("ordersCode"));
+		request.setAttribute("ordersCode", ordersCode);
+		
+		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerAddQuestion.jsp").forward(request, response);
 	}
 
 	//고객센터 추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("고객센터 추가 성공");
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		
+		
+		
+		
+		
+		System.out.println("문의사항 추가 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerQuestion");
 	}
 
