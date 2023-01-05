@@ -1,50 +1,49 @@
 package vo;
 
 public class Goods {
-	 private int goods_code;
-	 private String goods_name;
-	 private int goods_price;
-	 private String soldout;
-	 private String emp_id;
-	 private int hit;
-	 private String createdate;
+	private int goodsCode;
+	private String goodsName;
+	private int goodsPrice;
+	private String soldout;
+	private String empId;
+	private int hit;
+	private String createdate;
 	 
 	@Override
 	public String toString() {
-		return "Goods [goods_code=" + goods_code + ", goods_name=" + goods_name + ", goods_price=" + goods_price
-				+ ", soldout=" + soldout + ", emp_id=" + emp_id + ", hit=" + hit + ", createdate=" + createdate + "]";
+		return "Goods [goodsCode=" + goodsCode + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice
+				+ ", soldout=" + soldout + ", empId=" + empId + ", hit=" + hit + ", createdate=" + createdate + "]";
 	}
-
 	public Goods() {}
 	
-	public Goods(int goods_code, String goods_name, int goods_price, String soldout, String emp_id, int hit,
+	public Goods(int goodsCode, String goodsName, int goodsPrice, String soldout, String empId, int hit,
 			String createdate) {
 		super();
-		this.goods_code = goods_code;
-		this.goods_name = goods_name;
-		this.goods_price = goods_price;
+		this.goodsCode = goodsCode;
+		this.goodsName = goodsName;
+		this.goodsPrice = goodsPrice;
 		this.soldout = soldout;
-		this.emp_id = emp_id;
+		this.empId = empId;
 		this.hit = hit;
 		this.createdate = createdate;
 	}
-	public int getGoods_code() {
-		return goods_code;
+	public int getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoods_code(int goods_code) {
-		this.goods_code = goods_code;
+	public void setGoodsCode(int goodsCode) {
+		this.goodsCode = goodsCode;
 	}
-	public String getGoods_name() {
-		return goods_name;
+	public String getGoodsName() {
+		return goodsName;
 	}
-	public void setGoods_name(String goods_name) {
-		this.goods_name = goods_name;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
-	public int getGoods_price() {
-		return goods_price;
+	public int getGoodsPrice() {
+		return goodsPrice;
 	}
-	public void setGoods_price(int goods_price) {
-		this.goods_price = goods_price;
+	public void setGoodsPrice(int goodsPrice) {
+		this.goodsPrice = goodsPrice;
 	}
 	public String getSoldout() {
 		return soldout;
@@ -52,11 +51,11 @@ public class Goods {
 	public void setSoldout(String soldout) {
 		this.soldout = soldout;
 	}
-	public String getEmp_id() {
-		return emp_id;
+	public String getEmpId() {
+		return empId;
 	}
-	public void setEmp_id(String emp_id) {
-		this.emp_id = emp_id;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 	public int getHit() {
 		return hit;
@@ -70,6 +69,5 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	 
 	 
 }

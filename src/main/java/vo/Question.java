@@ -1,39 +1,38 @@
 package vo;
 
 public class Question {
-	private int question_code;
-	private int orders_code;
+	private int questionCode;
+	private int ordersCode;
 	private String category;
-	private String question_memo;
+	private String questionMemo;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Question [question_code=" + question_code + ", orders_code=" + orders_code + ", category=" + category
-				+ ", question_memo=" + question_memo + ", createdate=" + createdate + "]";
+		return "Question [questionCode=" + questionCode + ", ordersCode=" + ordersCode + ", category=" + category
+				+ ", questionMemo=" + questionMemo + ", createdate=" + createdate + "]";
 	}
-
 	public Question() {}
 	
-	public Question(int question_code, int orders_code, String category, String question_memo, String createdate) {
+	public Question(int questionCode, int ordersCode, String category, String questionMemo, String createdate) {
 		super();
-		this.question_code = question_code;
-		this.orders_code = orders_code;
+		this.questionCode = questionCode;
+		this.ordersCode = ordersCode;
 		this.category = category;
-		this.question_memo = question_memo;
+		this.questionMemo = questionMemo;
 		this.createdate = createdate;
 	}
-	public int getQuestion_code() {
-		return question_code;
+	public int getQuestionCode() {
+		return questionCode;
 	}
-	public void setQuestion_code(int question_code) {
-		this.question_code = question_code;
+	public void setQuestionCode(int questionCode) {
+		this.questionCode = questionCode;
 	}
-	public int getOrders_code() {
-		return orders_code;
+	public int getOrdersCode() {
+		return ordersCode;
 	}
-	public void setOrders_code(int orders_code) {
-		this.orders_code = orders_code;
+	public void setOrdersCode(int ordersCode) {
+		this.ordersCode = ordersCode;
 	}
 	public String getCategory() {
 		return category;
@@ -41,11 +40,11 @@ public class Question {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getQuestion_memo() {
-		return question_memo;
+	public String getQuestionMemo() {
+		return questionMemo;
 	}
-	public void setQuestion_memo(String question_memo) {
-		this.question_memo = question_memo;
+	public void setQuestionMemo(String questionMemo) {
+		this.questionMemo = questionMemo;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -53,6 +52,5 @@ public class Question {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
+
 }

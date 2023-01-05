@@ -1,52 +1,51 @@
 package vo;
 
 public class Notice {
-	private int notice_code;
-	private String notice_title;
-	private String notice_content;
-	private String emp_id;
+	private int noticeCode;
+	private String noticeTitle;
+	private String noticeContent;
+	private String empId;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Notice [notice_code=" + notice_code + ", notice_title=" + notice_title + ", notice_content="
-				+ notice_content + ", emp_id=" + emp_id + ", createdate=" + createdate + "]";
+		return "Notice [noticeCode=" + noticeCode + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+				+ ", empId=" + empId + ", createdate=" + createdate + "]";
 	}
 
 	public Notice() {}
-
-	public Notice(int notice_code, String notice_title, String notice_content, String emp_id, String createdate) {
+	
+	public Notice(int noticeCode, String noticeTitle, String noticeContent, String empId, String createdate) {
 		super();
-		this.notice_code = notice_code;
-		this.notice_title = notice_title;
-		this.notice_content = notice_content;
-		this.emp_id = emp_id;
+		this.noticeCode = noticeCode;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.empId = empId;
 		this.createdate = createdate;
 	}
-	
-	public int getNotice_code() {
-		return notice_code;
+	public int getNoticeCode() {
+		return noticeCode;
 	}
-	public void setNotice_code(int notice_code) {
-		this.notice_code = notice_code;
+	public void setNoticeCode(int noticeCode) {
+		this.noticeCode = noticeCode;
 	}
-	public String getNotice_title() {
-		return notice_title;
+	public String getNoticeTitle() {
+		return noticeTitle;
 	}
-	public void setNotice_title(String notice_title) {
-		this.notice_title = notice_title;
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
 	}
-	public String getNotice_content() {
-		return notice_content;
+	public String getNoticeContent() {
+		return noticeContent;
 	}
-	public void setNotice_content(String notice_content) {
-		this.notice_content = notice_content;
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
 	}
-	public String getEmp_id() {
-		return emp_id;
+	public String getEmpId() {
+		return empId;
 	}
-	public void setEmp_id(String emp_id) {
-		this.emp_id = emp_id;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 	public String getCreatedate() {
 		return createdate;

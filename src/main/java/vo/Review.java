@@ -1,34 +1,33 @@
 package vo;
 
 public class Review {
-	private int order_code;
-	private String review_memo;
+	private int orderCode;
+	private String reviewMemo;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Review [order_code=" + order_code + ", review_memo=" + review_memo + ", createdate=" + createdate + "]";
+		return "Review [orderCode=" + orderCode + ", reviewMemo=" + reviewMemo + ", createdate=" + createdate + "]";
 	}
-
 	public Review() {}
 	
-	public Review(int order_code, String review_memo, String createdate) {
+	public Review(int orderCode, String reviewMemo, String createdate) {
 		super();
-		this.order_code = order_code;
-		this.review_memo = review_memo;
+		this.orderCode = orderCode;
+		this.reviewMemo = reviewMemo;
 		this.createdate = createdate;
 	}
-	public int getOrder_code() {
-		return order_code;
+	public int getOrderCode() {
+		return orderCode;
 	}
-	public void setOrder_code(int order_code) {
-		this.order_code = order_code;
+	public void setOrderCode(int orderCode) {
+		this.orderCode = orderCode;
 	}
-	public String getReview_memo() {
-		return review_memo;
+	public String getReviewMemo() {
+		return reviewMemo;
 	}
-	public void setReview_memo(String review_memo) {
-		this.review_memo = review_memo;
+	public void setReviewMemo(String reviewMemo) {
+		this.reviewMemo = reviewMemo;
 	}
 	public String getCreatedate() {
 		return createdate;

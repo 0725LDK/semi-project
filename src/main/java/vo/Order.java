@@ -1,78 +1,76 @@
 package vo;
 
 public class Order {
-	private int order_code;
-	private int goods_code;
-	private String customer_id;
-	private int address_code;
-	private int order_quantity;
-	private int order_price;
-	private String order_state;
+	private int orderCode;
+	private int goodsCode;
+	private String customerId;
+	private int addressCode;
+	private int orderQuantity;
+	private int orderPrice;
+	private String orderState;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Order [order_code=" + order_code + ", goods_code=" + goods_code + ", customer_id=" + customer_id
-				+ ", address_code=" + address_code + ", order_quantity=" + order_quantity + ", order_price="
-				+ order_price + ", order_state=" + order_state + ", createdate=" + createdate + "]";
+		return "Order [orderCode=" + orderCode + ", goodsCode=" + goodsCode + ", customerId=" + customerId
+				+ ", addressCode=" + addressCode + ", orderQuantity=" + orderQuantity + ", orderPrice=" + orderPrice
+				+ ", orderState=" + orderState + ", createdate=" + createdate + "]";
 	}
-
 	public Order() {}
 	
-	public Order(int order_code, int goods_code, String customer_id, int address_code, int order_quantity,
-			int order_price, String order_state, String createdate) {
+	public Order(int orderCode, int goodsCode, String customerId, int addressCode, int orderQuantity, int orderPrice,
+			String orderState, String createdate) {
 		super();
-		this.order_code = order_code;
-		this.goods_code = goods_code;
-		this.customer_id = customer_id;
-		this.address_code = address_code;
-		this.order_quantity = order_quantity;
-		this.order_price = order_price;
-		this.order_state = order_state;
+		this.orderCode = orderCode;
+		this.goodsCode = goodsCode;
+		this.customerId = customerId;
+		this.addressCode = addressCode;
+		this.orderQuantity = orderQuantity;
+		this.orderPrice = orderPrice;
+		this.orderState = orderState;
 		this.createdate = createdate;
 	}
-	
-	public int getOrder_code() {
-		return order_code;
+	public int getOrderCode() {
+		return orderCode;
 	}
-	public void setOrder_code(int order_code) {
-		this.order_code = order_code;
+	public void setOrderCode(int orderCode) {
+		this.orderCode = orderCode;
 	}
-	public int getGoods_code() {
-		return goods_code;
+	public int getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoods_code(int goods_code) {
-		this.goods_code = goods_code;
+	public void setGoodsCode(int goodsCode) {
+		this.goodsCode = goodsCode;
 	}
-	public String getCustomer_id() {
-		return customer_id;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setCustomer_id(String customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
-	public int getAddress_code() {
-		return address_code;
+	public int getAddressCode() {
+		return addressCode;
 	}
-	public void setAddress_code(int address_code) {
-		this.address_code = address_code;
+	public void setAddressCode(int addressCode) {
+		this.addressCode = addressCode;
 	}
-	public int getOrder_quantity() {
-		return order_quantity;
+	public int getOrderQuantity() {
+		return orderQuantity;
 	}
-	public void setOrder_quantity(int order_quantity) {
-		this.order_quantity = order_quantity;
+	public void setOrderQuantity(int orderQuantity) {
+		this.orderQuantity = orderQuantity;
 	}
-	public int getOrder_price() {
-		return order_price;
+	public int getOrderPrice() {
+		return orderPrice;
 	}
-	public void setOrder_price(int order_price) {
-		this.order_price = order_price;
+	public void setOrderPrice(int orderPrice) {
+		this.orderPrice = orderPrice;
 	}
-	public String getOrder_state() {
-		return order_state;
+	public String getOrderState() {
+		return orderState;
 	}
-	public void setOrder_state(String order_state) {
-		this.order_state = order_state;
+	public void setOrderState(String orderState) {
+		this.orderState = orderState;
 	}
 	public String getCreatedate() {
 		return createdate;

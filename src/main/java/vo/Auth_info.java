@@ -1,35 +1,35 @@
 package vo;
 
 public class Auth_info {
-	private int auth_code;
-	private String auth_memo;
+	private int authCode;
+	private String authMemo;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Auth_info [auth_code=" + auth_code + ", auth_memo=" + auth_memo + ", createdate=" + createdate + "]";
+		return "Auth_info [authCode=" + authCode + ", authMemo=" + authMemo + ", createdate=" + createdate + "]";
 	}
 	
 	public Auth_info() {}
-
-	public Auth_info(int auth_code, String auth_memo, String createdate) {
+	
+	public Auth_info(int authCode, String authMemo, String createdate) {
 		super();
-		this.auth_code = auth_code;
-		this.auth_memo = auth_memo;
+		this.authCode = authCode;
+		this.authMemo = authMemo;
 		this.createdate = createdate;
 	}
 	
-	public int getAuth_code() {
-		return auth_code;
+	public int getAuthCode() {
+		return authCode;
 	}
-	public void setAuth_code(int auth_code) {
-		this.auth_code = auth_code;
+	public void setAuthCode(int authCode) {
+		this.authCode = authCode;
 	}
-	public String getAuth_memo() {
-		return auth_memo;
+	public String getAuthMemo() {
+		return authMemo;
 	}
-	public void setAuth_memo(String auth_memo) {
-		this.auth_memo = auth_memo;
+	public void setAuthMemo(String authMemo) {
+		this.authMemo = authMemo;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -37,5 +37,7 @@ public class Auth_info {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	
+
 	
 }

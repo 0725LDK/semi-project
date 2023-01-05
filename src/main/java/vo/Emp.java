@@ -1,57 +1,56 @@
 package vo;
 
 public class Emp {
-	private int emp_code;
-	private String emp_id;
-	private String emp_pw;
-	private String emp_name;
+	private int empCode;
+	private String empId;
+	private String empPw;
+	private String empName;
 	private String active;
-	private int auth_code;
+	private int authCode;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Emp [emp_code=" + emp_code + ", emp_id=" + emp_id + ", emp_pw=" + emp_pw + ", emp_name=" + emp_name
-				+ ", active=" + active + ", auth_code=" + auth_code + ", createdate=" + createdate + "]";
+		return "Emp [empCode=" + empCode + ", empId=" + empId + ", empPw=" + empPw + ", empName=" + empName
+				+ ", active=" + active + ", authCode=" + authCode + ", createdate=" + createdate + "]";
 	}
 
 	public Emp() {}
 	
-	public Emp(int emp_code, String emp_id, String emp_pw, String emp_name, String active, int auth_code,
+	public Emp(int empCode, String empId, String empPw, String empName, String active, int authCode,
 			String createdate) {
 		super();
-		this.emp_code = emp_code;
-		this.emp_id = emp_id;
-		this.emp_pw = emp_pw;
-		this.emp_name = emp_name;
+		this.empCode = empCode;
+		this.empId = empId;
+		this.empPw = empPw;
+		this.empName = empName;
 		this.active = active;
-		this.auth_code = auth_code;
+		this.authCode = authCode;
 		this.createdate = createdate;
 	}
-	
-	public int getEmp_code() {
-		return emp_code;
+	public int getEmpCode() {
+		return empCode;
 	}
-	public void setEmp_code(int emp_code) {
-		this.emp_code = emp_code;
+	public void setEmpCode(int empCode) {
+		this.empCode = empCode;
 	}
-	public String getEmp_id() {
-		return emp_id;
+	public String getEmpId() {
+		return empId;
 	}
-	public void setEmp_id(String emp_id) {
-		this.emp_id = emp_id;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
-	public String getEmp_pw() {
-		return emp_pw;
+	public String getEmpPw() {
+		return empPw;
 	}
-	public void setEmp_pw(String emp_pw) {
-		this.emp_pw = emp_pw;
+	public void setEmpPw(String empPw) {
+		this.empPw = empPw;
 	}
-	public String getEmp_name() {
-		return emp_name;
+	public String getEmpName() {
+		return empName;
 	}
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 	public String getActive() {
 		return active;
@@ -59,11 +58,11 @@ public class Emp {
 	public void setActive(String active) {
 		this.active = active;
 	}
-	public int getAuth_code() {
-		return auth_code;
+	public int getAuthCode() {
+		return authCode;
 	}
-	public void setAuth_code(int auth_code) {
-		this.auth_code = auth_code;
+	public void setAuthCode(int authCode) {
+		this.authCode = authCode;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -72,5 +71,5 @@ public class Emp {
 		this.createdate = createdate;
 	}
 	
-	
+
 }

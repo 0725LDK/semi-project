@@ -1,43 +1,42 @@
 package vo;
 
 public class Question_comment {
-	private int comment_code;
-	private int question_code;
-	private int comment_memo;
+	private int commentCode;
+	private int questionCode;
+	private int commentMemo;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Question_comment [comment_code=" + comment_code + ", question_code=" + question_code + ", comment_memo="
-				+ comment_memo + ", createdate=" + createdate + "]";
+		return "Question_comment [commentCode=" + commentCode + ", questionCode=" + questionCode + ", commentMemo="
+				+ commentMemo + ", createdate=" + createdate + "]";
 	}
-
 	public Question_comment() {}
 	
-	public Question_comment(int comment_code, int question_code, int comment_memo, String createdate) {
+	public Question_comment(int commentCode, int questionCode, int commentMemo, String createdate) {
 		super();
-		this.comment_code = comment_code;
-		this.question_code = question_code;
-		this.comment_memo = comment_memo;
+		this.commentCode = commentCode;
+		this.questionCode = questionCode;
+		this.commentMemo = commentMemo;
 		this.createdate = createdate;
 	}
-	public int getComment_code() {
-		return comment_code;
+	public int getCommentCode() {
+		return commentCode;
 	}
-	public void setComment_code(int comment_code) {
-		this.comment_code = comment_code;
+	public void setCommentCode(int commentCode) {
+		this.commentCode = commentCode;
 	}
-	public int getQuestion_code() {
-		return question_code;
+	public int getQuestionCode() {
+		return questionCode;
 	}
-	public void setQuestion_code(int question_code) {
-		this.question_code = question_code;
+	public void setQuestionCode(int questionCode) {
+		this.questionCode = questionCode;
 	}
-	public int getComment_memo() {
-		return comment_memo;
+	public int getCommentMemo() {
+		return commentMemo;
 	}
-	public void setComment_memo(int comment_memo) {
-		this.comment_memo = comment_memo;
+	public void setCommentMemo(int commentMemo) {
+		this.commentMemo = commentMemo;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -45,5 +44,5 @@ public class Question_comment {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
+
 } 

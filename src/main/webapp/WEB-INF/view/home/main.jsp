@@ -23,11 +23,11 @@
 	
 	
 	<div>
-		<a href="${pageContext.request.contextPath}#">탁주</a>
-		<a href="${pageContext.request.contextPath}#">약/청주</a>
-		<a href="${pageContext.request.contextPath}#">과실주</a>
-		<a href="${pageContext.request.contextPath}#">증류주</a>
-		<a href="${pageContext.request.contextPath}#">이벤트</a>
+		<a href="${pageContext.request.contextPath}/goods/takju">탁주</a>
+		<a href="${pageContext.request.contextPath}/goods/chengju">약/청주</a>
+		<a href="${pageContext.request.contextPath}/goods/wine">과실주</a>
+		<a href="${pageContext.request.contextPath}/goods/soju">증류주</a>
+		<a href="${pageContext.request.contextPath}/event/eventList">이벤트</a>
 	</div>
 	
 	<!-- goodsList -->

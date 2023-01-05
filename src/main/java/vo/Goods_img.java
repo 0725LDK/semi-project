@@ -1,34 +1,32 @@
 package vo;
 
 public class Goods_img {
-	private int goods_code;
+	private int goodsCode;
 	private String filename;
-	private String origin_name;
-	private String content_type;
+	private String originName;
+	private String contentType;
 	private String createdate;
-		
+	
 	@Override
 	public String toString() {
-		return "Goods_img [goods_code=" + goods_code + ", filename=" + filename + ", origin_name=" + origin_name
-				+ ", content_type=" + content_type + ", createdate=" + createdate + "]";
+		return "Goods_img [goodsCode=" + goodsCode + ", filename=" + filename + ", originName=" + originName
+				+ ", contentType=" + contentType + ", createdate=" + createdate + "]";
 	}
-
 	public Goods_img() {}
 	
-	public Goods_img(int goods_code, String filename, String origin_name, String content_type, String createdate) {
+	public Goods_img(int goodsCode, String filename, String originName, String contentType, String createdate) {
 		super();
-		this.goods_code = goods_code;
+		this.goodsCode = goodsCode;
 		this.filename = filename;
-		this.origin_name = origin_name;
-		this.content_type = content_type;
+		this.originName = originName;
+		this.contentType = contentType;
 		this.createdate = createdate;
 	}
-	
-	public int getGoods_code() {
-		return goods_code;
+	public int getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoods_code(int goods_code) {
-		this.goods_code = goods_code;
+	public void setGoodsCode(int goodsCode) {
+		this.goodsCode = goodsCode;
 	}
 	public String getFilename() {
 		return filename;
@@ -36,17 +34,17 @@ public class Goods_img {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public String getOrigin_name() {
-		return origin_name;
+	public String getOriginName() {
+		return originName;
 	}
-	public void setOrigin_name(String origin_name) {
-		this.origin_name = origin_name;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
-	public String getContent_type() {
-		return content_type;
+	public String getContentType() {
+		return contentType;
 	}
-	public void setContent_type(String content_type) {
-		this.content_type = content_type;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -54,6 +52,5 @@ public class Goods_img {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
+		
 }

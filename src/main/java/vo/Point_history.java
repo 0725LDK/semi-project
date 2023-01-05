@@ -1,37 +1,36 @@
 package vo;
 
 public class Point_history {
-	private int order_code;
-	private String point_kind;
+	private int orderCode;
+	private String pointKind;
 	private int point;
 	private int createdate;
 	
 	@Override
 	public String toString() {
-		return "Point_history [order_code=" + order_code + ", point_kind=" + point_kind + ", point=" + point
+		return "Point_history [orderCode=" + orderCode + ", pointKind=" + pointKind + ", point=" + point
 				+ ", createdate=" + createdate + "]";
 	}
-
 	public Point_history() {}
 	
-	public Point_history(int order_code, String point_kind, int point, int createdate) {
+	public Point_history(int orderCode, String pointKind, int point, int createdate) {
 		super();
-		this.order_code = order_code;
-		this.point_kind = point_kind;
+		this.orderCode = orderCode;
+		this.pointKind = pointKind;
 		this.point = point;
 		this.createdate = createdate;
 	}
-	public int getOrder_code() {
-		return order_code;
+	public int getOrderCode() {
+		return orderCode;
 	}
-	public void setOrder_code(int order_code) {
-		this.order_code = order_code;
+	public void setOrderCode(int orderCode) {
+		this.orderCode = orderCode;
 	}
-	public String getPoint_kind() {
-		return point_kind;
+	public String getPointKind() {
+		return pointKind;
 	}
-	public void setPoint_kind(String point_kind) {
-		this.point_kind = point_kind;
+	public void setPointKind(String pointKind) {
+		this.pointKind = pointKind;
 	}
 	public int getPoint() {
 		return point;

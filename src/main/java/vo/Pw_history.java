@@ -1,28 +1,27 @@
 package vo;
 
 public class Pw_history {
-	private String customer_id;
+	private String customerId;
 	private String pw;
 	private String createdate;
 	
 	@Override
 	public String toString() {
-		return "Pw_history [customer_id=" + customer_id + ", pw=" + pw + ", createdate=" + createdate + "]";
+		return "Pw_history [customerId=" + customerId + ", pw=" + pw + ", createdate=" + createdate + "]";
 	}
-
 	public Pw_history() {}
 	
-	public Pw_history(String customer_id, String pw, String createdate) {
+	public Pw_history(String customerId, String pw, String createdate) {
 		super();
-		this.customer_id = customer_id;
+		this.customerId = customerId;
 		this.pw = pw;
 		this.createdate = createdate;
 	}
-	public String getCustomer_id() {
-		return customer_id;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setCustomer_id(String customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getPw() {
 		return pw;

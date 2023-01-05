@@ -1,38 +1,37 @@
 package vo;
 
 public class Customer_address {
-	private int address_code;
-	private String customer_id;
+	private int addressCode;
+	private String customerId;
 	private String address;
 	private String createdate;
-		
+
 	@Override
 	public String toString() {
-		return "Customer_address [address_code=" + address_code + ", customer_id=" + customer_id + ", address="
-				+ address + ", createdate=" + createdate + "]";
+		return "Customer_address [addressCode=" + addressCode + ", customerId=" + customerId + ", address=" + address
+				+ ", createdate=" + createdate + "]";
 	}
 
 	public Customer_address() {}
 	
-	public Customer_address(int address_code, String customer_id, String address, String createdate) {
+	public Customer_address(int addressCode, String customerId, String address, String createdate) {
 		super();
-		this.address_code = address_code;
-		this.customer_id = customer_id;
+		this.addressCode = addressCode;
+		this.customerId = customerId;
 		this.address = address;
 		this.createdate = createdate;
 	}
-	
-	public int getAddress_code() {
-		return address_code;
+	public int getAddressCode() {
+		return addressCode;
 	}
-	public void setAddress_code(int address_code) {
-		this.address_code = address_code;
+	public void setAddressCode(int addressCode) {
+		this.addressCode = addressCode;
 	}
-	public String getCustomer_id() {
-		return customer_id;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setCustomer_id(String customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getAddress() {
 		return address;
@@ -46,6 +45,8 @@ public class Customer_address {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+		
+
 	
 	
 }
