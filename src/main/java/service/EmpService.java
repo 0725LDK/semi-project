@@ -8,16 +8,15 @@ import util.DBUtil;
 import vo.Emp;
 
 public class EmpService {
-	EmpDao empDao;
+	private EmpDao empDao;
 	
 	// LoginController 직원로그인
 	public Emp EmpLogin(Emp paramEmp) {
-		empDao = new EmpDao();
 		Emp resultEmp = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			conn.setAutoCommit(false);
+			empDao = new EmpDao();
 			resultEmp = empDao.selectEmpByIdAndPw(conn, paramEmp);
 			conn.commit();
 		} catch (Exception e) {

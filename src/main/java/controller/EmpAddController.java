@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CustomerService;
 import service.EmpService;
 import vo.Emp;
 
@@ -17,6 +17,7 @@ import vo.Emp;
 @WebServlet("/emp/empAdd")
 public class EmpAddController extends HttpServlet {
 	private EmpService empService;
+	private CustomerService customerService;
 	// emp 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 되어있으면 /home/intro
@@ -35,6 +36,8 @@ public class EmpAddController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		int row = 0;
+		boolean boolResult = true;
+		
 		// empAdd 폼 에서 받아온 값
 		String empId = request.getParameter("empId");
 		String empPw = request.getParameter("empPw");
@@ -47,6 +50,15 @@ public class EmpAddController extends HttpServlet {
 		
 		if(!empPw.equals(pwCheck)) {
 			System.out.println("비밀번호 체크 미일치");
+			response.sendRedirect(request.getContextPath()+"/emp/empAdd");
+			return;
+		}
+		// 아이디 중복확인
+		String idCheck = empId;
+		this.customerService = new CustomerService();
+		boolResult = customerService.getIdCheck(idCheck);
+		if(boolResult == false) {
+			System.out.println("아이디 중복");
 			response.sendRedirect(request.getContextPath()+"/emp/empAdd");
 			return;
 		}
