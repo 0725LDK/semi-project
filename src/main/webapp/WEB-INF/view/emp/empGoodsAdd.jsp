@@ -7,24 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>상품 수정 페이지</h1>
+	<h1>상품 등록 페이지</h1>
 	
 	<!-- 네비메뉴 -->
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
-	
-	<form action="${pageContext.request.contextPath}/emp/empGoodsModify" method="post">
+	<form action="${pageContext.request.contextPath}/emp/empGoodsAdd" method="post">
 		<table>
 			<tr>
-				<td>상품 번호</td>	
 				<td>상품 이름</td>	
 				<td>상품 사진</td>	
 				<td>상품 가격</td>	
 				<td>품절 여부</td>	
 				<td>등록 직원</td>	
-				<td>히트 상품</td>	
-					
 			</tr>
 			<tr>
 				<td><input type="text" name="goodsCode"></td>
@@ -38,10 +34,9 @@
 					</select>	
 				</td>
 				<td><input type="text" name="empId"></td>
-				<td><input type="number" name="hit"></td>
 			</tr>
 		</table>
-		<button	type="submit">수정하기</button>
+		<button	type="submit">등록하기</button>
 	</form>
 </body>
 </html>
