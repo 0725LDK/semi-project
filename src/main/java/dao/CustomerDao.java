@@ -14,7 +14,7 @@ public class CustomerDao {
 		Customer resultCustomer = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT customer_id customerId, customer_name customerName"
+		String sql = "SELECT customer_id customerId, customer_name customerName, customer_phone customerPhone"
 				+ " FROM customer"
 				+ " WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
 		
@@ -28,8 +28,36 @@ public class CustomerDao {
 			resultCustomer = new Customer();
 			resultCustomer.setCustomerId(rs.getString("customerId"));
 			resultCustomer.setCustomerName(rs.getString("customerName"));
+			resultCustomer.setCustomerPhone(rs.getString("customerPhone"));
 		}
 		return resultCustomer;
+	}
+	
+	// customer 회원정보
+	public Customer selectCustomerByOne(Connection conn, String customerId) throws Exception {
+		Customer customer = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT t.customerId customerId, t.customerName customerName, t.customerPhone customerPhone, t.address address, t.addressCode addressCode"
+				+ " FROM(SELECT c.customer_id customerId, c.customer_name customerName, c.customer_phone customerPhone, a.address address, a.address_code addressCode"
+				+ "		FROM customer c INNER JOIN customer_address a"
+				+ "		ON c.customer_id = a.customer_id) t"
+				+ " WHERE customerId = ?"
+				+ " ORDER BY addressCode DESC;";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		
+		rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			customer = new Customer();
+			customer.setCustomerId(rs.getString("customerId"));
+			customer.setCustomerName(rs.getString("customerName"));
+			customer.setCustomerPhone(rs.getString("customerPhone"));
+			customer.setAddress(rs.getString("address"));
+		}
+		return customer;
 	}
 	
 	// 아이디 중복검사
@@ -86,5 +114,42 @@ public class CustomerDao {
 		
 		return row;
 	}
+	
+	// customer 현재 비밀번호확인
+	public int passwordCheck(Connection conn, String customerId, String customerPw) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, customerPw);
+		
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = 1; // 현재 비밀번호 일치
+		}
+		return row;
+	}
+	
+	// customer 회원정보 수정
+	public int modifyCustomer(Connection conn, Customer customer) throws Exception {
+		int result = 0;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE customer"
+				+ " SET customer_pw = PASSWORD(?), customer_name = ?, customer_phone = ?"
+				+ " WHERE customer_id = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerPw());
+		stmt.setString(2, customer.getCustomerName());
+		stmt.setString(3, customer.getCustomerPhone());
+		stmt.setString(4, customer.getCustomerId());
+		
+		result = stmt.executeUpdate();
+		
+		return result;
+	}
+	
+	
 	
 }

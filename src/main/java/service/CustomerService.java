@@ -37,7 +37,34 @@ public class CustomerService {
 		return resultCustomer;
 	}
 	
-	// 아이디 중복검사
+	// CustomerOneController 회원정보
+	public Customer getSelectCustomerOne(String customerId) {
+		Customer customer = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			customer = customerDao.selectCustomerByOne(conn, customerId);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} 
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return customer;
+	}
+	
+	
+	// CustomerAddController 아이디 중복검사
 	public boolean getIdCheck(String idCheck) {
 		boolean result = true;
 		Connection conn = null;
@@ -63,7 +90,7 @@ public class CustomerService {
 		return result;
 	}
 	
-	// EmpAddController 고객 회원가입, customer_address
+	// CustomerAddController 고객 회원가입, customer_address
 	public int getAddCustomer(Customer customer, Customer_address customerAddress) {
 		int result = 0;
 		Connection conn = null;
@@ -92,6 +119,59 @@ public class CustomerService {
 			}
 		}
 		return result;
+	}
+	
+	// CustomerModifyController 현재 비밀번호 확인
+	public int getPasswordCheck(String customerId, String customerPw) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			row = customerDao.passwordCheck(conn, customerId, customerPw);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return row;
+	}
+	
+	// CustomerModifyController 회원정보 수정
+	public int getModifyCustomer(Customer customer) {
+		int result = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			result = customerDao.modifyCustomer(conn, customer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return result;
+		
 	}
 	
 	
