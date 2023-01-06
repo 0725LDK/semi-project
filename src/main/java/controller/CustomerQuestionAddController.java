@@ -42,7 +42,7 @@ public class CustomerQuestionAddController extends HttpServlet {
 		question.setQuestionMemo(questionMemo);
 		
 		QuestionService questionService = new QuestionService();
-		questionService.getAddQuestion(ordersCode, question);
+		questionService.customerGetAddQuestion(ordersCode, question);
 		
 		System.out.println("문의사항 추가 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerQuestion");

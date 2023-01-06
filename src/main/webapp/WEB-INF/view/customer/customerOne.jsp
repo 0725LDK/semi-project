@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<td>주소 : </td>
-			<td>${customer.customerAddress}</td>
+			<td>${customer.address}</td>
 		</tr>
 		<tr>
 			<td>휴대폰 : </td>

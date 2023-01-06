@@ -20,7 +20,7 @@ public class CustomerQuestionRemoveController extends HttpServlet {
 		
 		QuestionService questionService = new QuestionService();
 		
-		int row = questionService.getDeleteQuestion(questionCode);
+		int row = questionService.customerGetDeleteQuestion(questionCode);
 		if(row != 1)
 		{
 			System.out.println("삭제실패");

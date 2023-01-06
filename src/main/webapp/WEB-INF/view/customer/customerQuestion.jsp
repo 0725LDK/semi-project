@@ -24,14 +24,21 @@
 			<th>수정</th>
 			<th>삭제</th>
 		</tr>
-			<c:forEach var="q" items="${questionList }">
+			<c:forEach var="q" items="${questionList}">
 				<tr>
 						<td>${q.questionCode }</td>
 						<td>${q.ordersCode }</td>
 						<td>${q.category }</td>
 						<td>${q.questionMemo }</td>
 						<td>${q.createdate }</td>
-						<td></td>
+						<td>
+							<c:if test="${q.commentMemo == null}">
+								..답변중..
+							</c:if>
+							<c:if test="${q.commentMemo != null}">
+								${q.commentMemo }
+							</c:if>
+						</td>
 						<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionModify?questionCode=${q.questionCode }&ordersCode=${q.ordersCode}&category=${q.category}'>수정</a></td>
 						<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionRemove?questionCode=${q.questionCode }'>삭제</a></td>
 				</tr>

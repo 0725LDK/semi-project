@@ -41,7 +41,7 @@ public class CustomerQuestionModifyController extends HttpServlet {
 		question.setQuestionMemo(questionMemo);
 		
 		QuestionService questionService = new QuestionService();
-		questionService.getupdateQuestion(question);
+		questionService.customerGetupdateQuestion(question);
 		
 		System.out.println("고객센터 수정 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerQuestion");

@@ -3,7 +3,7 @@ package vo;
 public class Question_comment {
 	private int commentCode;
 	private int questionCode;
-	private int commentMemo;
+	private String commentMemo;
 	private String createdate;
 	
 	@Override
@@ -13,7 +13,7 @@ public class Question_comment {
 	}
 	public Question_comment() {}
 	
-	public Question_comment(int commentCode, int questionCode, int commentMemo, String createdate) {
+	public Question_comment(int commentCode, int questionCode, String commentMemo, String createdate) {
 		super();
 		this.commentCode = commentCode;
 		this.questionCode = questionCode;
@@ -32,10 +32,10 @@ public class Question_comment {
 	public void setQuestionCode(int questionCode) {
 		this.questionCode = questionCode;
 	}
-	public int getCommentMemo() {
+	public String getCommentMemo() {
 		return commentMemo;
 	}
-	public void setCommentMemo(int commentMemo) {
+	public void setCommentMemo(String commentMemo) {
 		this.commentMemo = commentMemo;
 	}
 	public String getCreatedate() {
