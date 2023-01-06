@@ -14,7 +14,6 @@
 	</div>	
 	
 	<table>
-		<input type="hidden" name="ordersCode" value="1"><!-- 임시 value -->
 		<tr>
 			<td>상품명</td>
 			<td>상품수량</td>
@@ -29,7 +28,7 @@
 			<td><input name="orderPrice"></td>
 			<td><input name="address"></td>
 			<td><input name="createdate"></td>
-			<td><a href="${pageContext.request.contextPath}/customer/customerAddQuestion?ordersCode=1">문의등록</a></td>
+			<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=1">문의등록</a></td>
 		</tr>
 		
 	</table>

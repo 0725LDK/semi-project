@@ -8,14 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/customer/customerRemoveQuestion")
-public class CustomerRemoveQuestionController extends HttpServlet {
-       
-	//고객센터 삭제 액션
+@WebServlet("/customer/customerReviewRemove")
+public class CustomerReviewRemoveController extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("고객센터 삭제 성공");
-		response.sendRedirect(request.getContextPath()+"/customer/customerQuestion");
+		System.out.println("리뷰 삭제 성공");
+		response.sendRedirect(request.getContextPath()+"/customer/customerReview");
 	}
 
 	

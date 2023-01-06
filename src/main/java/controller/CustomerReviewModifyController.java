@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CustomerModifyReviewController
  */
-@WebServlet("/customer/customerModifyReview")
-public class CustomerModifyReviewController extends HttpServlet {
+@WebServlet("/customer/customerReviewModify")
+public class CustomerReviewModifyController extends HttpServlet {
 	
     //리뷰 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerModifyReview.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerReviewModify.jsp").forward(request, response);
 	}
 	
 	//리뷰 수정 액션
