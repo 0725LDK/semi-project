@@ -100,15 +100,30 @@ public class CustomerDao {
 		return row;
 	}
 	
-	// customer address
-	public int addCustomerAddress(Connection conn, Customer_address customerAddress) throws Exception {
+	// 회원가입시, 비밀번호 수정시 pw_history 입력
+	public int addPwHistory(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO pw_history (customer_id, pw)"
+				+ " VALUES (?, PASSWORD(?))";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	
+	// 회원가입시 customer address 입력
+	public int addCustomerAddress(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		PreparedStatement stmt = null;
 		String sql = "INSERT INTO customer_address (customer_id, address)"
 				+ " VALUES (?, ?)";
 		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customerAddress.getCustomerId());
-		stmt.setString(2, customerAddress.getAddress());
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getAddress());
 		
 		row = stmt.executeUpdate();
 		
@@ -148,6 +163,57 @@ public class CustomerDao {
 		result = stmt.executeUpdate();
 		
 		return result;
+	}
+	// 비밀번호 변경시 최근3번 변경값 확인
+	
+	// customer 회원탈퇴
+	public int removeCustomer(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	// 회원탈퇴시 customer_address테이블 데이터 삭제
+	public int removeCustomerAddress(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM customer_address WHERE customer_id = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	// 회원탈퇴시 pw_history테이블 데이터 삭제
+	public int removePwHistory(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM pw_history WHERE customer_id = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	// 회원탈퇴시 outid테이블에 입력
+	public int addOutId(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO outid(id) VALUES(?)";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
 	}
 	
 	

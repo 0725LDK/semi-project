@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 
 import dao.CustomerDao;
@@ -10,7 +11,6 @@ import vo.Customer_address;
 
 public class CustomerService {
 	private CustomerDao customerDao;
-
 	// LoginController 고객로그인
 	public Customer CustomerLogin(Customer paramCustomer) {
 		Customer resultCustomer = null;
@@ -91,17 +91,19 @@ public class CustomerService {
 	}
 	
 	// CustomerAddController 고객 회원가입, customer_address
-	public int getAddCustomer(Customer customer, Customer_address customerAddress) {
+	public int getAddCustomer(Customer customer) {
 		int result = 0;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			customerDao = new CustomerDao();
 			if(customerDao.addCustomer(conn, customer) == 1) {
-				if(customerDao.addCustomerAddress(conn, customerAddress) != 1) {
-					throw new Exception(); // addCustomerAddress 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+				if(customerDao.addPwHistory(conn, customer) == 1) {
+					if(customerDao.addCustomerAddress(conn, customer) != 1) {
+						throw new Exception(); // addCustomerAddress 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+					}
+					result = 1;
 				}
-				result = 1;
 			}
 			conn.commit();
 		} catch (Exception e) {
@@ -154,7 +156,12 @@ public class CustomerService {
 		try {
 			conn = DBUtil.getConnection();
 			customerDao = new CustomerDao();
-			result = customerDao.modifyCustomer(conn, customer);
+			if(customerDao.modifyCustomer(conn, customer) == 1) {
+				if(customerDao.addPwHistory(conn, customer) == 0) {
+					throw new Exception(); // pw_history 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+				}
+				result = 1;
+			}
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -172,6 +179,41 @@ public class CustomerService {
 		} 
 		return result;
 		
+	}
+	
+	// CustomerRemoveController 회원탈퇴
+	public int getRemoveCustomer(Customer customer) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			if(customerDao.addOutId(conn, customer) == 1) {
+				if(customerDao.removeCustomerAddress(conn, customer) == 1) {
+					if(customerDao.removePwHistory(conn, customer) == 1) {
+						if(customerDao.removeCustomer(conn, customer) != 1) {
+							throw new Exception(); // customer 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+						}
+						row = 1;
+					}
+				}
+			}
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return row;
 	}
 	
 	

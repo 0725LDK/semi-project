@@ -18,10 +18,10 @@
 		<table>
 			<tr>
 				<td>계정명 : </td>
-				<td><input type="text" name="customerId" value="" readonly="readonly"></td>
+				<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
 			</tr>
 			<tr>
-				<td>이름 : </td>
+				<td>비밀번호 : </td>
 				<td><input type="password" name="customerPw"></td>
 			</tr>
 		</table>

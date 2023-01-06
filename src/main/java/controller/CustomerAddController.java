@@ -74,13 +74,10 @@ public class CustomerAddController extends HttpServlet {
 		customer.setCustomerPw(customerPw);
 		customer.setCustomerName(customerName);
 		customer.setCustomerPhone(customerPhone);
-		// customer_address
-		Customer_address customerAddress = new Customer_address();
-		customerAddress.setCustomerId(customerId);
-		customerAddress.setAddress(address);
+		customer.setAddress(address);
 		
 		this.customerService = new CustomerService();
-		result = customerService.getAddCustomer(customer, customerAddress);
+		result = customerService.getAddCustomer(customer);
 		
 		if(result == 0) {
 			System.out.println("고객 회원가입 실패, CustomerAddController");

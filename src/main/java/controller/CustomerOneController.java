@@ -25,12 +25,12 @@ public class CustomerOneController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/home/login");
 			return;
 		}
-		
+		// 로그인중인 session id확인
 		Customer loginCustomer = new Customer();
 		loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
 		System.out.println(customerId + " customerId ,CustomerOneController");
-		
+		// 회원정보 받아오기
 		Customer customer = new Customer();
 		customerService = new CustomerService();
 		customer = customerService.getSelectCustomerOne(customerId);
