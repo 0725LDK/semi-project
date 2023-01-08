@@ -58,7 +58,7 @@ public class CustomerAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/customer/customerAdd");
 			return;
 		}
-		// 아이디 중복확인
+		// 아이디 중복확인 customer,outid,emp 중복불가
 		String idCheck = customerId;
 		this.customerService = new CustomerService();
 		boolResult = customerService.getIdCheck(idCheck);

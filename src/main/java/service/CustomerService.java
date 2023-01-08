@@ -22,6 +22,7 @@ public class CustomerService {
 			conn.commit();
 		} catch(Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : CustomerLogin");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -48,6 +49,7 @@ public class CustomerService {
 			conn.commit();
 		} catch(Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getSelectCustomerOne");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -75,6 +77,7 @@ public class CustomerService {
 			conn.commit();
 		} catch(Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getIdCheck");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -90,24 +93,26 @@ public class CustomerService {
 		return result;
 	}
 	
-	// CustomerAddController 고객 회원가입, customer_address
+	// CustomerAddController 고객 회원가입, pw_history, customer_address 입력
 	public int getAddCustomer(Customer customer) {
 		int result = 0;
 		Connection conn = null;
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil.getConnection(); // db접속 자동커밋해지
 			customerDao = new CustomerDao();
 			if(customerDao.addCustomer(conn, customer) == 1) {
 				if(customerDao.addPwHistory(conn, customer) == 1) {
 					if(customerDao.addCustomerAddress(conn, customer) != 1) {
 						throw new Exception(); // addCustomerAddress 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 					}
-					result = 1;
+					result = 1; // 성공
 				}
+				throw new Exception(); // addPwHistory 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 			}
-			conn.commit();
+			conn.commit(); // 쿼리 커밋
 		} catch (Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getAddCustomer");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -134,6 +139,7 @@ public class CustomerService {
 			conn.commit();
 		} catch (Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getPasswordCheck");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -149,6 +155,33 @@ public class CustomerService {
 		return row;
 	}
 	
+	// CustomerModifyController 최근비밀번호 3개중 중복확인
+	public boolean getNewPasswordCheck(Customer customer) {
+		boolean result = true;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			result = customerDao.newPasswordCheck(conn, customer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				System.out.println("롤백 CustomerService : getNewPasswordCheck");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return result;
+	}
+	
 	// CustomerModifyController 회원정보 수정
 	public int getModifyCustomer(Customer customer) {
 		int result = 0;
@@ -160,11 +193,12 @@ public class CustomerService {
 				if(customerDao.addPwHistory(conn, customer) == 0) {
 					throw new Exception(); // pw_history 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 				}
-				result = 1;
+				result = 1; // 성공
 			}
 			conn.commit();
 		} catch (Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getModifyCustomer");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -181,7 +215,7 @@ public class CustomerService {
 		
 	}
 	
-	// CustomerRemoveController 회원탈퇴
+	// CustomerRemoveController 회원탈퇴, outid입력, customerAddress삭제, pwHistory삭제
 	public int getRemoveCustomer(Customer customer) {
 		int row = 0;
 		Connection conn = null;
@@ -194,13 +228,16 @@ public class CustomerService {
 						if(customerDao.removeCustomer(conn, customer) != 1) {
 							throw new Exception(); // customer 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 						}
-						row = 1;
+						row = 1; //성공
 					}
+					throw new Exception(); // pwHistory 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 				}
+				throw new Exception(); // customerAddress 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 			}
 			conn.commit();
 		} catch (Exception e) {
 			try {
+				System.out.println("롤백 CustomerService : getRemoveCustomer");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();

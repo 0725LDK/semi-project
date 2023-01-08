@@ -34,8 +34,10 @@ public class CustomerModifyController extends HttpServlet {
 		// 한글처리 인코딩
 		request.setCharacterEncoding("utf-8");
 		
-		int row = 0;
 		int result = 0;
+		int modifyResult = 0;
+		boolean newPwCkResult = true;
+		
 		// cutomerModify 폼 에서 받아온 값
 		String customerId = request.getParameter("customerId");
 		String customerName = request.getParameter("customerName");
@@ -52,15 +54,15 @@ public class CustomerModifyController extends HttpServlet {
 		
 		// 변경할 비밀번호 일치 확인
 		if(!newPw.equals(newPwCk)) {
-			System.out.println("변경할 비밀번호 체크 미일치 CustomerModifyController");
+			System.out.println("실패! 변경할 비밀번호 체크 미일치 CustomerModifyController");
 			response.sendRedirect(request.getContextPath()+"/customer/customerModify");
 			return;
 		}
 		// 현재 비밀번호 일치 확인
 		this.customerService = new CustomerService();
-		row = customerService.getPasswordCheck(customerId, customerPw);
-		if(row == 0) {
-			System.out.println("현재 비밀번호 미일치 CustomerModifyController");
+		result = customerService.getPasswordCheck(customerId, customerPw);
+		if(result == 0) {
+			System.out.println("실패! 현재 비밀번호 미일치 CustomerModifyController");
 			response.sendRedirect(request.getContextPath()+"/customer/customerModify");
 			return;
 		}
@@ -71,15 +73,25 @@ public class CustomerModifyController extends HttpServlet {
 		customer.setCustomerPw(newPw);
 		customer.setCustomerPhone(customerPhone);
 		
-		result = customerService.getModifyCustomer(customer);
-		if(result == 0) {
-			System.out.println("회원정보 수정 실패 CustomerModifyController");
+		// 변경할 비밀번호 최근3개 중복확인
+		newPwCkResult = customerService.getNewPasswordCheck(customer);
+		if(newPwCkResult == false) {
+			System.out.println("실패! 최근비밀번호 변경값 3개중 중복 CustomerModifyController");
 			response.sendRedirect(request.getContextPath()+"/customer/customerModify");
 			return;
 		}
 		
-		System.out.println("회원정보 수정 성공 CustomerModifyController");
-		response.sendRedirect(request.getContextPath()+"/customer/customerOne");
+		// 회원정보 수정
+		modifyResult = customerService.getModifyCustomer(customer);
+		if(modifyResult == 0) {
+			System.out.println("회원정보 수정 실패 CustomerModifyController");
+			response.sendRedirect(request.getContextPath()+"/customer/customerModify");
+			return;
+		} else {
+			System.out.println("회원정보 수정 성공 CustomerModifyController");
+			response.sendRedirect(request.getContextPath()+"/customer/customerOne");
+		}
 	}
+	
 
 }

@@ -60,7 +60,7 @@ public class CustomerDao {
 		return customer;
 	}
 	
-	// 아이디 중복검사
+	// 아이디 중복검사 customer,outid,emp
 	// return boolean value : true(사용가능 아이디) / false(사용불가 아이디)
 	public boolean checkId(Connection conn, String idCheck) throws Exception {
 		boolean result = true;
@@ -100,7 +100,7 @@ public class CustomerDao {
 		return row;
 	}
 	
-	// 회원가입시, 비밀번호 수정시 pw_history 입력
+	// 회원가입시 비밀번호 수정시 pw_history 입력
 	public int addPwHistory(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		PreparedStatement stmt = null;
@@ -130,7 +130,7 @@ public class CustomerDao {
 		return row;
 	}
 	
-	// customer 현재 비밀번호확인
+	// customer 회원정보 수정시 현재 비밀번호확인
 	public int passwordCheck(Connection conn, String customerId, String customerPw) throws Exception {
 		int row = 0;
 		PreparedStatement stmt = null;
@@ -145,6 +145,30 @@ public class CustomerDao {
 			row = 1; // 현재 비밀번호 일치
 		}
 		return row;
+	}
+	
+	// customer 회원정보 수정시 최근3번 변경값 중복확인 
+	// return boolean true(사용가능), false(중복!사용불가)
+	public boolean newPasswordCheck(Connection conn, Customer customer) throws Exception {
+		boolean result = true;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT t.customer_id, t.pw"
+				+ " FROM(SELECT customer_id, pw, createdate"
+				+ "		FROM pw_history"
+				+ "		WHERE customer_id = ?"
+				+ "		ORDER BY createdate DESC"
+				+ "		LIMIT 0,3) t"
+				+ " WHERE t.pw = PASSWORD(?);";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			result = false; // 최근비밀번호 3개중 중복
+		}
+		return result;
 	}
 	
 	// customer 회원정보 수정
@@ -164,7 +188,6 @@ public class CustomerDao {
 		
 		return result;
 	}
-	// 비밀번호 변경시 최근3번 변경값 확인
 	
 	// customer 회원탈퇴
 	public int removeCustomer(Connection conn, Customer customer) throws Exception {

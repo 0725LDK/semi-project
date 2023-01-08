@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
 	
-	<table>
+	<table border="1">
 		<tr>
 			<td>직원 번호</td>	
 			<td>직원 ID</td>	
@@ -27,14 +27,15 @@
 			<td>삭제</td>
 				
 		</tr>
+		<c:forEach var="e" items="${list}">
 		<tr>
-			<td><input type="text" name="empCode"></td>
-			<td><input type="text" name="empId"></td>
-			<td><input type="text" name="empName"></td>
-			<td><input type="text" name="empActice"></td>
-			<td><input type="text" name="empAuthCode"></td>
-			<td><input type="text" name="empCreatedate"></td><!-- 직원 등록 일자 -->
-			<td><a href="${pageContext.request.contextPath}/emp/empModify">수정</a></td>
+			<td>${e.empCode}</td>
+			<td>${e.empId}</td>
+			<td>${e.empName}</td>
+			<td>${e.active}</td>
+			<td>${e.authCode}</td>
+			<td>${e.createdate}</td><!-- 직원 등록 일자 -->
+			<td><a href="${pageContext.request.contextPath}/emp/empModify?empId">수정</a></td>
 			<td><a href="${pageContext.request.contextPath}/emp/empRemove">삭제</a></td>
 			
 			
@@ -53,6 +54,7 @@
 				</select>
 			</td> -->
 		</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>
