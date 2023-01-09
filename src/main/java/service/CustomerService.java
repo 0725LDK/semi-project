@@ -100,15 +100,21 @@ public class CustomerService {
 		try {
 			conn = DBUtil.getConnection(); // db접속 자동커밋해지
 			customerDao = new CustomerDao();
-			if(customerDao.addCustomer(conn, customer) == 1) {
-				if(customerDao.addPwHistory(conn, customer) == 1) {
-					if(customerDao.addCustomerAddress(conn, customer) != 1) {
-						throw new Exception(); // addCustomerAddress 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
-					}
-					result = 1; // 성공
-				}
-				throw new Exception(); // addPwHistory 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			
+			if(customerDao.addCustomer(conn, customer) != 1) {
+				System.out.println("실패 getAddCustomer : customerDao.addCustomer");
+				throw new Exception(); // 회원가입 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 			}
+			if(customerDao.addPwHistory(conn, customer) != 1) {
+				System.out.println("실패 getAddCustomer : customerDao.addPwHistory");
+				throw new Exception(); // pw_history 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			}
+			if(customerDao.addCustomerAddress(conn, customer) != 1) {
+				System.out.println("실패 getAddCustomer : customerDao.addCustomerAddress");
+				throw new Exception(); // addCustomerAddress 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			}
+			
+			result = 1; // 성공
 			conn.commit(); // 쿼리 커밋
 		} catch (Exception e) {
 			try {
@@ -189,12 +195,18 @@ public class CustomerService {
 		try {
 			conn = DBUtil.getConnection();
 			customerDao = new CustomerDao();
-			if(customerDao.modifyCustomer(conn, customer) == 1) {
-				if(customerDao.addPwHistory(conn, customer) == 0) {
-					throw new Exception(); // pw_history 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
-				}
-				result = 1; // 성공
+			
+			if(customerDao.modifyCustomer(conn, customer) != 1) {
+				System.out.println("실패 getModifyCustomer : customerDao.modifyCustomer");
+				throw new Exception(); // 정보수정 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 			}
+			if(customerDao.addPwHistory(conn, customer) != 1) {
+				System.out.println("실패 getModifyCustomer : customerDao.addPwHistory");
+				throw new Exception(); // pw_history 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			}
+			customerDao.removePwHistoryByFour(conn, customer); // pwHistory데이터 4개이상이면 삭제
+			
+			result = 1; // 성공
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -212,28 +224,30 @@ public class CustomerService {
 			}
 		} 
 		return result;
-		
 	}
 	
-	// CustomerRemoveController 회원탈퇴, outid입력, customerAddress삭제, pwHistory삭제
+	// CustomerRemoveController 회원탈퇴시 outid입력, pwHistory삭제
 	public int getRemoveCustomer(Customer customer) {
 		int row = 0;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			customerDao = new CustomerDao();
-			if(customerDao.addOutId(conn, customer) == 1) {
-				if(customerDao.removeCustomerAddress(conn, customer) == 1) {
-					if(customerDao.removePwHistory(conn, customer) == 1) {
-						if(customerDao.removeCustomer(conn, customer) != 1) {
-							throw new Exception(); // customer 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
-						}
-						row = 1; //성공
-					}
-					throw new Exception(); // pwHistory 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
-				}
-				throw new Exception(); // customerAddress 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			
+			if(customerDao.addOutId(conn, customer) != 1) {
+				System.out.println("실패 getRemoveCustomer : customerDao.addOutId");
+				throw new Exception(); // outId 입력 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
 			}
+			if(customerDao.removePwHistory(conn, customer) == 0) { // return값 0:실패, 1~3:성공
+				System.out.println("실패 getRemoveCustomer : customerDao.removePwHistory");
+				throw new Exception(); // pw_history 삭제 실패시 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			}
+			if(customerDao.removeCustomer(conn, customer) != 1) {
+				System.out.println("실패 getRemoveCustomer : customerDao.removeCustomer");
+				throw new Exception(); // customer 삭제가 안되면 강제로 예외를 발생시켜 catch절로 이동하여 롤백
+			}
+			
+			row = 1; //성공
 			conn.commit();
 		} catch (Exception e) {
 			try {
