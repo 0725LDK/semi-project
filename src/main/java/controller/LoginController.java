@@ -32,9 +32,9 @@ public class LoginController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		// 세션 확인
 		HttpSession session = request.getSession();
-		// 로그인 되어있으면 /home/main
-		if(session.getAttribute("loginCustomer") != null || session.getAttribute("loginEmp") != null) {
-			response.sendRedirect(request.getContextPath()+"/home/main");
+		// 로그인 되어있으면 /home/intro
+		if(session.getAttribute("loginMember") != null) {
+			response.sendRedirect(request.getContextPath()+"/home/intro");
 			return;
 		}
 		

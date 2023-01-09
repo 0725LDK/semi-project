@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,25 +16,19 @@
 	
 	<table>
 		<tr>
-			<td>회원 번호</td>
 			<td>회원 ID</td>
 			<td>회원 이름</td>
 			<td>전화번호</td>
-			<td>주소</td>
 			<td>보유 포인트</td>
 			<td>가입 일자</td>
 		</tr>
-		<c:forEach var="c" items="${customerList}">
-			<tr>
-				<td>${c.customerCode}</td>
-				<td>${c.customerId}</td>
-				<td>${c.customerName}</td>
-				<td>${c.customerPhone}</td>
-				<td>${c.address}</td>
-				<td>${c.point}</td>
-				<td>${c.createdate}</td>
-			</tr>
-		</c:forEach>		
+		<tr>
+			<td><input type="text" name="customerId"></td>
+			<td><input type="text" name="customerName"></td>
+			<td><input type="text" name="customerPhone"></td>
+			<td><input type="text" name="customerPoint"></td>
+			<td><input type="text" name="customerCreatedate"></td>
+		</tr>
 	</table>
 </body>
 </html>

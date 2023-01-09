@@ -19,27 +19,19 @@
 		<table>
 			<tr>
 				<td>계정명 : </td>
-				<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
+				<td><input type="text" name="customerId" value="" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>이름 : </td>
-				<td><input type="text" name="customerName" value="${loginCustomer.customerName}"></td>
+				<td><input type="text" name="customerName"></td>
 			</tr>
 			<tr>
-				<td>비밀번호 : </td>
-				<td><input type="password" name="customerPw"></td>
-			</tr>
-			<tr>
-				<td>변경할 비밀번호 : </td>
-				<td><input type="password" name="newPw"></td>
-			</tr>
-			<tr>
-				<td>변경할 비밀번호 확인 : </td>
-				<td><input type="password" name="newPwCk"></td>
+				<td>이름 : </td>
+				<td><input type="text" name="customerAddress"></td>
 			</tr>
 			<tr>
 				<td>휴대폰 : </td>
-				<td><input type="text" name="customerPhone" value="${loginCustomer.customerPhone}"></td>
+				<td><input type="text" name="customerName"></td>
 			</tr>
 		</table>
 		<button type="submit">변경하기</button>

@@ -19,19 +19,19 @@
 	<table>
 		<tr>
 			<td>계정명 : </td>
-			<td>${customer.customerId}</td>
+			<td><input></td>
 		</tr>
 		<tr>
 			<td>이름 : </td>
-			<td>${customer.customerName}</td>
+			<td><input></td>
 		</tr>
 		<tr>
 			<td>주소 : </td>
-			<td>${customer.address}</td>
+			<td><input></td>
 		</tr>
 		<tr>
 			<td>휴대폰 : </td>
-			<td>${customer.customerPhone}</td>
+			<td><input></td>
 		</tr>
 	</table>
 	

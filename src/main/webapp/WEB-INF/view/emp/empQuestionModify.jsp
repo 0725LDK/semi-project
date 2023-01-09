@@ -17,19 +17,15 @@
 	<form action="${pageContext.request.contextPath}/emp/empQuestionModify" method="post">
 		<table>
 			<tr>
-				<td>문의 번호</td>	
 				<td>문의 내용</td>	
-				<td>기존 답변</td>	
-				<td>수정 답변</td>	
+				<td>문의 답변</td>	
 			</tr>
 			<tr>
-				<td><input type="text" name="questionCode" value="${questionCode}" readonly="readonly"></td>
-				<td><input type="text" name="questionMemo" value="${questionMemo}" readonly="readonly"></td>
-				<td><input type="text" name="oldCommentMemo" value="${commentMemo}" readonly="readonly"></td>
+				<td><input type="text" name="questionContent"></td>
 				<td><input type="text" name="commentMemo"></td>
 			</tr>
 		</table>
-		<button type="submit">수정하기</button>
+		<button type="submit">답변하기</button>
 	</form>
 </body>
 </html>

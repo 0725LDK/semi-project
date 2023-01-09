@@ -11,19 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerService;
 import vo.Customer;
-import vo.Customer_address;
+import vo.CustomerAddress;
 
 
 @WebServlet("/customer/customerAdd")
 public class CustomerAddController extends HttpServlet {
 	private CustomerService customerService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 세션 확인
+		// 로그인 되어있으면 /home/intro
 		HttpSession session = request.getSession();
-		// 로그인 되어있으면 /home/main
-		if(session.getAttribute("loginCustomer") != null || session.getAttribute("loginEmp") != null) {
-			response.sendRedirect(request.getContextPath()+"/home/main");
-			return;
+		if(session.getAttribute("loginMember") != null) {
+			response.sendRedirect(request.getContextPath()+"/home/intro");
 		}
 		
 		// customerAdd.jsp
@@ -58,7 +56,7 @@ public class CustomerAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/customer/customerAdd");
 			return;
 		}
-		// 아이디 중복확인 customer,outid,emp 중복불가
+		// 아이디 중복확인
 		String idCheck = customerId;
 		this.customerService = new CustomerService();
 		boolResult = customerService.getIdCheck(idCheck);
@@ -68,16 +66,19 @@ public class CustomerAddController extends HttpServlet {
 			return;
 		}
 		
-		// customer 
+		// customer 테이블
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
 		customer.setCustomerPw(customerPw);
 		customer.setCustomerName(customerName);
 		customer.setCustomerPhone(customerPhone);
-		customer.setAddress(address);
+		// customer_address 테이블
+		CustomerAddress customerAddress = new CustomerAddress();
+		customerAddress.setCustomerId(customerId);
+		customerAddress.setAddress(address);
 		
 		this.customerService = new CustomerService();
-		result = customerService.getAddCustomer(customer);
+		result = customerService.getAddCustomer(customer, customerAddress);
 		
 		if(result == 0) {
 			System.out.println("고객 회원가입 실패, CustomerAddController");

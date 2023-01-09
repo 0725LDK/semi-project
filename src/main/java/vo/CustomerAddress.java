@@ -1,6 +1,6 @@
 package vo;
 
-public class Customer_address {
+public class CustomerAddress {
 	private int addressCode;
 	private String customerId;
 	private String address;
@@ -12,9 +12,9 @@ public class Customer_address {
 				+ ", createdate=" + createdate + "]";
 	}
 
-	public Customer_address() {}
+	public CustomerAddress() {}
 	
-	public Customer_address(int addressCode, String customerId, String address, String createdate) {
+	public CustomerAddress(int addressCode, String customerId, String address, String createdate) {
 		super();
 		this.addressCode = addressCode;
 		this.customerId = customerId;

@@ -1,6 +1,6 @@
 package vo;
 
-public class Auth_info {
+public class AuthInfo {
 	private int authCode;
 	private String authMemo;
 	private String createdate;
@@ -10,9 +10,9 @@ public class Auth_info {
 		return "Auth_info [authCode=" + authCode + ", authMemo=" + authMemo + ", createdate=" + createdate + "]";
 	}
 	
-	public Auth_info() {}
+	public AuthInfo() {}
 	
-	public Auth_info(int authCode, String authMemo, String createdate) {
+	public AuthInfo(int authCode, String authMemo, String createdate) {
 		super();
 		this.authCode = authCode;
 		this.authMemo = authMemo;

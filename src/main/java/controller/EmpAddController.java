@@ -20,12 +20,10 @@ public class EmpAddController extends HttpServlet {
 	private CustomerService customerService;
 	// emp 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 세션 확인
+		// 로그인 되어있으면 /home/intro
 		HttpSession session = request.getSession();
-		// 로그인 되어있으면 /home/main
-		if(session.getAttribute("loginCustomer") != null || session.getAttribute("loginEmp") != null) {
-			response.sendRedirect(request.getContextPath()+"/home/main");
-			return;
+		if(session.getAttribute("loginMember") != null) {
+			response.sendRedirect(request.getContextPath()+"/home/intro");
 		}
 		
 		// empAdd.jsp
