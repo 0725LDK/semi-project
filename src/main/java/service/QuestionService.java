@@ -169,7 +169,7 @@ public class QuestionService {
 	}
 	
 	//관리자 - 고객센터 문의 답변 작성
-	public int empGetAddQuestion(int questionCode, Question_comment questionComment)
+	public int empGetAddQuestion(Question_comment questionComment)
 	{
 		questionDao = new QuestionDao();
 		int row = 0;
@@ -177,7 +177,7 @@ public class QuestionService {
 		
 		try {
 			conn = DBUtil.getConnection();
-			row = questionDao.empAddQuestion(conn, questionCode, questionComment);
+			row = questionDao.empAddQuestion(conn, questionComment);
 			conn.commit();
 			System.out.println("CustomerQuestionAddService commit 성공");
 		} catch (Exception e) {
@@ -199,4 +199,38 @@ public class QuestionService {
 		
 		return row;
 	}
+	
+	//관리자 - 고객센터 문의 답변 수정
+	public int empGetModifyQuestion(Question_comment questionComment)
+	{
+		questionDao = new QuestionDao();
+		int row = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			row = questionDao.empModifyQuestion(conn, questionComment);
+			conn.commit();
+			System.out.println("CustomerQuestionModifyService commit 성공");
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+				System.out.println("CustomerQuestionModifyService rollback됨");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
+	
+	
 }

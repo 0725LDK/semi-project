@@ -119,7 +119,7 @@ public class QuestionDao {
 	}
 	
 	//관리자 - 고객센터 답변 작성
-	public int empAddQuestion(Connection conn, int questionCode, Question_comment questionComment) throws Exception
+	public int empAddQuestion(Connection conn, Question_comment questionComment) throws Exception
 	{
 		int row = 0;
 		
@@ -128,6 +128,20 @@ public class QuestionDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, questionComment.getQuestionCode());
 		stmt.setString(2, questionComment.getCommentMemo());
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	
+	//관리자 - 고객센터 답변 수정
+	public int empModifyQuestion(Connection conn, Question_comment questionComment )throws Exception
+	{
+		int row = 0;
+		
+		String sql = "UPDATE question_comment SET comment_memo = ? WHERE question_code= ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, questionComment.getCommentMemo());
+		stmt.setInt(2, questionComment.getQuestionCode());
 		row = stmt.executeUpdate();
 		
 		return row;

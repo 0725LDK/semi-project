@@ -35,8 +35,8 @@
 			<td>${e.active}</td>
 			<td>${e.authCode}</td>
 			<td>${e.createdate}</td><!-- 직원 등록 일자 -->
-			<td><a href="${pageContext.request.contextPath}/emp/empModify?empId">수정</a></td>
-			<td><a href="${pageContext.request.contextPath}/emp/empRemove">삭제</a></td>
+			<td><a href="${pageContext.request.contextPath}/emp/empModify?empCode=${e.empCode}&empId=${e.empId}&empName=${e.empName}">수정</a></td>
+			<td><a href="${pageContext.request.contextPath}/emp/empRemove?empCode=${e.empCode}&empId=${e.empId}">삭제</a></td>
 			
 			
 			<!-- <td>

@@ -37,13 +37,10 @@ public class EmpQuestionAddController extends HttpServlet {
 		questionComment.setCommentMemo(commentMemo);
 		
 		QuestionService questionService = new QuestionService();
-		questionService.empGetAddQuestion(questionCode, questionComment);
+		questionService.empGetAddQuestion(questionComment);
 		
 		System.out.println("문의사항 답변 추가 성공");
 		response.sendRedirect(request.getContextPath()+"/emp/empQuestion");
-		
-		
-		
 	}
 
 }

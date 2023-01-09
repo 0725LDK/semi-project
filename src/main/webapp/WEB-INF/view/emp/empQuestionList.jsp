@@ -38,7 +38,7 @@
 				<c:if test="${q.commentMemo != null}">
 					<td>${q.commentMemo }</td>
 					<td>${q.commentCreatedate }</td>
-					<td><a href="">답변수정</a></td>
+					<td><a href="${pageContext.request.contextPath}/emp/empQuestionModify?questionMemo=${q.questionMemo}&commentMemo=${q.commentMemo}&questionCode=${q.questionCode}">답변수정</a></td>
 				</c:if>
 				<c:if test="${q.commentMemo == null}">
 					<td>답변 작성 필요</td>

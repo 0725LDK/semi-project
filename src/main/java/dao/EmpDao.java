@@ -5,10 +5,83 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import vo.Customer;
 import vo.Emp;
 
 public class EmpDao {
-
+	// emp 관리자 화면에서 고객 리스트업
+	public ArrayList<Customer> empSelectCustomerList(Connection conn)throws Exception
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+		
+		String sql = "SELECT customer_code customerCode, cu.customer_id customerId, customer_name customerName,"
+				+ "		 customer_phone customerPhone, ca.address address, POINT, cu.createdate"
+				+ " FROM customer cu"
+				+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next())
+		{
+			Customer c = new Customer();
+			c.setCustomerCode(rs.getInt("customerCode"));
+			c.setCustomerId(rs.getString("customerId"));
+			c.setCustomerName(rs.getString("customerName"));
+			c.setCustomerPhone(rs.getString("customerPhone"));
+			c.setAddress(rs.getString("address"));
+			c.setPoint(rs.getInt("point"));
+			c.setCreatedate(rs.getString("createdate"));
+			list.add(c);
+		}
+		
+		return list;
+		
+	}
+	
+	//emp 직원 정보 변경
+	public int updateEmpInfo(Connection conn, Emp emp) throws Exception
+	{
+		int row = 0;
+		
+		String sql = "UPDATE emp SET emp_name = ?, active= ?, auth_code= ? WHERE emp_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, emp.getEmpName());
+		stmt.setString(2, emp.getActive());
+		stmt.setInt(3, emp.getAuthCode());
+		stmt.setInt(4,emp.getEmpCode());
+		
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	
+	//emp 직원 삭제시 outId에 추가
+	public int updateOutIdDeletedEmpId(Connection conn, String empId) throws Exception
+	{
+		int addOutId = 0;
+		
+		String sql = "INSERT INTO outid(id)VALUE(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
+		
+		addOutId = stmt.executeUpdate();
+		
+		return addOutId;
+	}
+	
+	//emp 직원 삭제
+	public int deleteEmp(Connection conn, int empCode) throws Exception
+	{
+		int row = 0;
+		
+		String sql ="DELETE FROM emp WHERE emp_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, empCode);
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
+	
 	// emp 리스트
 	public ArrayList<Emp> selectEmpList(Connection conn) throws Exception {
 		ArrayList<Emp> list = new ArrayList<Emp>();
