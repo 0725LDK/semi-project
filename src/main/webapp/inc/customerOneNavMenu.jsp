@@ -6,3 +6,5 @@
 	<a href="${pageContext.request.contextPath}/customer/customerCancle">취소/환불내역</a>
 	<a href="${pageContext.request.contextPath}/customer/customerReview">리뷰</a>
 	<a href="${pageContext.request.contextPath}/customer/customerQuestion">고객센터</a>
+	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>	
+	<br>
