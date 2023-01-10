@@ -13,19 +13,24 @@
 		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
 	</div>	
 	
-	<form>
+	<form action="${pageContext.request.contextPath}/customer/customerOrder" method="post">
 		<table>
 			<tr>
-				<td>상품명</td>
+				<!-- <td>상품명</td> -->
+				<td>상품번호</td>
+				<td>고객ID</td>
 				<td>상품수량</td>
 				<td>상품가격</td>
 				<td>총 가격</td>
 				<td>배송지</td>
 			</tr>
 			<tr>
-				<td><input name="goodsName"></td>
+				<!--<td><input name="goodsName"></td>  -->
+				<td><input name="goodsCode"></td>
+				<td><input name="customerId"></td>
 				<td><input name="orderQuantity"></td>
 				<td><input name="orderPrice"></td>
+				<td><input name="totalPrice"></td>
 				<td><input name="address"></td>
 			</tr>
 		</table>
