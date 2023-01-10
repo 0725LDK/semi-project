@@ -11,35 +11,35 @@ import javax.servlet.http.HttpSession;
 import service.OrderService;
 import vo.Customer;
 
-
-@WebServlet("/customer/customerReviewAdd")
-public class CustomerReviewAddController extends HttpServlet {
+/**
+ * Servlet implementation class CustomerOrderStateModifyController
+ */
+@WebServlet("/customer/customerOrderStateModify")
+public class CustomerOrderStateModifyController extends HttpServlet {
 	
-	//리뷰 추가 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
+		
+		String orderState = request.getParameter("orderState");
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		
+		System.out.println(orderState+"<---orderState값");
+		System.out.println(orderCode+"<---orderCode값");
 		
 		// 로그인중인 session id확인
 		Customer loginCustomer = new Customer();
 		loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
-		System.out.println(customerId + " customerId ,CustomerReviewAddController");
+		System.out.println(customerId + " customerId ,CustomerOrderStateModifyController");
 		request.setAttribute("customerId", customerId);
 		
-		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
-		String reviewMemo = request.getParameter("reviewMemo");
-		
 		OrderService orderService = new OrderService();
-		orderService.addOrderConfirmReview(orderCode, reviewMemo);
+		orderService.customerGetUpdateOrderState(orderState, orderCode);
 		
 		response.sendRedirect(request.getContextPath()+"/customer/customerOrderList?customerId="+customerId);
 	}
 
-	/*리뷰 추가 액션
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("리뷰 추가 성공");
-		response.sendRedirect(request.getContextPath()+"/customer/customerReview");
-	}*/
+	
 
 }

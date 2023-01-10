@@ -36,6 +36,7 @@ public class CustomerOneController extends HttpServlet {
 		customer = customerService.getSelectCustomerOne(customerId);
 		
 		request.setAttribute("customer", customer);
+		request.setAttribute("customerId", customerId);
 		
 		
 		// customerOne.jsp

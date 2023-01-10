@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.OrderService;
+import vo.Customer;
 
 /**
  * Servlet implementation class CustomerOrderListController
@@ -24,9 +25,15 @@ public class CustomerOrderListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		HttpSession session = request.getSession();
+		
+		// 로그인중인 session id확인
+		
+		String customerId = request.getParameter("customerId");
+		System.out.println(customerId);
+		
 		ArrayList<HashMap<String,Object>> list = null;
 		this.orderService = new OrderService();
-		list = orderService.customerGetOrderList();
+		list = orderService.customerGetOrderList(customerId);
 	
 		request.setAttribute("orderList", list);
 		

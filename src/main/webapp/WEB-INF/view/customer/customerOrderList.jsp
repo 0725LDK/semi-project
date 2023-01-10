@@ -13,31 +13,50 @@
 	<div>
 		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
 	</div>	
-	
-	<table border="1">
-		<tr>
-			<td>상품명</td>
-			<td>고객ID</td>
-			<td>배송지</td>
-			<td>상품수량</td>
-			<td>상품가격</td>
-			<td>주문상태</td>
-			<td>결제일자</td>
-			<td>고객센터 문의하기</td>
-		</tr>
-		<c:forEach var="o" items="${orderList }">
+		<table border="1">
 			<tr>
-				<td>${o.goodsname }</td>
-				<td>${o.customerId }</td>
-				<td>${o.address }</td>
-				<td>${o.orderQuantity }</td>
-				<td>${o.orderPrice }</td>
-				<td>${o.orderState }</td>
-				<td>${o.createdate }</td>
-				<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=1">문의등록</a></td>
+				<td>상품명</td>
+				<td>고객ID</td>
+				<td>배송지</td>
+				<td>상품수량</td>
+				<td>상품가격</td>
+				<td>주문상태</td>
+				<td>결제일자</td>
+				<td>고객센터 문의하기</td>
 			</tr>
-		</c:forEach>
-
-	</table>
+			<c:forEach var="o" items="${orderList }">
+				<input type="hidden" name="orderCode" value="${o.orderCode}">
+				<tr>
+					<td>${o.goodsname }</td>
+					<td>${o.customerId }</td>
+					<td>${o.address }</td>
+					<td>${o.orderQuantity }</td>
+					<td>${o.orderPrice }</td>
+					<td>
+							${o.orderState }
+							<c:if test="${o.orderState != '구매확정'}">
+								<a href="${pageContext.request.contextPath}/customer/customerOrderStateModify?orderState=구매확정&orderCode=${o.orderCode}&customerId=${customerId}">구매확정</a>
+								<a href="">구매취소</a>
+							</c:if>
+							<c:if test="${o.orderState == '구매확정'}">
+								<div>
+										<c:if test="${empty o.reviewMemo}">
+											<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
+												<input type="hidden" name="orderCode" value="${o.orderCode}">
+												리뷰작성 : <input type="text" name="reviewMemo">
+												<button type="submit">작성</button>
+											</form>
+										</c:if>
+										<c:if test="${not empty o.reviewMemo}">
+											작성한 리뷰 : ${o.reviewMemo}
+										</c:if>
+								</div>
+							</c:if>
+					</td>
+					<td>${o.createdate }</td>
+					<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=1">문의등록</a></td>
+				</tr>
+			</c:forEach>
+		</table>
 </body>
 </html>
