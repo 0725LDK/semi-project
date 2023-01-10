@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import vo.Customer;
-import vo.CustomerAddress;
 
 public class CustomerDao {
 
@@ -189,6 +188,22 @@ public class CustomerDao {
 		return result;
 	}
 	
+	// customer 회원정보 수정 후 pw_history 데이터 4개이상값 삭제
+	public void removePwHistoryByFour(Connection conn, Customer customer) throws Exception {
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM pw_history WHERE createdate IN"
+				+ "		(SELECT * FROM"
+				+ "			((SELECT createdate"
+				+ "			FROM pw_history"
+				+ "			WHERE customer_id = ?"
+				+ "			order BY createdate DESC"
+				+ "			LIMIT 3,1) resultT))";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		
+		stmt.executeUpdate();
+	}
+	
 	// customer 회원탈퇴
 	public int removeCustomer(Connection conn, Customer customer) throws Exception {
 		int row = 0;
@@ -202,18 +217,6 @@ public class CustomerDao {
 		
 		return row;
 	}
-	// 회원탈퇴시 customer_address테이블 데이터 삭제
-	public int removeCustomerAddress(Connection conn, Customer customer) throws Exception {
-		int row = 0;
-		PreparedStatement stmt = null;
-		String sql = "DELETE FROM customer_address WHERE customer_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customer.getCustomerId());
-		
-		row = stmt.executeUpdate();
-		
-		return row;
-	}
 	// 회원탈퇴시 pw_history테이블 데이터 삭제
 	public int removePwHistory(Connection conn, Customer customer) throws Exception {
 		int row = 0;
@@ -222,6 +225,7 @@ public class CustomerDao {
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		
+		// row값 1~3 
 		row = stmt.executeUpdate();
 		
 		return row;

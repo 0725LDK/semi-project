@@ -33,11 +33,19 @@ public class CustomerRemoveController extends HttpServlet {
 	//회원 탈퇴 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int row = 0;
-		
+		int pwCk = 0;
 		String customerId = request.getParameter("customerId");
 		String customerPw = request.getParameter("customerPw");
 		System.out.println(customerId + " : customerId, CustomerRemoveController");
 		System.out.println(customerPw + " : customerPw, CustomerRemoveController");
+		
+		// 탈퇴시 비밀번호 확인
+		this.customerService = new CustomerService();
+		pwCk = customerService.getPasswordCheck(customerId, customerPw);
+		if(pwCk == 0) {
+			System.out.println("회원탈퇴 실패 비밀번호 오류 CustomerRemoveController");
+			response.sendRedirect(request.getContextPath()+"/customer/customerRemove");
+		}
 		
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
