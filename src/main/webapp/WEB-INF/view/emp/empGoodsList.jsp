@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +13,6 @@
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
-	
-	
-<!--  수정 -->
 	<table border="1">
 		<tr>
 			<!-- 
@@ -31,7 +28,7 @@
 			-->
 			<c:forEach var="m" items="${list}" varStatus="s">
 				<c:if test="${s.index != 0 && s.index % 5 == 0}">
-					
+
 				</c:if>
 				
 				<td>
@@ -51,10 +48,10 @@
 			</c:forEach>
 		</tr>
 	</table>
-	<br>
 	<div>
-		<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">상품추가</a>
-	</div>	
-	<img src="${pageContext.request.contextPath}/upload/{test1.jp}" width="200" height="200">
+		<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">
+			상품 추가
+		</a>
+	</div>
 </body>
 </html>

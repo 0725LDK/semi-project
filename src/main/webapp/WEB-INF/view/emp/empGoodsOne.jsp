@@ -4,15 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 상세페이지</title>
 </head>
 <body>
-	<h1>${map.goodsName}</h1>
+	<h1>상품 수정 페이지</h1>
+	
+	<!-- 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
+	</div>
+
+
+
+
 	<br>
-	<table border="1">
+	<table>
 		<tr>
 			<td rowspan="10">
-				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="200">
+				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="250">
 			</td>
 			<th>상품 종류 : </th>
 			<td>${map.goodsCategory}</td>
@@ -32,6 +41,18 @@
 			</td>
 		</tr>
 		<tr>
+			<th>상품 도수 : </th>
+			<td>${map.goodsAlcohol}</td>
+		</tr>		
+		<tr>
+			<th>상품 용량 : </th>
+			<td>${map.goodsLiter}</td>
+		</tr>
+		<tr>
+			<th>상품 품절 : </th>
+			<td>${map.soldout}</td>
+		</tr>		
+		<tr>
 			<th>직원 아이디 : </th>
 			<td>${map.empId}</td>
 		</tr>
@@ -43,7 +64,7 @@
 			<th>등록 일자 : </th>
 			<td>${map.createdate}</td>
 		</tr>
-	</table>
+	</table>				
 	<div>
 		<a href="${pageContext.request.contextPath}/emp/empGoodsModify?goodsCode=${map.goodsCode}">수정</a>
 		<a href="${pageContext.request.contextPath}/emp/empGoodsRemove?goodsCode=${map.goodsCode}">삭제</a>

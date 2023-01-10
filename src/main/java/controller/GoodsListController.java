@@ -12,16 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.GoodsService;
 
-@WebServlet("/emp/empGoodsList")
-public class EmpGoodsListController extends HttpServlet {
+@WebServlet("/goods/goodsList")
+public class GoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList();
 		request.setAttribute("list", list);
-		System.out.println(list+"<--EmpGoodsListController list");
+		System.out.println(list+"<--GoodsListController  list");
 		
-		request.getRequestDispatcher("/WEB-INF/view/emp/empGoodsList.jsp").forward(request, response);
+		
+		// takju.jsp
+		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}
+
+
 }

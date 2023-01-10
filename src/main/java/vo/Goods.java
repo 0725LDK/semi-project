@@ -6,27 +6,34 @@ public class Goods {
 	private int goodsPrice;
 	private String goodsCategory;
 	private String goodsContent;
+	private double goodsAlcohol;
+	private int goodsLiter;
 	private String soldout;
 	private String empId;
 	private int hit;
 	private String createdate;
 	
+	
 	@Override
 	public String toString() {
 		return "Goods [goodsCode=" + goodsCode + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice
-				+ ", goodsCategory=" + goodsCategory + ", goodsContent=" + goodsContent + ", soldout=" + soldout
-				+ ", empId=" + empId + ", hit=" + hit + ", createdate=" + createdate + "]";
+				+ ", goodsCategory=" + goodsCategory + ", goodsContent=" + goodsContent + ", goodsAlcohol="
+				+ goodsAlcohol + ", goodsLiter=" + goodsLiter + ", soldout=" + soldout + ", empId=" + empId + ", hit="
+				+ hit + ", createdate=" + createdate + "]";
 	}
+
 	public Goods() {}
 	
 	public Goods(int goodsCode, String goodsName, int goodsPrice, String goodsCategory, String goodsContent,
-			String soldout, String empId, int hit, String createdate) {
+			double goodsAlcohol, int goodsLiter, String soldout, String empId, int hit, String createdate) {
 		super();
 		this.goodsCode = goodsCode;
 		this.goodsName = goodsName;
 		this.goodsPrice = goodsPrice;
 		this.goodsCategory = goodsCategory;
 		this.goodsContent = goodsContent;
+		this.goodsAlcohol = goodsAlcohol;
+		this.goodsLiter = goodsLiter;
 		this.soldout = soldout;
 		this.empId = empId;
 		this.hit = hit;
@@ -62,6 +69,18 @@ public class Goods {
 	public void setGoodsContent(String goodsContent) {
 		this.goodsContent = goodsContent;
 	}
+	public double getGoodsAlcohol() {
+		return goodsAlcohol;
+	}
+	public void setGoodsAlcohol(double goodsAlcohol) {
+		this.goodsAlcohol = goodsAlcohol;
+	}
+	public int getGoodsLiter() {
+		return goodsLiter;
+	}
+	public void setGoodsLiter(int goodsLiter) {
+		this.goodsLiter = goodsLiter;
+	}
 	public String getSoldout() {
 		return soldout;
 	}
@@ -86,8 +105,5 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-
-
 	 
 }

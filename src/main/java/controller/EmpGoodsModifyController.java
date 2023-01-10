@@ -1,52 +1,31 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class EmpGoodsModifyController
- */
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import service.GoodsService;
+import vo.Goods;
+import vo.GoodsImg;
+
 @WebServlet("/emp/empGoodsModify")
 public class EmpGoodsModifyController extends HttpServlet {
 	
 	//상품 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/emp/empGoodsModify.jsp").forward(request, response);
-
-	}
-
-	//상품 수정 액션
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("상품 수정 성공");
-		response.sendRedirect(request.getContextPath()+"/emp/empGoodsList");
-	}
-
-}
-/*
-public class ModifyGoodsController extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		// 로그인 후에만 진입가능
-		HttpSession session = request.getSession();
-		
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(loginMember == null) { // 로그아웃 상태
-			response.sendRedirect(request.getContextPath()+"/member/login");
-			return;
-		}
-
-		
-		request.setCharacterEncoding("UTF-8");
-		String msg = null;
-		if(request.getParameter("msg") != null) {
-			msg = request.getParameter("msg");
-		}
-		request.setAttribute("msg", msg);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		GoodsService goodsService = new GoodsService();
 		
 		int goodsCode = 0;
 		// 방어코드
@@ -54,33 +33,16 @@ public class ModifyGoodsController extends HttpServlet {
 			goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 			System.out.println("goodsCode : " + goodsCode);
 		} 
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		GoodsService goodsService = new GoodsService();
-		
 		map = goodsService.getGoodsOne(goodsCode);
 		
 		request.setAttribute("map", map);
 		
-		// View
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin/goods/modifyGoods.jsp");
-		
-		rd.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/emp/empGoodsModify.jsp").forward(request, response);
+
 	}
-	
+
+	//상품 수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
-		// 로그인 후에만 진입가능
-		HttpSession session = request.getSession();
-		
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(loginMember == null) { // 로그아웃 상태
-			response.sendRedirect(request.getContextPath()+"/member/login");
-			return;
-		}
-
-		
 		// 프로젝트안 upload폴더의 실제 물리적 위치를 반환
 		String dir = request.getServletContext().getRealPath("/upload");
 		int maxFileSize = 1024 * 1024 * 100; // 100Mbyte
@@ -90,13 +52,17 @@ public class ModifyGoodsController extends HttpServlet {
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "UTF-8", fp);
 		
 		int goodsCode = Integer.parseInt(mreq.getParameter("goodsCode"));
-		int categoryNo = Integer.parseInt(mreq.getParameter("categoryNo"));
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
+		String goodsCategory = mreq.getParameter("goodsCategory");
 		String goodsContent = mreq.getParameter("goodsContent");
-		int goodsStock = Integer.parseInt(mreq.getParameter("goodsStock"));
+		Double goodsAlcohol = Double.parseDouble(mreq.getParameter("goodsAlcohol"));
+		int goodsLiter = Integer.parseInt(mreq.getParameter("goodsLiter"));
+		String soldout = mreq.getParameter("soldout");
 		String empId = mreq.getParameter("empId");
-		int  hit = Integer.parseInt(mreq.getParameter("hit"));
+		int hit = Integer.parseInt(mreq.getParameter("hit"));
+		
+		System.out.println(mreq+"<-- EmpGoodsModifyController");
 		
 		// 방어 코드
 		String contentType = null;
@@ -108,34 +74,43 @@ public class ModifyGoodsController extends HttpServlet {
 			originalFileName = mreq.getOriginalFileName("goodsImg"); // 원본 파일 이름
 			fileSystemName = mreq.getFilesystemName("goodsImg"); // 저장된 파일 이름
 		}
-		
+
 		// 이미지 파일 검사
-		if(contentType.equals("image/jpeg") || contentType.equals("image/png")) {
+
 			Goods goods = new Goods();
 			GoodsImg goodsImg = new GoodsImg();
 			
 			goods.setGoodsCode(goodsCode);
-			goods.setCategoryNo(categoryNo);
 			goods.setGoodsName(goodsName);
 			goods.setGoodsPrice(goodsPrice);
+			goods.setGoodsCategory(goodsCategory);
 			goods.setGoodsContent(goodsContent);
-			goods.setGoodsStock(goodsStock);
+			goods.setGoodsAlcohol(goodsAlcohol);
+			goods.setGoodsLiter(goodsLiter);
+			goods.setSoldout(soldout);
 			goods.setEmpId(empId);
 			goods.setHit(hit);
+			System.out.println(goods+"<-- EmpGoodsModifyController");
 			
 			goodsImg.setGoodsCode(goodsCode);
-			goodsImg.setFileName(fileSystemName);
+			goodsImg.setFilename(fileSystemName);
 			goodsImg.setOriginName(originalFileName);
 			goodsImg.setContentType(contentType);
+			System.out.println(goodsImg+"<-- EmpGoodsModifyController");
+	
 			
+			/*
 			// 디버깅 코드
 			System.out.println("문자열 매개값 : ");
-			System.out.println("상품 코드 : " + goodsName);
-			System.out.println("상품 종류 : " + categoryNo);
+			System.out.println("상품 코드 : " + goodsCode);
 			System.out.println("상품 이름 : " + goodsName);
 			System.out.println("상품 가격 : " + goodsPrice);
+			System.out.println("상품 종류 : " + goodsCategory);
 			System.out.println("상품 내용 : " + goodsContent);
-			System.out.println("상품 재고 : " + goodsStock);
+			System.out.println("상품 내용 : " + goodsAlcohol);
+			System.out.println("상품 내용 : " + goodsLiter);
+			System.out.println("상품 재고 : " + soldout);
+
 			System.out.println("직원 아이디 : " + empId);
 			System.out.println("히트 : " + hit);
 			
@@ -143,7 +118,7 @@ public class ModifyGoodsController extends HttpServlet {
 			System.out.println("파일이름 : " + fileSystemName);
 			System.out.println("원본 파일 이름 : " + originalFileName);
 			System.out.println("파일 컨텐츠 타입 : " + contentType);
-			
+			*/
 			GoodsService goodsService = new GoodsService();
 			int row = goodsService.modifyGoods(goods, goodsImg, dir);
 			if(row == 1) {
@@ -153,7 +128,7 @@ public class ModifyGoodsController extends HttpServlet {
 		    	msg = URLEncoder.encode("게시글을 수정하였습니다.", "utf-8");
 				
 				// View
-				response.sendRedirect(request.getContextPath()+"/goods/goodsOne?goodsCode="+goodsCode+"&msg="+msg);
+				response.sendRedirect(request.getContextPath()+"/emp/empGoodsOne?goodsCode="+goodsCode+"&msg="+msg);
 			} else {
 				System.out.println("수정실패");
 		    	
@@ -161,9 +136,9 @@ public class ModifyGoodsController extends HttpServlet {
 		    	msg = URLEncoder.encode("게시글 수정에 실패하였습니다.", "utf-8");
 		    	
 		    	// View
-				response.sendRedirect(request.getContextPath()+"/admin/goods/modifyGoods?goodsCode="+goodsCode+"&msg="+msg);
+				response.sendRedirect(request.getContextPath()+"/emp/empGoodsModify?goodsCode="+goodsCode+"&msg="+msg);
 			}
-			
+		/*	
 		} else {
 			System.out.println("*.jpg, *.png파일만 업로드 가능");
 			String msg = null;
@@ -173,9 +148,10 @@ public class ModifyGoodsController extends HttpServlet {
 				f.delete(); // 이미지가 아닌 파일이 업로드 되었기때문에 삭제
 			}
 			// View
-			response.sendRedirect(request.getContextPath()+"/admin/goods/modifyGoods?goodsCode="+goodsCode+"&msg="+msg);
+			response.sendRedirect(request.getContextPath()+"/emp/empGoodsModify?goodsCode="+goodsCode);
+			*/
 		}
 	}
-}
 
-*/
+
+

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +45,27 @@
 					<textarea name="goodsContent" rows="10" cols="50"></textarea>
 				</td>
 			</tr>
+			<tr>
+				<th>상품 도수 : </th>
+				<td>
+					<input type="number" name="goodsAlcohol">
+				</td>
+			</tr>			
+			<tr>
+				<th>상품 용량 : </th>
+				<td>
+					<input type="number" name="goodsLiter">
+				</td>
+			</tr>			
+			<tr>
+				<th>상품 재고 : </th>
+				<td>
+					<select name="soldout">
+						<option value="Y">품절</option>
+						<option value="N">재고 있음</option>
+					</select>
+				</td>
+			</tr>			
 			<tr>
 				<th>직원 아이디 : </th>
 				<td>

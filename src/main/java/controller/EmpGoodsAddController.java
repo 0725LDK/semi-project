@@ -32,7 +32,6 @@ public class EmpGoodsAddController extends HttpServlet {
 
 	//상품등록 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		// 프로젝트안 upload폴더의 실제 물리적 위치를 반환
 		String dir = request.getServletContext().getRealPath("/upload");
 		int maxFileSize = 1024 * 1024 * 100; // 100Mbyte
@@ -41,12 +40,18 @@ public class EmpGoodsAddController extends HttpServlet {
 		DefaultFileRenamePolicy fp = new DefaultFileRenamePolicy();
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "UTF-8", fp);
 		
-		String goodsCategory = mreq.getParameter("goodsCategory");
+
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
+		String goodsCategory = mreq.getParameter("goodsCategory");
 		String goodsContent = mreq.getParameter("goodsContent");
+		Double goodsAlcohol = Double.parseDouble(mreq.getParameter("goodsAlcohol"));
+		int goodsLiter = Integer.parseInt(mreq.getParameter("goodsLiter"));
+		String soldout = mreq.getParameter("soldout");
 		String empId = mreq.getParameter("empId");
 		int  hit = Integer.parseInt(mreq.getParameter("hit"));
+		
+		System.out.println(mreq+"<-- EmpGoodsAddController");
 		
 		// input type=file 바이너리 파일은 마임타입형태의 파일로 변환되어 upload폴더의 자동으로 저장
 		String contentType = mreq.getContentType("goodsImg");
@@ -56,28 +61,34 @@ public class EmpGoodsAddController extends HttpServlet {
 		// 이미지 파일 검사
 		if(contentType.equals("image/jpeg") || contentType.equals("image/png")) {
 			Goods goods = new Goods();
-			GoodsImg goodsImg = new GoodsImg();
-			
-			goods.setGoodsCategory(goodsCategory);
+			GoodsImg goodsImg = new GoodsImg();	
+
 			goods.setGoodsName(goodsName);
 			goods.setGoodsPrice(goodsPrice);
+			goods.setGoodsCategory(goodsCategory);
 			goods.setGoodsContent(goodsContent);
+			goods.setGoodsAlcohol(goodsAlcohol);
+			goods.setGoodsLiter(goodsLiter);
+			goods.setSoldout(soldout);
 			goods.setEmpId(empId);
 			goods.setHit(hit);
+			System.out.println(goods+"<-- EmpGoodsAddController");
 			
 			goodsImg.setFilename(fileSystemName);
 			goodsImg.setOriginName(originalFileName);
 			goodsImg.setContentType(contentType);
+			System.out.println(goodsImg+"<-- EmpGoodsAddController");	
 			
 			GoodsService goodsService = new GoodsService();
-			goodsService.addGodds(goods, goodsImg, dir);
-			
+			goodsService.addGoods(goods, goodsImg, dir);
+			/*
 			// 디버깅 코드
 			System.out.println("문자열 매개값 : ");
-			System.out.println("상품 종류 : " + goodsCategory);
+			System.out.println("상품 종류 : " + gooodsCategory);
 			System.out.println("상품 이름 : " + goodsName);
 			System.out.println("상품 가격 : " + goodsPrice);
 			System.out.println("상품 내용 : " + goodsContent);
+			System.out.println("상품 재고 : " + goodsStock);
 			System.out.println("직원 아이디 : " + empId);
 			System.out.println("히트 : " + hit);
 			
@@ -92,9 +103,8 @@ public class EmpGoodsAddController extends HttpServlet {
 				f.delete(); // 이미지가 아닌 파일이 업로드 되었기때문에 삭제
 			}
 		}
-		
+		*/
 		// View
 		response.sendRedirect(request.getContextPath()+"/emp/empGoodsList");
 	}
-
-}
+}}

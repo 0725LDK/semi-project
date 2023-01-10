@@ -36,7 +36,6 @@
 						<option value="2">청주</option>
 						<option value="3">과실주</option>
 						<option value="4">증류주</option>
-	
 					</select>
 				</td>
 			</tr>
@@ -53,10 +52,28 @@
 				</td>
 			</tr>
 			<tr>
-				<th>품절 여부 : </th>
+				<th>상품 설명 : </th>
+				<td>		
+					<textarea name="goodsContent"  rows="10" cols="50">${map.goodsContent}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>상품 도수 : </th>
+				<td>
+					<input type="number" name="goodsAlcohol" value="${map.goodsAlcohol}">
+				</td>
+			</tr>			
+			<tr>
+				<th>상품 용량 : </th>
+				<td>
+					<input type="number" name="goodsLiter" value="${map.goodsLiter}">
+				</td>
+			</tr>			
+			<tr>
+				<th>상품 품절 : </th>
 				<td>
 					<select name="soldout">
-						<option value="${map.hit}">${map.hit}</option>
+						<option value="${map.soldout}">${map.soldout}</option>
 						<option value="Y">품절</option>
 						<option value="N">재고 있음</option>
 					</select>
@@ -70,7 +87,7 @@
 			</tr>
 			<tr>
 				<th>히트 상품 : </th>
-				<td><input type="number" name="hit"></td>
+				<td><input type="number" name="hit" value="${map.hit}"></td>
 			</tr>
 			<tr>
 				<th>상품 이미지 : </th>
@@ -78,12 +95,6 @@
 					<input type="file" name="goodsImg">
 				</td>
 			</tr>
-			<tr>
-				<td colspan="3">
-					<div>상품 설명 : </div>
-					<textarea name="goodsContent" rows="5" cols="100">${map.goodsContent}</textarea>
-				</td>
-		</tr>
 		</table>
 		<button type="submit">상품수정</button>
 	</form>
