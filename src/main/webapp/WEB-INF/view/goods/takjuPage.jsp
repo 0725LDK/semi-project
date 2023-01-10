@@ -36,6 +36,21 @@
 	</div>
 
 	<div style="width:200px; height:250px; float:left;">
+		<table>
+			<tr>
+				<td>${g.goodsName}</td>			
+			</tr>
+			<tr>
+				<th>판매가격 : </th>
+				<td>${g.goodsPrice}</td>
+			</tr>		
+		
+		</table>
+	
+	
+	
+	
+	
 		담은[3병/6병/10병]<br>주종: 탁주<br>도수: 6.50% <br>용량: 750ml<br>판매가격: 29,700원
 	</div>	
 		<table>

@@ -1,19 +1,20 @@
 package vo;
 
-public class Question_comment {
+public class QuestionComment {
 	private int commentCode;
 	private int questionCode;
 	private String commentMemo;
 	private String createdate;
 	
+	
 	@Override
 	public String toString() {
-		return "Question_comment [commentCode=" + commentCode + ", questionCode=" + questionCode + ", commentMemo="
+		return "QuestionComment [commentCode=" + commentCode + ", questionCode=" + questionCode + ", commentMemo="
 				+ commentMemo + ", createdate=" + createdate + "]";
 	}
-	public Question_comment() {}
+	public QuestionComment() {}
 	
-	public Question_comment(int commentCode, int questionCode, String commentMemo, String createdate) {
+	public QuestionComment(int commentCode, int questionCode, String commentMemo, String createdate) {
 		super();
 		this.commentCode = commentCode;
 		this.questionCode = questionCode;
@@ -44,5 +45,7 @@ public class Question_comment {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	
+
 
 } 

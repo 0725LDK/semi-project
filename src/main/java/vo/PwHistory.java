@@ -1,6 +1,6 @@
 package vo;
 
-public class Pw_history {
+public class PwHistory {
 	private String customerId;
 	private String pw;
 	private String createdate;
@@ -9,9 +9,9 @@ public class Pw_history {
 	public String toString() {
 		return "Pw_history [customerId=" + customerId + ", pw=" + pw + ", createdate=" + createdate + "]";
 	}
-	public Pw_history() {}
+	public PwHistory() {}
 	
-	public Pw_history(String customerId, String pw, String createdate) {
+	public PwHistory(String customerId, String pw, String createdate) {
 		super();
 		this.customerId = customerId;
 		this.pw = pw;

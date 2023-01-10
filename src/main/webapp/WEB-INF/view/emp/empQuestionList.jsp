@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,36 +16,19 @@
 	
 	<table>
 		<tr>
-			<th>문의번호</th>
-			<th>문의상품</th>
-			<th>카테고리</th>
-			<th>문의사항</th>
-			<th>문의일자</th>
-			<th>답변내용</th>
-			<th>답변일자</th>
-			<th>답변 작성/수정</th>
-			
+			<td>상품번호</td>	
+			<td>문의 분야</td>	
+			<td>문의 내용</td>	
+			<td>등록 일자</td>	
+			<td>수정</td>
 		</tr>
-		<c:forEach var="q" items="${questionList }">
-			<tr>
-				<td>${q.questionCode }</td>
-				<td>${q.ordersCode }</td>
-				<td>${q.category }</td>
-				<td>${q.questionMemo }</td>
-				<td>${q.questionCreatedate }</td>
-				
-				<c:if test="${q.commentMemo != null}">
-					<td>${q.commentMemo }</td>
-					<td>${q.commentCreatedate }</td>
-					<td><a href="${pageContext.request.contextPath}/emp/empQuestionModify?questionMemo=${q.questionMemo}&commentMemo=${q.commentMemo}&questionCode=${q.questionCode}">답변수정</a></td>
-				</c:if>
-				<c:if test="${q.commentMemo == null}">
-					<td>답변 작성 필요</td>
-					<td></td>
-					<td><a href="${pageContext.request.contextPath}/emp/empQuestionAdd?questionCode=${q.questionCode}&questionMemo=${q.questionMemo}">답변작성</a></td>
-				</c:if>
-			</tr>
-		</c:forEach>		
+		<tr>
+			<td><input type="text" name="orders_code"></td>
+			<td><input type="text" name="category"></td>
+			<td><input type="text" name="questionMemo"></td>
+			<td><input type="text" name="questionCreatedate"></td><!-- 고객센터 등록일자 -->
+			<td><a href="${pageContext.request.contextPath}/emp/empQuestionModify">답변</a></td>
+		</tr>
 	</table>
 </body>
 </html>

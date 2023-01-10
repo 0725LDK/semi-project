@@ -2,6 +2,8 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DBUtil {
 	public static Connection getConnection() throws Exception {
@@ -14,5 +16,10 @@ public class DBUtil {
 		Connection conn = DriverManager.getConnection(uri, id, pw);
 		conn.setAutoCommit(false);
 		return conn;
+	}
+
+	public static void close(ResultSet rs, PreparedStatement stmt, Object object) {
+		// TODO Auto-generated method stub
+		
 	}
 }

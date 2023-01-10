@@ -16,6 +16,4 @@
 	<a href="${pageContext.request.contextPath}/emp/empQuestion">고객센터</a>
 	<br>
 	<a href="${pageContext.request.contextPath}/emp/empSum">판매 데이터</a>
-	<br>
-	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>	
 	<br><br>

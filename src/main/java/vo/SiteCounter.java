@@ -1,6 +1,6 @@
 package vo;
 
-public class Site_counter {
+public class SiteCounter {
 	private String counter_date;
 	private int couter_num;
 	
@@ -9,9 +9,9 @@ public class Site_counter {
 		return "Site_counter [counter_date=" + counter_date + ", couter_num=" + couter_num + "]";
 	}
 	
-	public Site_counter() {}
+	public SiteCounter() {}
 	
-	public Site_counter(String counter_date, int couter_num) {
+	public SiteCounter(String counter_date, int couter_num) {
 		super();
 		this.counter_date = counter_date;
 		this.couter_num = couter_num;

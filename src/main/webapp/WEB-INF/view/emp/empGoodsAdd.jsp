@@ -13,30 +13,60 @@
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
-	<form action="${pageContext.request.contextPath}/emp/empGoodsAdd" method="post">
-		<table>
+
+	<form action="${pageContext.request.contextPath}/emp/empGoodsAdd" method="post" enctype="multipart/form-data">
+		<table border="1">
 			<tr>
-				<td>상품 이름</td>	
-				<td>상품 사진</td>	
-				<td>상품 가격</td>	
-				<td>품절 여부</td>	
-				<td>등록 직원</td>	
+				<th>상품 종류 : </th>
+				<td>
+					<select name="goodsCategory">
+						<option value="${map.goodsCategory}">${map.goodsCategory}</option>
+						<option value="1">탁주</option>
+						<option value="2">청주</option>
+						<option value="3">과실주</option>
+						<option value="4">증류주</option>		
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td><input type="text" name="goodsCode"></td>
-				<td><input type="text" name="goodsName"></td>
-				<td><input type="text" name="goodsPicture"></td><!-- 상품 사진 -->
-				<td><input type="text" name="goodsPrice"></td>
+				<th>상품 이름 : </th>
 				<td>
-					<select name="soldout">
-						<option value="Y">품절</option>
-						<option value="N">재고 있음</option>
-					</select>	
+					<input type="text" name="goodsName">
 				</td>
-				<td><input type="text" name="empId"></td>
+			</tr>
+			<tr>
+				<th>상품 가격 : </th>
+				<td>
+					<input type="number" name="goodsPrice">
+				</td>
+			</tr>
+			<tr>
+				<th>상품 설명 : </th>
+				<td>
+					<textarea name="goodsContent" rows="10" cols="50"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>직원 아이디 : </th>
+				<td>
+					<input type="text" name="empId">
+				</td>
+			</tr>
+			<tr>
+				<th>히트 상품 : </th>
+				<td>
+					<input type="number" name="hit">
+				</td>
+			</tr>
+			<tr>
+				<th>상품 이미지 : </th>
+				<td>
+					<input type="file" name="goodsImg">
+				</td>
 			</tr>
 		</table>
-		<button	type="submit">등록하기</button>
-	</form>
+		<button type="submit">상품등록</button>
+	</form>	
+
 </body>
 </html>

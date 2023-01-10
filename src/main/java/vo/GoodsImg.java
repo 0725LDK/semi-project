@@ -1,6 +1,6 @@
 package vo;
 
-public class Goods_img {
+public class GoodsImg {
 	private int goodsCode;
 	private String filename;
 	private String originName;
@@ -12,9 +12,9 @@ public class Goods_img {
 		return "Goods_img [goodsCode=" + goodsCode + ", filename=" + filename + ", originName=" + originName
 				+ ", contentType=" + contentType + ", createdate=" + createdate + "]";
 	}
-	public Goods_img() {}
+	public GoodsImg() {}
 	
-	public Goods_img(int goodsCode, String filename, String originName, String contentType, String createdate) {
+	public GoodsImg(int goodsCode, String filename, String originName, String contentType, String createdate) {
 		super();
 		this.goodsCode = goodsCode;
 		this.filename = filename;

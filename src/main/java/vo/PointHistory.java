@@ -1,6 +1,6 @@
 package vo;
 
-public class Point_history {
+public class PointHistory {
 	private int orderCode;
 	private String pointKind;
 	private int point;
@@ -11,9 +11,9 @@ public class Point_history {
 		return "Point_history [orderCode=" + orderCode + ", pointKind=" + pointKind + ", point=" + point
 				+ ", createdate=" + createdate + "]";
 	}
-	public Point_history() {}
+	public PointHistory() {}
 	
-	public Point_history(int orderCode, String pointKind, int point, int createdate) {
+	public PointHistory(int orderCode, String pointKind, int point, int createdate) {
 		super();
 		this.orderCode = orderCode;
 		this.pointKind = pointKind;
