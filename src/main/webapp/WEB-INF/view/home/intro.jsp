@@ -7,6 +7,7 @@
 <title>INTRO</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/home/intro">intro</a>
 	<a href="${pageContext.request.contextPath}/home/main">스토어</a>
 	<!-- 로그인 안되어 있으면 -->
 	<c:if test="${loginCustomer eq null && loginEmp eq null}">

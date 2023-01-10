@@ -7,20 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/customer/customerModifyQuestion")
-public class CustomerModifyQuestionController extends HttpServlet {
+/**
+ * Servlet implementation class CustomerModifyReviewController
+ */
+@WebServlet("/customer/customerReviewModify")
+public class CustomerReviewModifyController extends HttpServlet {
 	
-	//고객센터 수정 폼
+    //리뷰 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerModifyQuestion.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerReviewModify.jsp").forward(request, response);
 	}
-
-	//고객센터 수정 액션
+	
+	//리뷰 수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("고객센터 수정 성공");
-		response.sendRedirect(request.getContextPath()+"/customer/customerQuestion");
-		
+		System.out.println("리뷰 수정 성공");
+		response.sendRedirect(request.getContextPath()+"/customer/customerReview");
 	}
 
 }

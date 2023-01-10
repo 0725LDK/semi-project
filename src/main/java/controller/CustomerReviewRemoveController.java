@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/customer/customerRemoveReview")
-public class CustomerRemoveReviewController extends HttpServlet {
+@WebServlet("/customer/customerReviewRemove")
+public class CustomerReviewRemoveController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("리뷰 삭제 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerReview");
 	}
-
-	
-	
 
 }
