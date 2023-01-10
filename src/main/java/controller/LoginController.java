@@ -25,7 +25,6 @@ public class LoginController extends HttpServlet {
 		//login.jsp
 		request.getRequestDispatcher("/WEB-INF/view/home/login.jsp").forward(request, response);
 	}
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 한글처리 인코딩
