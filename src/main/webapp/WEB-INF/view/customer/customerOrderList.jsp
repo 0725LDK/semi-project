@@ -19,7 +19,7 @@
 				<td>고객ID</td>
 				<td>배송지</td>
 				<td>상품수량</td>
-				<td>상품가격</td>
+				<td>총가격</td>
 				<td>주문상태</td>
 				<td>결제일자</td>
 				<td>고객센터 문의하기</td>
@@ -34,10 +34,14 @@
 					<td>${o.orderPrice }</td>
 					<td>
 							${o.orderState }
-							<c:if test="${o.orderState != '구매확정'}">
+							<c:if test="${o.orderState == '배송완료'}">
 								<a href="${pageContext.request.contextPath}/customer/customerOrderStateModify?orderState=구매확정&orderCode=${o.orderCode}&customerId=${customerId}">구매확정</a>
-								<a href="">구매취소</a>
 							</c:if>
+							
+							<c:if test="${o.orderState != '배송완료' && o.orderState != '구매확정'}">
+								<a href="${pageContext.request.contextPath}/customer/customerOrderCancle?orderCode=${o.orderCode}">구매취소</a>
+							</c:if>
+							
 							<c:if test="${o.orderState == '구매확정'}">
 								<div>
 										<c:if test="${empty o.reviewMemo}">
@@ -47,8 +51,10 @@
 												<button type="submit">작성</button>
 											</form>
 										</c:if>
+										
 										<c:if test="${not empty o.reviewMemo}">
 											작성한 리뷰 : ${o.reviewMemo}
+											<a href="${pageContext.request.contextPath}/customer/customerReviewRemove?orderCode=${o.orderCode}">삭제</a>
 										</c:if>
 								</div>
 							</c:if>

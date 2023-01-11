@@ -23,13 +23,15 @@ public class CustomerOrderListController extends HttpServlet {
 	private OrderService orderService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+		
 		HttpSession session = request.getSession();
 		
 		// 로그인중인 session id확인
-		
-		String customerId = request.getParameter("customerId");
-		System.out.println(customerId);
+		Customer loginCustomer = new Customer();
+		loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		String customerId = loginCustomer.getCustomerId();
+		System.out.println(customerId + " customerId ,CustomerReviewAddController");
+		request.setAttribute("customerId", customerId);
 		
 		ArrayList<HashMap<String,Object>> list = null;
 		this.orderService = new OrderService();
