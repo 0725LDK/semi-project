@@ -23,6 +23,6 @@
 		<a href="${pageContext.request.contextPath}/emp/empOne">${loginEmp.empId}님</a>
 		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	</c:if>
-	<a href="${pageContext.request.contextPath}/customer/cart">장바구니</a>
+	<a href="${pageContext.request.contextPath}/customer/customerCart">장바구니</a>
 	
 </html>
