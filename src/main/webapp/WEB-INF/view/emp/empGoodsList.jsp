@@ -34,7 +34,7 @@
 				<td>
 					<div>
 						<a href="${pageContext.request.contextPath}/emp/empGoodsOne?goodsCode=${m.goodsCode}">
-							<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="200">
+							<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250">
 						</a>
 					</div>
 					<div>

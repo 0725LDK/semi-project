@@ -6,22 +6,41 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import util.DBUtil;
 import vo.Goods;
 
 public class GoodsDao {
 	
 	// customer
 	// 카테고리별 상품 리스트 출력
+
+	public ArrayList<HashMap<String, Object>> selectGoodsCategoryList(Connection conn, String goodsCategory) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT g.goods_code goodsCode, g.goods_name goodsName, g.goods_price goodsPrice, g.goods_category goodsCategory, g.goods_content goodsContent, g.soldout soldout, img.filename filename"
+				+ " FROM goods g INNER JOIN goods_img img"
+				+ " ON g.goods_code = img.goods_code"
+				+ " WHERE g.goods_category = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, goodsCategory);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsName", rs.getString("goodsName"));
+			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("goodsCategory", rs.getString("goodsCategory"));
+			m.put("goodsContent", rs.getString("goodsContent"));
+			m.put("filename", rs.getString("filename"));
+
+			list.add(m);
+		}
+		
+		return list;
+	}
 	
-	
-	
-	
-	
-	
+
 	// emp
-	// 상품 리스트
-	public ArrayList<HashMap<String, Object>> selectgoodsList(Connection conn) throws Exception {
+	// 전체 상품 리스트
+	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		String sql = "SELECT g.goods_code goodsCode, g.goods_name goodsName, g.goods_price goodsPrice, g.goods_category goodsCategory, g.goods_content goodsContent, img.filename filename"
 				   + "	FROM goods g INNER JOIN goods_img img"
@@ -39,13 +58,13 @@ public class GoodsDao {
 			System.out.println(m+"<-- GoodsDao");
 			list.add(m);
 		}
-		DBUtil.close(rs, stmt, null);
+
 		
 		return list;
 	}
 	
 	// 상품 상세페이지 goodsOne
-	public HashMap<String, Object> selectgoodsOne(Connection conn, int goodsCode) throws Exception {
+	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		HashMap<String, Object> map = null;
 		String sql = "SELECT g.goods_code goodsCode, g.goods_name goodsName, g.goods_price goodsPrice, g.goods_category goodsCategory, g.goods_content goodsContent, g.goods_alcohol goodsAlcohol, g.goods_liter goodsLiter, g.soldout soldout, g.emp_id empId, g.hit hit, g.createdate createdate, img.filename filename, img.origin_name originName\r\n"
 				+ " FROM goods g INNER JOIN goods_img img"
@@ -71,8 +90,7 @@ public class GoodsDao {
 			map.put("originName", rs.getString("originName"));
 			System.out.println(map+"<-- GoodsDao");
 		}
-		DBUtil.close(rs, stmt, null);
-		
+
 		return map;
 	}
 	
@@ -102,9 +120,7 @@ public class GoodsDao {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("row", row);
 		map.put("autoKey", autoKey);
-		
-		DBUtil.close(rs, stmt, null);
-		
+	
 		return map;
 	}
 	
@@ -126,7 +142,6 @@ public class GoodsDao {
 		
 		int row = stmt.executeUpdate();
 		
-		DBUtil.close(null, stmt, null);
 		
 		return row;
 	}
@@ -140,7 +155,6 @@ public class GoodsDao {
 		
 		int row = stmt.executeUpdate();
 		
-		DBUtil.close(null, stmt, null);
 		
 		return row;
 	}

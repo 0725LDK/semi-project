@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import util.DBUtil;
 import vo.GoodsImg;
 
 public class GoodsImgDao {
@@ -31,7 +30,6 @@ public class GoodsImgDao {
 		stmt.setInt(4, goodsImg.getGoodsCode());
 		int row = stmt.executeUpdate();
 		System.out.println(row+"<-- GoodsImgDao");
-		DBUtil.close(null, stmt, null);
 		
 		return row;
 	}
@@ -42,9 +40,7 @@ public class GoodsImgDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsImg.getGoodsCode());
 		int row = stmt.executeUpdate();
-		
-		DBUtil.close(null, stmt, null);
-		
+			
 		return row;
 	}
 }

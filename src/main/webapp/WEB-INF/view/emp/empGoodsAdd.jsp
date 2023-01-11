@@ -48,7 +48,7 @@
 			<tr>
 				<th>상품 도수 : </th>
 				<td>
-					<input type="number" name="goodsAlcohol">
+					<input type="number" step="0.1" name="goodsAlcohol">
 				</td>
 			</tr>			
 			<tr>

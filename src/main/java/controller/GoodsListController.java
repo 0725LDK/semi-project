@@ -17,13 +17,18 @@ public class GoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String goodsCategory = null;	
+		if(request.getParameter("goodsCategory") != null){
+			goodsCategory = request.getParameter("goodsCategory");
+		}
+		System.out.println(goodsCategory + "<-- GoodsTakjuController goodsCategory"); //디버깅
+		
 		goodsService = new GoodsService();
-		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList();
+		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsCategoryList(goodsCategory);
 		request.setAttribute("list", list);
-		System.out.println(list+"<--GoodsListController  list");
+		System.out.println(list+"<--GoodsTakjuController  list");		
 		
-		
-		// takju.jsp
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}
 

@@ -32,7 +32,7 @@
 		</tr>
 		<tr>
 			<th>상품 가격 : </th>
-			<td>${map.goodsPrice}</td>
+			<td>${map.goodsPrice}원</td>
 		</tr>
 		<tr>
 			<th>상품 설명 : </th>
@@ -42,11 +42,11 @@
 		</tr>
 		<tr>
 			<th>상품 도수 : </th>
-			<td>${map.goodsAlcohol}</td>
+			<td>${map.goodsAlcohol}%</td>
 		</tr>		
 		<tr>
 			<th>상품 용량 : </th>
-			<td>${map.goodsLiter}</td>
+			<td>${map.goodsLiter}ml</td>
 		</tr>
 		<tr>
 			<th>상품 품절 : </th>
