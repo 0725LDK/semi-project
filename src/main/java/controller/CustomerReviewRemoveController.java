@@ -28,6 +28,7 @@ public class CustomerReviewRemoveController extends HttpServlet {
 		
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		
+		
 		OrderService orderService = new OrderService();
 		orderService.deleteOrderReview(orderCode);
 		

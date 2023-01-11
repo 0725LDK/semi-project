@@ -100,15 +100,35 @@ public class OrderService {
 		return row;
 	}
 	
-	//고객 주문내역 구매 확정 한정 리뷰 작성
+	//고객 주문내역 구매 확정 한정 리뷰 작성 + 포인트 지급
 	public int addOrderConfirmReview(int orderCode, String reviewMemo)
 	{
 		int row = 0;
+		int result = 0;
 		orderDao = new OrderDao();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			row = orderDao.addOrderConfirmReview(conn, orderCode, reviewMemo);
+			if(row != 1)
+			{
+				System.out.println("review 추가 실패");
+				throw new Exception();
+			}
+			else if(row == 1)
+			{
+				System.out.println("review 추가 성공");
+				result = orderDao.addCustomerReviewPoint(conn, orderCode);
+				if(result != 1)
+				{
+					System.out.println("review 추가 후 point 적립 실패");
+				}
+				else if(result==1)
+				{
+					row = result;
+					System.out.println("review 추가 후 point 적립 성공");
+				}
+			}
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -129,16 +149,37 @@ public class OrderService {
 		return row;
 	}
 	
-	//고객 리뷰 삭제
+	//고객 리뷰 삭제 + 포인트 차감
 	public int deleteOrderReview(int orderCode)
 	{
 		int row = 0;
+		int result = 0;
 		orderDao = new OrderDao();
 		Connection conn = null;
 		
 		try {
 			conn = DBUtil.getConnection();
 			row = orderDao.deleteOrderReview(conn, orderCode);
+			if(row != 1)
+			{
+				System.out.println("review 삭제 실패");
+				throw new Exception();
+			}
+			else if(row == 1)
+			{
+				System.out.println("review 삭제 성공");
+				result = orderDao.subCustomerReviewPoint(conn, orderCode);
+				if(result != 1)
+				{
+					System.out.println("review 삭제 성공 + 포인트 차감 실패");
+					throw new Exception();
+				}
+				else if(result == 1)
+				{
+					row = result;
+					System.out.println("review 삭제 성공 + 포인트 차감 성공");
+				}
+			}
 			conn.commit();
 		} catch (Exception e) {
 			try {

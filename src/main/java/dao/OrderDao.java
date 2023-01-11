@@ -16,12 +16,14 @@ public class OrderDao {
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
 		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
-				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
+				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo,ph.order_code pointCode ,ph.point_kind pointKind,od.createdate  "
 				+ " FROM orders od "
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
 				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
 				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-				+ " WHERE od.customer_id = ? AND od.order_state != '취소' ";
+				+ " LEFT OUTER JOIN point_history ph ON od.order_code = ph.order_code "
+				+ " WHERE od.customer_id = ? AND od.order_state != '취소'"
+				+ " GROUP BY orderCode ";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
@@ -37,6 +39,8 @@ public class OrderDao {
 			o.put("orderPrice",rs.getInt("orderPrice"));
 			o.put("orderState",rs.getString("orderState"));
 			o.put("reviewMemo",rs.getString("reviewMemo"));
+			o.put("pointCode",rs.getInt("pointCode"));
+			o.put("pointKind",rs.getString("pointKind"));
 			o.put("createdate",rs.getString("createdate"));
 			list.add(o);
 		}
@@ -192,5 +196,31 @@ public class OrderDao {
 		row = stmt.executeUpdate();
 		
 		return row;
+	}
+	
+	//고객 리뷰 작성시 포인트 지급
+	public int addCustomerReviewPoint(Connection conn, int orderCode)throws Exception
+	{
+		int result = 0;
+		
+		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'리뷰작성',100,CURRENT_TIMESTAMP())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		result = stmt.executeUpdate();
+		
+		return result;
+	}
+	
+	//고객 리뷰 삭제시 포인트 차감
+	public int subCustomerReviewPoint(Connection conn, int orderCode) throws Exception
+	{
+		int result = 0;
+		
+		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'리뷰삭제',-100,CURRENT_TIMESTAMP());";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		result = stmt.executeUpdate();
+		
+		return result;
 	}
 }

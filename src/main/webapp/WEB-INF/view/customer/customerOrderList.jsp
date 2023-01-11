@@ -45,16 +45,21 @@
 							<c:if test="${o.orderState == '구매확정'}">
 								<div>
 										<c:if test="${empty o.reviewMemo}">
-											<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
-												<input type="hidden" name="orderCode" value="${o.orderCode}">
-												리뷰작성 : <input type="text" name="reviewMemo">
-												<button type="submit">작성</button>
-											</form>
+											<c:if test="${empty o.pointKind || empty o.pointCode}">
+												<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
+													<input type="hidden" name="orderCode" value="${o.orderCode}">
+													리뷰작성 : <input type="text" name="reviewMemo">
+													<button type="submit">작성</button>
+												</form>
+											</c:if>
+											<c:if test="${not empty o.pointCode && not empty o.pointKind}">
+												리뷰 삭제됨..재입력 불가
+											</c:if>
 										</c:if>
 										
 										<c:if test="${not empty o.reviewMemo}">
 											작성한 리뷰 : ${o.reviewMemo}
-											<a href="${pageContext.request.contextPath}/customer/customerReviewRemove?orderCode=${o.orderCode}">삭제</a>
+											<a href="${pageContext.request.contextPath}/customer/customerReviewRemove?orderCode=${o.orderCode}&noAdd=1">삭제</a>
 										</c:if>
 								</div>
 							</c:if>

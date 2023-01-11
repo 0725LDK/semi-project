@@ -36,6 +36,13 @@ public class CustomerOrderListController extends HttpServlet {
 		ArrayList<HashMap<String,Object>> list = null;
 		this.orderService = new OrderService();
 		list = orderService.customerGetOrderList(customerId);
+		
+		int noAdd = 0; 
+		if(request.getParameter("noAdd") != null)
+		{
+			noAdd = Integer.parseInt(request.getParameter("noAdd"));
+		}
+		request.setAttribute("noAdd", noAdd);
 	
 		request.setAttribute("orderList", list);
 		
