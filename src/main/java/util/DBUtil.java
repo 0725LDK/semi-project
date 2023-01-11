@@ -18,8 +18,5 @@ public class DBUtil {
 		return conn;
 	}
 
-	public static void close(ResultSet rs, PreparedStatement stmt, Object object) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

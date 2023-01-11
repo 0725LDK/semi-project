@@ -15,7 +15,7 @@
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
 
-	<table>
+	<table border="1">
 		<tr>
 			<td>회원 번호</td>
 			<td>회원 ID</td>
