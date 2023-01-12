@@ -3,20 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
-
 <meta charset="UTF-8">
 <title>상품 상세페이지</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+
 	<!-- 네비메뉴 -->
 	<div>
 		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
 	</div>
 
 	<br>
-<div>
+
 	<table>
 		<tr>
 			<td rowspan="10">
@@ -41,61 +40,28 @@
 		</tr>
 		<tr>
 			<th>판매 가격: ${map.goodsPrice}</th>
+		</tr>		
+		<tr>
+			<th>
+				수량 : <input type ="hidden" name="sell_price" value="${map.goodsPrice}"> 
+				<input type ="text" name="amount" value="1" size="3" max=""> 
+				<input type ="button" name="add" value="+"> 
+				<input type ="button" name="minus" value="-"> 
+			</th>
+
+		</tr>	
+		<tr>
+			<th>총 가격:
+			<input type ="text" name="sum" size="11" value="" readonly="readonly">원  
+			</th>
 		</tr>	
 	</table>	
-	
-	
-<div class="content_right">
-  <h2>수량표시 + / -</h2>
-  <dl>
-    <dt>정가</dt>
-    <dd>￦200,000</dd>
-  </dl>
-  <dl>
-    <dt>판매가</dt>
-    <dd>￦160,000</dd>
-  </dl>
-  <dl>
-    <dt>플러스 마이너스</dt>
-    <dd>
-      <div class="qty">					
-        <div class="plus"><a href="javascript:change_qty2('p')"><img src="/images/sub/plus.jpg" alt="+"></a></div>
-        <input type="text" name="ct_qty" id="ct_qty" value="1" readonly="readonly">
-        <div class="minus"><a href="javascript:change_qty2('m')"><img src="/images/sub/minus.jpg" alt="-"></a></div>
-      </div>	
-    </dd>
-  </dl>
-  <dl>
-    <dt>총 금액</dt>
-    <dd id="total_amount">74,000</dd>
-  </dl>
-</div>
 
-
-
-	
-	
-	<table border="1">
-		<tr>
-			<th>수량</th>
-			<td>
-			    <button type="button" class="minus">-</button>
-				<input type="number" name="orderQuantity" value="">
-				    <button type="button" class="plus">+</button>
-			</td>
-		</tr>	
-		<tr>
-			<th>총 상품가격</th>
-			<td>
-				<input type="number" name="orderPrice" value="${map.goodsPrice}" readonly="readonly">
-			</td>
-		</tr>	
-	</table>
 	<div>
 		<a href="${pageContext.request.contextPath}/customer/customerCart">장바구니</a>
-		<a href="${pageContext.request.contextPath}/customer/customerOrder">구매하기</a>			
+		<a href="${pageContext.request.contextPath}/customer/customerOrder?goodsCode=${map.goodsCode}">구매하기</a>			
 	</div>
 	
-</div>
+
 </body>
 </html>

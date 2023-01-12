@@ -30,6 +30,8 @@ public class GoodsOneController extends HttpServlet {
 		
 	*/	
 		
+		
+		
 		// goodsOne
 		int goodsCode = 0;	
 		if(request.getParameter("goodsCode") != null){
