@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Customer;
 import vo.Emp;
@@ -33,10 +34,40 @@ public class EmpDao {
 			c.setCreatedate(rs.getString("createdate"));
 			list.add(c);
 		}
-		
 		return list;
-		
 	}
+	
+	//emp 고객 취소 리스트
+	public ArrayList<HashMap<String,Object>> empOrderCancleList(Connection conn)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		
+		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
+				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
+				+ " FROM orders od "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ " WHERE od.order_state = '취소' ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next())
+		{
+			HashMap<String,Object> o = new HashMap<String,Object>();
+			o.put("orderCode",rs.getInt("orderCode"));
+			o.put("goodsname",rs.getString("goodsname"));
+			o.put("customerId",rs.getString("customerId"));
+			o.put("address",rs.getString("address"));
+			o.put("orderQuantity",rs.getInt("orderQuantity"));
+			o.put("orderPrice",rs.getInt("orderPrice"));
+			o.put("orderState",rs.getString("orderState"));
+			o.put("createdate",rs.getString("createdate"));
+			list.add(o);
+		}
+		return list;
+	}
+	
 	
 	//emp 직원 정보 변경
 	public int updateEmpInfo(Connection conn, Emp emp) throws Exception

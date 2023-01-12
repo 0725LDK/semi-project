@@ -4,13 +4,45 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import dao.EmpDao;
+import dao.OrderDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.Emp;
 
 public class EmpService {
 	private EmpDao empDao;
+	
+	//관리자 고객 주문 취소 내역 리스트
+		public ArrayList<HashMap<String,Object>> empOrderCancleList()
+		{
+			ArrayList<HashMap<String,Object>> list = null;
+			Connection conn = null;
+			
+			try {
+				conn = DBUtil.getConnection();
+				empDao = new EmpDao();
+				list = empDao.empOrderCancleList(conn); 
+				conn.commit();
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return list;
+		}
 	
 	//emp 관리자 화면에서 고객 리스트 출력 서비스
 	public ArrayList<Customer> getEmpCustomerList()

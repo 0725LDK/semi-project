@@ -56,6 +56,8 @@ public class QuestionDao {
 		stmt.setString(3, question.getQuestionMemo());
 		row = stmt.executeUpdate();
 		
+		System.out.println(row+"<--- 고객센터문의등록 Dao row 값");
+		
 		return row;
 	}
 	
