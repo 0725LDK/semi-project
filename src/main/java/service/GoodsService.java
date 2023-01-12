@@ -16,15 +16,13 @@ public class GoodsService {
 	private GoodsDao goodsDao;
 	private GoodsImgDao goodsImgDao;
 	
-
 	
-	// customer 상품 리스트
+	// customer 카테고리별 상품 리스트
 	public ArrayList<HashMap<String, Object>> getGoodsCategoryList(String goodsCategory) {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
 		try {
-			conn = DBUtil.getConnection();
-			
+			conn = DBUtil.getConnection();		
 			goodsDao = new GoodsDao();
 			list = goodsDao.selectGoodsCategoryList(conn, goodsCategory);
 			conn.commit();
@@ -50,8 +48,7 @@ public class GoodsService {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
 		try {
-			conn = DBUtil.getConnection();
-			
+			conn = DBUtil.getConnection();		
 			goodsDao = new GoodsDao();
 			list = goodsDao.selectGoodsList(conn);
 			conn.commit();
@@ -77,8 +74,7 @@ public class GoodsService {
 		HashMap<String, Object> map = null;
 		Connection conn = null;
 		try {
-			conn = DBUtil.getConnection();
-			
+			conn = DBUtil.getConnection();			
 			goodsDao = new GoodsDao();
 			map = goodsDao.selectGoodsOne(conn, goodsCode);
 			conn.commit();
@@ -105,10 +101,8 @@ public class GoodsService {
 		goodsImgDao = new GoodsImgDao();
 		Connection conn = null;
 		try {
-			conn = DBUtil.getConnection();
-			
-			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
-			
+			conn = DBUtil.getConnection();			
+			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);		
 			int row = map.get("row");
 			if(row == 1) {
 				goodsImg.setGoodsCode(map.get("autoKey"));

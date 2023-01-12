@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,7 @@ import vo.GoodsImg;
 
 @WebServlet("/emp/empGoodsAdd")
 public class EmpGoodsAddController extends HttpServlet {
-	private GoodsService empGoodsService;
+	private GoodsService goodsService;
 	
 	//상품등록 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,14 +80,16 @@ public class EmpGoodsAddController extends HttpServlet {
 			
 			GoodsService goodsService = new GoodsService();
 			goodsService.addGoods(goods, goodsImg, dir);
+			
 			/*
 			// 디버깅 코드
 			System.out.println("문자열 매개값 : ");
-			System.out.println("상품 종류 : " + gooodsCategory);
 			System.out.println("상품 이름 : " + goodsName);
 			System.out.println("상품 가격 : " + goodsPrice);
+			System.out.println("카테고리 : " + goodsCategory);
 			System.out.println("상품 내용 : " + goodsContent);
-			System.out.println("상품 재고 : " + goodsStock);
+			System.out.println("상품 도수 : " + goodsAlcohol);
+			System.out.println("상품 용량 : " + goodsLiter);
 			System.out.println("직원 아이디 : " + empId);
 			System.out.println("히트 : " + hit);
 			
@@ -104,7 +105,9 @@ public class EmpGoodsAddController extends HttpServlet {
 			}
 		}
 		*/
+			
 		// View
 		response.sendRedirect(request.getContextPath()+"/emp/empGoodsList");
+		}
 	}
-}}
+}

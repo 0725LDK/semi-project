@@ -3,22 +3,25 @@ package vo;
 public class Notice {
 	private int noticeCode;
 	private String noticeTitle;
+	private String noticeCategory;
 	private String noticeContent;
 	private String empId;
 	private String createdate;
-	
+		
 	@Override
 	public String toString() {
-		return "Notice [noticeCode=" + noticeCode + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", empId=" + empId + ", createdate=" + createdate + "]";
+		return "Notice [noticeCode=" + noticeCode + ", noticeTitle=" + noticeTitle + ", noticeCategory="
+				+ noticeCategory + ", noticeContent=" + noticeContent + ", empId=" + empId + ", createdate="
+				+ createdate + "]";
 	}
-
 	public Notice() {}
 	
-	public Notice(int noticeCode, String noticeTitle, String noticeContent, String empId, String createdate) {
+	public Notice(int noticeCode, String noticeTitle, String noticeCategory, String noticeContent, String empId,
+			String createdate) {
 		super();
 		this.noticeCode = noticeCode;
 		this.noticeTitle = noticeTitle;
+		this.noticeCategory = noticeCategory;
 		this.noticeContent = noticeContent;
 		this.empId = empId;
 		this.createdate = createdate;
@@ -34,6 +37,12 @@ public class Notice {
 	}
 	public void setNoticeTitle(String noticeTitle) {
 		this.noticeTitle = noticeTitle;
+	}
+	public String getNoticeCategory() {
+		return noticeCategory;
+	}
+	public void setNoticeCategory(String noticeCategory) {
+		this.noticeCategory = noticeCategory;
 	}
 	public String getNoticeContent() {
 		return noticeContent;
@@ -54,4 +63,5 @@ public class Notice {
 		this.createdate = createdate;
 	}
 	
+
 }

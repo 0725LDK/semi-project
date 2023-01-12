@@ -90,35 +90,27 @@ public class EmpGoodsModifyController extends HttpServlet {
 			goods.setSoldout(soldout);
 			goods.setEmpId(empId);
 			goods.setHit(hit);
-			System.out.println(goods+"<-- EmpGoodsModifyController");
-			
+
 			goodsImg.setGoodsCode(goodsCode);
 			goodsImg.setFilename(fileSystemName);
 			goodsImg.setOriginName(originalFileName);
 			goodsImg.setContentType(contentType);
-			System.out.println(goodsImg+"<-- EmpGoodsModifyController");
 	
-			
 			/*
-			// 디버깅 코드
-			System.out.println("문자열 매개값 : ");
-			System.out.println("상품 코드 : " + goodsCode);
-			System.out.println("상품 이름 : " + goodsName);
-			System.out.println("상품 가격 : " + goodsPrice);
-			System.out.println("상품 종류 : " + goodsCategory);
-			System.out.println("상품 내용 : " + goodsContent);
-			System.out.println("상품 내용 : " + goodsAlcohol);
-			System.out.println("상품 내용 : " + goodsLiter);
-			System.out.println("상품 재고 : " + soldout);
-
-			System.out.println("직원 아이디 : " + empId);
-			System.out.println("히트 : " + hit);
+			System.out.println(goodsCode+"<-- 상품번호");		
+			System.out.println(goodsName+"<-- 상품이름");		
+			System.out.println(goodsPrice+"<-- 상품가격");		
+			System.out.println(goodsCategory+"<-- 상품카테고리");		
+			System.out.println(goodsContent+"<-- 상품설명");		
+			System.out.println(goodsAlcohol+"<-- 상품도수");		
+			System.out.println(goodsLiter+"<-- 상품용량");		
+			System.out.println(soldout+"<-- 재고");
 			
-			System.out.println("파일 매개값 : ");
-			System.out.println("파일이름 : " + fileSystemName);
-			System.out.println("원본 파일 이름 : " + originalFileName);
-			System.out.println("파일 컨텐츠 타입 : " + contentType);
+			System.out.println(fileSystemName+"<-- 파일이름");		
+			System.out.println(originalFileName+"<-- 원본파일이름");		
+			System.out.println(contentType+"<-- 파일컨텐츠타입");			
 			*/
+			
 			GoodsService goodsService = new GoodsService();
 			int row = goodsService.modifyGoods(goods, goodsImg, dir);
 			if(row == 1) {
@@ -152,6 +144,4 @@ public class EmpGoodsModifyController extends HttpServlet {
 			*/
 		}
 	}
-
-
 

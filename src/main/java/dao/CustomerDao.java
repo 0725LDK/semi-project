@@ -86,8 +86,8 @@ public class CustomerDao {
 	public int addCustomer(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO customer (customer_id, customer_pw, customer_name, customer_phone, point)"
-				+ " VALUES (?, PASSWORD(?), ?, ?, '0')";
+		String sql = "INSERT INTO customer (customer_id, customer_pw, customer_name, customer_phone, point, createdate)"
+				+ " VALUES (?, PASSWORD(?), ?, ?, '0', now())";
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		stmt.setString(2, customer.getCustomerPw());
@@ -118,8 +118,8 @@ public class CustomerDao {
 	public int addCustomerAddress(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO customer_address (customer_id, address)"
-				+ " VALUES (?, ?)";
+		String sql = "INSERT INTO customer_address (customer_id, address, createdate)"
+				+ " VALUES (?, ?, now())";
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		stmt.setString(2, customer.getAddress());
