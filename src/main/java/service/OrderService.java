@@ -100,11 +100,12 @@ public class OrderService {
 		return row;
 	}
 	
-	//고객 주문내역 구매 확정 한정 리뷰 작성 + 포인트 지급
+	//고객 주문내역 구매 확정 한정 리뷰 작성 + 포인트 지급 + 리뷰히스토리 저장
 	public int addOrderConfirmReview(int orderCode, String reviewMemo)
 	{
 		int row = 0;
 		int result = 0;
+		int addReviewHistory = 0;
 		orderDao = new OrderDao();
 		Connection conn = null;
 		try {
@@ -125,8 +126,17 @@ public class OrderService {
 				}
 				else if(result==1)
 				{
-					row = result;
-					System.out.println("review 추가 후 point 적립 성공");
+					addReviewHistory = orderDao.addReviewHistory(conn, orderCode, reviewMemo);
+					
+					if(addReviewHistory != 1)
+					{
+						System.out.println("review 추가 후 point 적립 성공 후 reviewHistory 저장 실패");
+					}
+					else if(addReviewHistory == 1)
+					{
+						row = addReviewHistory ;
+						System.out.println("review 추가 후 point 적립 성공 후 reviewHistory 저장 성공");
+					}
 				}
 			}
 			conn.commit();

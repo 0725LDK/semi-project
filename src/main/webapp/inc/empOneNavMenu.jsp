@@ -5,7 +5,7 @@
 	<a href="${pageContext.request.contextPath}/emp/empCustomerList">회원정보</a>
 	<a href="${pageContext.request.contextPath}/emp/empCustomerOrder">회원 주문 내역</a>
 	<a href="${pageContext.request.contextPath}/emp/empCustomerCancle">회원 취소/환불 내역</a>
-	<a href="${pageContext.request.contextPath}/emp/empCustomerReview">회원 리뷰</a>
+	<a href="${pageContext.request.contextPath}/emp/empCustomerReviewList">회원 리뷰</a>
 	<br>
 	<a href="${pageContext.request.contextPath}/emp/empList">직원정보</a><!-- 직원정보 수정(레벨수정), 삭제(탈퇴) 페이지 -->
 	<br>

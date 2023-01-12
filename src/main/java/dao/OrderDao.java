@@ -81,7 +81,7 @@ public class OrderDao {
 		return row;
 	}
 	
-	//고객 주문내역 구매 확정 한정 리뷰 작성
+	//고객 주문내역 구매 확정 한정 리뷰 작성 
 	public int addOrderConfirmReview(Connection conn, int orderCode, String reviewMemo)throws Exception
 	{
 		int row = 0;
@@ -94,7 +94,19 @@ public class OrderDao {
 		
 		return row;
 	}
-	
+	//리뷰 히스토리에 저장
+	public int addReviewHistory(Connection conn, int orderCode, String reviewMemo)throws Exception
+	{
+		int addReviewHistory = 0;
+		
+		String sql = "INSERT INTO review_history(order_code, review_memo, createdate)VALUES(?,?,CURRENT_TIMESTAMP())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		stmt.setString(2, reviewMemo);
+		addReviewHistory = stmt.executeUpdate();
+		
+		return addReviewHistory;
+	}
 	//리뷰 삭제
 	public int deleteOrderReview(Connection conn, int orderCode) throws Exception
 	{

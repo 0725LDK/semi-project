@@ -15,8 +15,66 @@ import vo.Emp;
 public class EmpService {
 	private EmpDao empDao;
 	
-	//관리자 고객 주문 취소 내역 리스트
-		public ArrayList<HashMap<String,Object>> empOrderCancleList()
+	//관리자 리뷰 리스트
+	public ArrayList<HashMap<String,Object>> empReviewList()
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			list = empDao.empReviewList(conn); 
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	//관리자 주종별 판매금액 합계
+	public ArrayList<HashMap<String,Object>> empSumAlcoholByCategory()
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			list = empDao.empSumAlcoholByCategory(conn); 
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	//관리자 주종별 판매횟수 합계
+		public ArrayList<HashMap<String,Object>> empCountAlcoholByCategory()
 		{
 			ArrayList<HashMap<String,Object>> list = null;
 			Connection conn = null;
@@ -24,7 +82,7 @@ public class EmpService {
 			try {
 				conn = DBUtil.getConnection();
 				empDao = new EmpDao();
-				list = empDao.empOrderCancleList(conn); 
+				list = empDao.empSumAlcoholByCategory(conn); 
 				conn.commit();
 			} catch (Exception e) {
 				try {
@@ -43,6 +101,35 @@ public class EmpService {
 			}
 			return list;
 		}
+	
+	//관리자 고객 주문 취소 내역 리스트
+	public ArrayList<HashMap<String,Object>> empOrderCancleList()
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			list = empDao.empOrderCancleList(conn); 
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 	
 	//emp 관리자 화면에서 고객 리스트 출력 서비스
 	public ArrayList<Customer> getEmpCustomerList()

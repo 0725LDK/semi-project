@@ -68,6 +68,56 @@ public class EmpDao {
 		return list;
 	}
 	
+	//emp 리뷰 리스트업
+	public ArrayList<HashMap<String,Object>> empReviewList(Connection conn)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT re.order_code orderCode, od.customer_id customerId, gd.goods_name goodsName "
+				+ "			, review_memo reviewMemo, re.createdate reviewDate, ph.point_kind pointKind, ph.createdate pointDate "
+				+ " FROM review_history re "
+				+ " INNER JOIN orders od ON re.order_code = od.order_code "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next())
+		{
+			HashMap<String,Object> r = new HashMap<String,Object>();
+			r.put("orderCode",rs.getInt("orderCode"));
+			r.put("customerId",rs.getString("customerId"));
+			r.put("goodsname",rs.getString("goodsname"));
+			r.put("reviewMemo",rs.getString("reviewMemo"));
+			r.put("reviewDate",rs.getString("reviewDate"));
+			r.put("pointKind",rs.getString("pointKind"));
+			r.put("pointDate",rs.getString("pointDate"));
+			list.add(r);
+		}
+		return list;
+	}
+	
+	//emp 주종별 판매금액 합계 + 판매횟수
+	public ArrayList<HashMap<String,Object>> empSumAlcoholByCategory(Connection conn)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT goods_category goodsCategory, SUM(od.order_price) sumByCategory, COUNT(goods_category) categoryCount"
+				+ " FROM orders od "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " WHERE od.order_state = '구매확정' "
+				+ " GROUP BY goods_category";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next())
+		{
+			HashMap<String,Object> s = new HashMap<String,Object>();
+			s.put("goodsCategory",rs.getInt("goodsCategory"));
+			s.put("sumByCategory",rs.getString("sumByCategory"));
+			s.put("categoryCount",rs.getString("categoryCount"));
+			list.add(s);
+		}
+		return list;
+	}
 	
 	//emp 직원 정보 변경
 	public int updateEmpInfo(Connection conn, Emp emp) throws Exception
