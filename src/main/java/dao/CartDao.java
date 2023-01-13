@@ -68,7 +68,7 @@ public class CartDao {
 				+ "				, c.cart_quantity cartQuantity"
 				+ "				, g.goods_price goodsPrice"
 				+ " 	FROM cart c"
-				+ "		INNER JOIN goods g ON c.goods_code = g.goods_code"
+				+ "			INNER JOIN goods g ON c.goods_code = g.goods_code"
 				+ " WHERE c.customer_id = 'goodee') t";
 		
 		stmt = conn.prepareStatement(sql);
@@ -78,6 +78,30 @@ public class CartDao {
 		
 		while(rs.next()) {
 			m.put("sumPrice", rs.getInt("sumPrice"));
+		}
+		return m;
+	}
+	
+	// cartQuantity 합계
+	public HashMap<String, Object> selectCartQuantitySum(Connection conn, String customerId) throws Exception {
+		HashMap<String, Object> m = new HashMap<String, Object>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT SUM(t.cartQuantity) sumQuantity"
+				+ "	FROM (SELECT c.goods_code goodsCode"
+				+ "				, c.cart_quantity cartQuantity"
+				+ "				, g.goods_price goodsPrice"
+				+ "		FROM cart c\r\n"
+				+ "			INNER JOIN goods g ON c.goods_code = g.goods_code"
+				+ " 	WHERE c.customer_id = 'goodee') t";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		
+		rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			m.put("sumQuantity", rs.getInt("sumQuantity"));
 		}
 		return m;
 	}

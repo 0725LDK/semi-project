@@ -14,18 +14,17 @@
 				<td>상품코드</td>
 				<td>이미지</td>
 				<td>상품명</td>
-				<td>가격</td>
 				<td>수량</td>
+				<td>가격</td>
 				<td>삭제</td>
 			</tr>
 			<c:forEach var="l" items="${list}">
 			<tr>
 				<td>${l.goodsCode}</td>
 				<td>
-					<img src="${pageContext.request.contextPath}/upload/${l.filename}" width="50" height="50">
+					<img src="${pageContext.request.contextPath}/upload/${l.filename}" width="70" height="70">
 				</td>
 				<td>${l.goodsName}</td>
-				<td>${l.goodsPrice}</td>
 				<td>
 					<form action="${pageContext.request.contextPath}/customer/customerCartModify">
 						<input type="hidden" name="goodsCode" value="${l.goodsCode}">
@@ -33,15 +32,17 @@
 						<button type="submit">수정</button>
 					</form>
 				</td>
+				<td>${l.goodsPrice}</td>
 				<td><a href="${pageContext.request.contextPath}/customer/customerCartRemove?goodsCode=${l.goodsCode}">삭제</a></td>
 			</tr>
 			</c:forEach>
 			<tr>
-				<td>총가격 : ${m.sumPrice}</td>
+				<td colspan="4">총수량 : ${n.sumQuantity}개</td>
+				<td colspan="2">총가격 : ${m.sumPrice}원</td>
 			</tr>
 		</table>
-	<a href="${pageContext.request.contextPath}/#">결제하기</a>
-	<a href="${pageContext.request.contextPath}/home/main">쇼핑더하기</a>
+	<a href="${pageContext.request.contextPath}/customer/customerCartOrder">주문하기</a>
+	<a href="${pageContext.request.contextPath}/home/main">상품추가</a>
 </body>
 
 </html>

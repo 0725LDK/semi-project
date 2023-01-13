@@ -1,12 +1,13 @@
 package service;
 
 import java.sql.Connection;
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.CustomerDao;
 import util.DBUtil;
 import vo.Customer;
+import vo.CustomerAddress;
 
 public class CustomerService {
 	private CustomerDao customerDao;
@@ -297,6 +298,87 @@ public class CustomerService {
 			}
 		} 
 		return row;
+	}
+	
+	// CustomerCartOrderController customerAddressCode 
+	public CustomerAddress getSelectCustomerAddressCode(String customerId, String address) {
+		CustomerAddress customerAddress = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			customerAddress = customerDao.selectCustomerAddressCode(conn, customerId, address);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				System.out.println("롤백 CustomerService : getSelectCustomerOne");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} 
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return customerAddress;
+	}
+	
+	// CustomerCartAddAddressController 주문시 주소추가
+	public int getAddCustomerAddress(Customer customer) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			row = customerDao.addCustomerAddress(conn, customer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				System.out.println("롤백 CustomerService : getAddCustomerAddress");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return row;
+	}
+	
+	// CustomerCartAddAddressController 주문시 주소추가
+	public ArrayList<CustomerAddress> getSelectCustomerAddressList(String customerId) {
+		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			customerDao = new CustomerDao();
+			list = customerDao.selectCustomerAddressList(conn, customerId);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				System.out.println("롤백 CustomerService : getAddCustomerAddress");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return list;
 	}
 	
 }

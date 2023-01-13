@@ -66,7 +66,7 @@ public class CartService {
 		return result;
 	}
 	
-	// CustomerCartController 장바구니 상품 합계
+	// CustomerCartController 장바구니 상품가격 합계
 	public HashMap<String, Object> getSelectSumByCart(String customerId) {
 		HashMap<String, Object> m = new HashMap<String, Object>();
 		Connection conn = null;
@@ -77,7 +77,34 @@ public class CartService {
 			conn.commit();
 		} catch(Exception e) {
 			try {
-				System.out.println("롤백 CartService : getAddCart");
+				System.out.println("롤백 CartService : getSelectSumByCart");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return m;
+	}
+	
+	// CustomerCartController 장바구니 상품수량 합계 
+	public HashMap<String, Object> getSelectCartQuantitySum(String customerId) {
+		HashMap<String, Object> m = new HashMap<String, Object>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			cartDao = new CartDao();
+			m = cartDao.selectCartQuantitySum(conn, customerId);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				System.out.println("롤백 CartService : getSelectCartQuantitySum");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();

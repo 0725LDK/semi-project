@@ -3,8 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import vo.Customer;
+import vo.CustomerAddress;
 
 public class CustomerDao {
 
@@ -277,5 +279,53 @@ public class CustomerDao {
 		
 		return row;
 	}
+	
+	// customerAddress
+	public CustomerAddress selectCustomerAddressCode(Connection conn, String customerId, String address) throws Exception {
+		CustomerAddress customerAddress = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT address_code addressCode, customer_id customerId, address"
+				+ " FROM customer_address"
+				+ " WHERE customer_id = ? AND address = ?";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, address);
+		
+		rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			customerAddress = new CustomerAddress();
+			customerAddress.setAddressCode(rs.getInt("addressCode"));
+			customerAddress.setCustomerId(rs.getString("customerId"));
+			customerAddress.setAddress(rs.getString("address"));
+		}
+		return customerAddress;
+	}
+	
+	// customerAddressList
+	public ArrayList<CustomerAddress> selectCustomerAddressList(Connection conn, String customerId) throws Exception {
+		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT address"
+				+ " FROM customer_address"
+				+ " WHERE customer_id = ?"
+				+ " ORDER BY createdate DESC LIMIT 0,5";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		
+		rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			CustomerAddress ca = new CustomerAddress();
+			ca.setAddress(rs.getString("address"));
+			list.add(ca);
+		}
+		return list;
+	}
+	
 	
 }

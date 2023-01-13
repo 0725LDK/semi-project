@@ -23,13 +23,12 @@ public class CustomerCartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		// 로그인 안되어있으면 /home/login
-		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null) {
+		if(session.getAttribute("loginCustomer") == null) {
 			response.sendRedirect(request.getContextPath()+"/home/login");
 			return;
 		}
-		
-		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		// 세션 로그인 아이디
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
 		System.out.println(customerId+" : customerId CustomerCartController");
 		
@@ -70,15 +69,18 @@ public class CustomerCartController extends HttpServlet {
 		
 		// 장바구니에 담긴 리스트
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> m = new HashMap<String, Object>();
+		HashMap<String, Object> m, n = new HashMap<String, Object>();
 		cartService = new CartService();
 		// 장바구니 리스트
 		list = cartService.getSelectCartList(customerId);
 		// 장바구니 가격 합계
 		m = cartService.getSelectSumByCart(customerId);
+		// 장바구니 수량 합계
+		n = cartService.getSelectCartQuantitySum(customerId);
 
 		request.setAttribute("list", list);
 		request.setAttribute("m", m);
+		request.setAttribute("n", n);
 
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
 	}

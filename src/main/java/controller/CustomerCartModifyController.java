@@ -40,7 +40,7 @@ public class CustomerCartModifyController extends HttpServlet {
 			System.out.println("수정실패 CustomerCartModifyController");
 		} else {
 			System.out.println("수정성공 CustomerCartModifyController");
-			// customerCart.jsp
+			// /customer/customerCart
 			response.sendRedirect(request.getContextPath()+"/customer/customerCart");
 		}
 		
