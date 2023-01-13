@@ -43,15 +43,37 @@ public class OrderService {
 	
 	
 	//고객 주문 - 주문 내역 추가
-	public int customerGetAddOrder(Order order)
+	public int customerGetAddOrder(Order order, String address, String customerId)
 	{
 		int row = 0;
+		int addressCode = 0;
 		orderDao = new OrderDao();
 		Connection conn = null;
 		
 		try {
 			conn = DBUtil.getConnection();
-			row = orderDao.addCustomerOrder(conn, order);
+			addressCode = orderDao.customerAddressCodeGet(conn, address, customerId);
+			System.out.println(address +"<--oderService addressCode");
+			if(addressCode != 1)
+			{
+				System.out.println("주소코드 추출 실패");
+				throw new Exception();
+			}
+			else if(addressCode == 1)
+			{
+				System.out.println("주소코드 추출 성공");
+				row = orderDao.addCustomerOrder(conn, order, addressCode);
+				if(row != 1)
+				{
+					System.out.println("주소코드 추출 성공 후 주문내역 추가 실패");
+					throw new Exception();
+				}
+				else if(row == 1)
+				{
+					row = addressCode;
+					System.out.println("주소코드 추출 성공 후 주문내역 추가 성공");
+				}
+			}
 			conn.commit();
 		} catch (Exception e) {
 			try {

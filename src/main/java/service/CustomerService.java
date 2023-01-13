@@ -266,6 +266,37 @@ public class CustomerService {
 		return row;
 	}
 	
-	
+	//고객 포인트 조회+업데이트
+	public int customerPointUpdate(String customerId)
+	{
+		customerDao = new CustomerDao();
+		int row = 0;
+		int searchPoint = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			searchPoint = customerDao.customerSearchPoint(conn, customerId);
+			System.out.println(searchPoint+"<--searchPoint custormerCervice");
+			row = customerDao.customerPointUpdate(conn, searchPoint, customerId);
+			System.out.println(row+"<--row custormerCervice");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		return row;
+	}
 	
 }

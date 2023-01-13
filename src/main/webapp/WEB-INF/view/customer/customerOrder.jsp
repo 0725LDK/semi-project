@@ -30,8 +30,8 @@
 					<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="100" height="150">
 				</td>
 				<td><input name="customerId" value="${loginCustomer.customerId}"> </td>
-				<td><input name="orderQuantity" value=""></td>
-				<td><input name="orderPrice" value="${map.goodsPrice}"></td>
+				<td><input name="orderQuantity" value="${goodsQuantity }"></td>
+				<td><input name="orderPrice" value="${totalPrice}"></td>
 				<td><input name="address" value="${customer.address}"></td>
 			</tr>
 		</table>

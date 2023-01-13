@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<!-- 네비메뉴 -->
+	<a href="${pageContext.request.contextPath}/home/main">메인으로</a>
 	<a href="${pageContext.request.contextPath}/customer/customerOne">회원정보</a>
 	<a href="${pageContext.request.contextPath}/customer/customerOrderList?customerId=${customerId}">주문내역</a>
 	<a href="${pageContext.request.contextPath}/customer/customerOrderCancleList?customerId=${customerId}">취소/환불내역</a>

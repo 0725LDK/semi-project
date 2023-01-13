@@ -30,9 +30,15 @@ public class CustomerOneController extends HttpServlet {
 		loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
 		System.out.println(customerId + " customerId ,CustomerOneController");
+		
+		
 		// 회원정보 받아오기
 		Customer customer = new Customer();
 		customerService = new CustomerService();
+		//포인트 업데이트
+		int point = customerService.customerPointUpdate(customerId);
+		customer.setPoint(point);
+		
 		customer = customerService.getSelectCustomerOne(customerId);
 		
 		request.setAttribute("customer", customer);

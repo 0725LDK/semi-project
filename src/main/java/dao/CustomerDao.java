@@ -37,12 +37,12 @@ public class CustomerDao {
 		Customer customer = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT t.customerId customerId, t.customerName customerName, t.customerPhone customerPhone, t.address address, t.addressCode addressCode"
-				+ " FROM(SELECT c.customer_id customerId, c.customer_name customerName, c.customer_phone customerPhone, a.address address, a.address_code addressCode"
-				+ "		FROM customer c INNER JOIN customer_address a"
-				+ "		ON c.customer_id = a.customer_id) t"
-				+ " WHERE customerId = ?"
-				+ " ORDER BY addressCode DESC;";
+		String sql = "SELECT  t.customerId customerId, t.customerName customerName, t.customerPhone customerPhone, t.address address, t.addressCode addressCode, t.point point "
+				+ "				FROM(SELECT POINT, c.customer_id customerId, c.customer_name customerName, c.customer_phone customerPhone, a.address address, a.address_code addressCode "
+				+ "						FROM customer c INNER JOIN customer_address a "
+				+ "						ON c.customer_id = a.customer_id) t "
+				+ "				WHERE customerId = ? "
+				+ "				ORDER BY addressCode DESC";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
@@ -55,6 +55,7 @@ public class CustomerDao {
 			customer.setCustomerName(rs.getString("customerName"));
 			customer.setCustomerPhone(rs.getString("customerPhone"));
 			customer.setAddress(rs.getString("address"));
+			customer.setPoint(rs.getInt("point"));
 		}
 		return customer;
 	}
@@ -243,6 +244,38 @@ public class CustomerDao {
 		return row;
 	}
 	
-	
+	//회원 포인트 내역 조회
+	public int customerSearchPoint(Connection conn, String customerId)throws Exception
+	{
+		int searchPoint = 0;
+
+		String sql = "SELECT SUM(POINT) sumPoint "
+				+ "		FROM point_history ph "
+				+ "		RIGHT OUTER JOIN orders od ON ph.order_code = od.order_code "
+				+ " WHERE customer_id = ? "
+				+ " GROUP BY customer_id";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next())
+		{
+			searchPoint = rs.getInt("sumPoint");
+			System.out.println(searchPoint+"<--고객포인트 Dao");
+		}
+
+		return searchPoint; 
+	}
+	public int customerPointUpdate(Connection conn, int searchPoint, String customerId)throws Exception
+	{
+		int row = 0;
+		
+		String sql = "UPDATE customer SET POINT = ? WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, searchPoint);
+		stmt.setString(2, customerId);
+		row = stmt.executeUpdate(); 
+		
+		return row;
+	}
 	
 }

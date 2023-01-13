@@ -17,13 +17,7 @@
 	</div>
 	
 	<table>
-		<tr>
-			<td>회원 ID</td>	
-			<td>상품명</td>	
-			<td>상품수량</td>	
-			<td>주소</td>	
-			<td>구매일자</td>	
-		</tr>
+		
 		<table border="1">
 			<tr>
 				<td>상품명</td>

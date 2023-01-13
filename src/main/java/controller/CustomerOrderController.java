@@ -23,6 +23,8 @@ public class CustomerOrderController extends HttpServlet {
 	//고객 주문 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8");
+		
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer == null) { // 로그아웃 상태
@@ -36,6 +38,8 @@ public class CustomerOrderController extends HttpServlet {
 		Customer customer = customerService.getSelectCustomerOne(customerId);
 		request.setAttribute("customer", customer);
 		
+		int goodsQuantity = Integer.parseInt(request.getParameter("goodsQuantity"));
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		
 		// goodsOne
 		int goodsCode = 0;	
@@ -49,11 +53,8 @@ public class CustomerOrderController extends HttpServlet {
 		GoodsService goodsService = new GoodsService();
 		map = goodsService.getGoodsOne(goodsCode);    
 		request.setAttribute("map", map); // view 페이지와 공유할 모델데이터 저장	
-		
-		
-		
-		
-	
+		request.setAttribute("goodsQuantity", goodsQuantity); 
+		request.setAttribute("totalPrice", totalPrice); 	
 		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerOrder.jsp").forward(request, response);
 	}
@@ -61,11 +62,14 @@ public class CustomerOrderController extends HttpServlet {
 	//고객 주문 - 주문 리스트 추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8");
+		
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		String customerId = request.getParameter("customerId");
+		System.out.println(customerId+"<--customerId controller");
+		String address = request.getParameter("address");
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
-		int orderPrice = Integer.parseInt(request.getParameter("totalPrice"));
-		int address = Integer.parseInt(request.getParameter("address"));
+		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		String orderState = "결제";
 		
 		Order order = new Order();
@@ -73,11 +77,10 @@ public class CustomerOrderController extends HttpServlet {
 		order.setCustomerId(customerId);
 		order.setOrderQuantity(orderQuantity);
 		order.setOrderPrice(orderPrice);
-		order.setAddressCode(address);
 		order.setOrderState(orderState);
 		
 		OrderService orderService = new OrderService();
-		orderService.customerGetAddOrder(order);
+		orderService.customerGetAddOrder(order, address, customerId);
 		
 		System.out.println("order 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerOrderList");

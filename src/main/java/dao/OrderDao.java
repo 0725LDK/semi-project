@@ -47,8 +47,31 @@ public class OrderDao {
 		return list;
 	}
 	
+	//고객 상품 구입 시 주소 코드 추출
+	public int customerAddressCodeGet(Connection conn, String address, String customerId) throws Exception
+	{
+		int addressCode = 0;
+		
+		String sql = " SELECT ca.address_code addressCode"
+				+ " FROM customer_address ca "
+				+ " INNER JOIN orders od ON ca.address_code = od.address_code "
+				+ " WHERE address = ? AND od.customer_id = ? "
+				+ " GROUP BY ca.address_code ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, address);
+		stmt.setString(2, customerId);
+		
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next())
+		{
+			addressCode = rs.getInt("addressCode");
+		}
+		System.out.println(address +"<--oderDao addressCode");
+		return addressCode;
+	}
+	
 	//고객 상품 구입 & orderList 추가
-	public int addCustomerOrder(Connection conn, Order order) throws Exception
+	public int addCustomerOrder(Connection conn, Order order, int addressCode) throws Exception
 	{
 		int row = 0;
 		
@@ -57,7 +80,7 @@ public class OrderDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, order.getGoodsCode());
 		stmt.setString(2, order.getCustomerId());
-		stmt.setInt(3, order.getAddressCode());
+		stmt.setInt(3, addressCode);
 		stmt.setInt(4, order.getOrderQuantity());
 		stmt.setInt(5, order.getOrderPrice());
 		stmt.setString(6, order.getOrderState());
@@ -120,7 +143,7 @@ public class OrderDao {
 		return row;
 	}
 	
-	//관리자 전체 고객 주문 내역 확인
+	//관리자 전체 고객 주문 내역 확인(취소제외)
 	public ArrayList<HashMap<String,Object>> empOrderListAll(Connection conn)throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
@@ -130,7 +153,8 @@ public class OrderDao {
 				+ " FROM orders od "
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
 				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
-				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code ";
+				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ " WHERE order_state != '취소'";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		

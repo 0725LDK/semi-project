@@ -33,6 +33,10 @@
          <td>휴대폰 : </td>
          <td>${customer.customerPhone}</td>
       </tr>
+      <tr>
+         <td>포인트 : </td>
+         <td>${customer.point}P</td>
+      </tr>
    </table>
    
    <!-- 수정/삭제/탈퇴 -->
