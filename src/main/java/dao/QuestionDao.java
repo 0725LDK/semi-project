@@ -90,8 +90,8 @@ public class QuestionDao {
 		return row;
 	}
 	
-	//관리자 - 고객센터 문의 리스트
-	public ArrayList<HashMap<String,Object>> EmpSelectQuestionListByPage(Connection conn)throws Exception
+	//관리자 - 고객센터 문의 리스트(검색어 없을때)
+	public ArrayList<HashMap<String,Object>> empQuestionList(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
@@ -101,9 +101,12 @@ public class QuestionDao {
 				+ "		 FROM question qu "
 				+ "		 LEFT OUTER JOIN question_comment qc ON qu.question_code = qc.question_code "
 				+ "		 LEFT OUTER JOIN orders od ON qu.orders_code = od.order_code "
-				+ "		 LEFT OUTER JOIN goods gd ON od.goods_code = gd.goods_code ";
+				+ "		 LEFT OUTER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "		 LIMIT ?,?";
 				
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next())
@@ -122,6 +125,85 @@ public class QuestionDao {
 		
 		return list;
 	}
+	
+	//관리자 - 고객센터 문의 리스트 총 갯수(검색어 없을때)
+	public int empQuestionListCount(Connection conn) throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count "
+				+ "		FROM question ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+	//관리자 - 고객센터 문의 리스트(검색어 있을때)
+		public ArrayList<HashMap<String,Object>> empQuestionListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+		{
+			ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+			
+			String sql = "SELECT qu.question_code questionCode, od.customer_id customerId, gd.goods_name goodsName, qu.category category "
+					+ "	 		, qu.question_memo questionMemo, qu.createdate questionCreatedate "
+					+ "         , qc.comment_memo commentMemo, qc.createdate commentCreatedate "
+					+ "		 FROM question qu "
+					+ "		 LEFT OUTER JOIN question_comment qc ON qu.question_code = qc.question_code "
+					+ "		 LEFT OUTER JOIN orders od ON qu.orders_code = od.order_code "
+					+ "		 LEFT OUTER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ "	     WHERE od.customer_id LIKE ?"
+					+ "		 LIMIT ?,?";
+					
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{
+				HashMap<String,Object> q = new HashMap<String,Object>();
+				q.put("questionCode", rs.getInt("questionCode"));
+				q.put("customerId", rs.getString("customerId"));
+				q.put("goodsName", rs.getString("goodsName"));
+				q.put("category", rs.getString("category"));
+				q.put("questionMemo", rs.getString("questionMemo"));
+				q.put("questionCreatedate", rs.getString("questionCreatedate"));
+				q.put("commentMemo", rs.getString("commentMemo"));
+				q.put("commentCreatedate", rs.getString("commentCreatedate"));
+				list.add(q);
+			}
+			
+			return list;
+		}
+		
+		//관리자 - 고객센터 문의 리스트 총 갯수(검색어 있을때)
+		public int empQuestionListCountSearch(Connection conn, String search) throws Exception
+		{
+			int count = 0;
+			
+			String sql = "SELECT COUNT(*) count "
+					+ "		 FROM question qu "
+					+ "		 LEFT OUTER JOIN question_comment qc ON qu.question_code = qc.question_code "
+					+ "		 LEFT OUTER JOIN orders od ON qu.orders_code = od.order_code "
+					+ "		 LEFT OUTER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ "	     WHERE od.customer_id LIKE ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+			{
+				count = rs.getInt("count");
+			}
+			return count;
+		}
+		
+	
+		
 	
 	//관리자 - 고객센터 답변 작성
 	public int empAddQuestion(Connection conn, QuestionComment questionComment) throws Exception

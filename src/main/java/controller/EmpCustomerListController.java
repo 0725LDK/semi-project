@@ -47,16 +47,15 @@ public class EmpCustomerListController extends HttpServlet {
 			
 			list = empService.getEmpCustomerList(beginRow, rowPerPage);
 			count = empService.empCustomerCount();
-			lastPage = count/rowPerPage;
 			
 		}
 		else if(search != null)
 		{
 			list = empService.getEmpCustomerListSearch(beginRow, rowPerPage, search);
 			count = empService.empCustomerCountSearch(search);
-			lastPage = count/rowPerPage;		
 		}
 		
+		lastPage = count/rowPerPage;		
 		if(count%rowPerPage !=0)
 		{
 			lastPage = lastPage+1;

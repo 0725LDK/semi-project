@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import dao.OrderDao;
 import dao.QuestionDao;
 import util.DBUtil;
 import vo.Question;
@@ -134,8 +136,8 @@ public class QuestionService {
 		return row;
 	}
 	
-	//관리자 - 고객센터 문의 리스트
-	public ArrayList<HashMap<String,Object>> empGetQuestionListByPage()
+	//관리자 - 고객센터 문의 리스트(검색어 없을때) 1
+	public ArrayList<HashMap<String,Object>> empQuestionList(int beginRow, int rowPerPage)
 	{
 		ArrayList<HashMap<String,Object>> list = null;
 		Connection conn = null;
@@ -143,7 +145,7 @@ public class QuestionService {
 		try {
 			conn = DBUtil.getConnection();
 			questionDao = new QuestionDao();
-			list = questionDao.EmpSelectQuestionListByPage(conn);
+			list = questionDao.empQuestionList(conn, beginRow, rowPerPage);
 			conn.commit();
 			System.out.println("EmpQuestionService 커밋");
 		} catch (Exception e) {
@@ -164,7 +166,127 @@ public class QuestionService {
 		}
 		return list;
 	}
-
+	
+	//관리자 고객센터 문의 리스트 총 수(검색어 있을때)2
+	public int empQuestionListCount()
+	{
+		int count = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			questionDao = new QuestionDao();
+			count = questionDao.empQuestionListCount(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	//관리자 - 고객센터 문의 리스트(검색어 있을때) 3
+	public ArrayList<HashMap<String,Object>> empQuestionListSearch(int beginRow, int rowPerPage, String search)
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			questionDao = new QuestionDao();
+			list = questionDao.empQuestionListSearch(conn, beginRow, rowPerPage, search);
+			conn.commit();
+			System.out.println("EmpQuestionService 커밋");
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+				System.out.println("EmpQuestionService 롤백");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	//관리자 고객센터 문의 리스트 총 수(검색어 있을때)4
+	public int empQuestionListCountSearch(String search)
+	{
+		int count = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			questionDao = new QuestionDao();
+			count = questionDao.empQuestionListCountSearch(conn, search);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	//관리자 전체 고객 주문내역 건 수 확인(검색어 없을때)
+	public int empOrderListCount()
+	{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			questionDao = new QuestionDao();
+			count = questionDao.empQuestionListCount(conn);
+			System.out.println(count+"<--orderService count 수");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
 	//관리자 - 고객센터 문의 답변 작성
 	public int empGetAddQuestion(QuestionComment questionComment)
 	{

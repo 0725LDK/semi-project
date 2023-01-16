@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dao.EmpDao;
 import dao.OrderDao;
 import util.DBUtil;
 import vo.Order;
@@ -262,8 +263,8 @@ public class OrderService {
 		return row;
 	}
 	
-	//관리자 전체 고객 주문 내역 확인 
-	public ArrayList<HashMap<String,Object>> empGetOrderListAll()
+	//관리자 전체 고객 주문 내역 확인 (검색어 없을때)
+	public ArrayList<HashMap<String,Object>> empGetOrderListAll(int beginRow, int rowPerPage)
 	{
 		ArrayList<HashMap<String,Object>> list = null;
 		Connection conn = null;
@@ -271,7 +272,7 @@ public class OrderService {
 		try {
 			conn = DBUtil.getConnection();
 			orderDao = new OrderDao();
-			list = orderDao.empOrderListAll(conn); 
+			list = orderDao.empOrderListAll(conn, beginRow, rowPerPage);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -289,6 +290,93 @@ public class OrderService {
 			}
 		}
 		return list;
+	}
+	
+	//관리자 전체 고객 주문내역 건 수 확인(검색어 없을때)
+	public int empOrderListCount()
+	{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			orderDao = new OrderDao();
+			count = orderDao.empOrderListCount(conn);
+			System.out.println(count+"<--orderService count 수");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	//관리자 전체 고객 주문 내역 확인 (검색어 있을때)
+	public ArrayList<HashMap<String,Object>> empGetOrderListAllSearch(int beginRow, int rowPerPage, String search)
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			orderDao = new OrderDao();
+			list = orderDao.empOrderListAllSearch(conn, beginRow, rowPerPage, search);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	//관리자 전체 고객 주문내역 건 수 확인(검색어 있을때)
+	public int empOrderListCountSearch(String search)
+	{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			orderDao = new OrderDao();
+			count = orderDao.empOrderListCountSearch(conn, search);
+			System.out.println(count+"<--orderService count 수");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
 	}
 		
 	//관리자 고객 주문 내역 상태 변경

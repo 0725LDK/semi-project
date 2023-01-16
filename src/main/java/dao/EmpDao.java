@@ -106,8 +106,8 @@ public class EmpDao {
 	}
 	
 	
-	//emp 고객 취소 리스트
-	public ArrayList<HashMap<String,Object>> empOrderCancleList(Connection conn)throws Exception
+	//emp 고객 취소 리스트(검색어 없을때)
+	public ArrayList<HashMap<String,Object>> empOrderCancleList(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
@@ -117,8 +117,11 @@ public class EmpDao {
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
 				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
 				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-				+ " WHERE od.order_state = '취소' ";
+				+ " WHERE od.order_state = '취소' "
+				+ " LIMIT ?,? ";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next())
@@ -137,8 +140,86 @@ public class EmpDao {
 		return list;
 	}
 	
-	//emp 리뷰 리스트업
-	public ArrayList<HashMap<String,Object>> empReviewList(Connection conn)throws Exception
+	//emp 고객 취소 리스트 총 건수(검색어 없을때)
+	public int empOrderCancleListCount(Connection conn)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count "
+				+ "				FROM orders od "
+				+ "				INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "				INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ "				LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ "				WHERE od.order_state = '취소' ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+	
+	//emp 고객 취소 리스트(검색어 있을때)
+	public ArrayList<HashMap<String,Object>> empOrderCancleListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		
+		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
+				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
+				+ " FROM orders od "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ " WHERE od.order_state = '취소' AND od.customer_id LIKE ?"
+				+ " LIMIT ?,? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next())
+		{
+			HashMap<String,Object> o = new HashMap<String,Object>();
+			o.put("orderCode",rs.getInt("orderCode"));
+			o.put("goodsname",rs.getString("goodsname"));
+			o.put("customerId",rs.getString("customerId"));
+			o.put("address",rs.getString("address"));
+			o.put("orderQuantity",rs.getInt("orderQuantity"));
+			o.put("orderPrice",rs.getInt("orderPrice"));
+			o.put("orderState",rs.getString("orderState"));
+			o.put("createdate",rs.getString("createdate"));
+			list.add(o);
+		}
+		return list;
+	}
+	
+	//emp 고객 취소 리스트 총 건수(검색어 있을때)
+	public int empOrderCancleListCountSearch(Connection conn, String search)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count "
+				+ "				FROM orders od "
+				+ "				INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "				INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ "				LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ "				WHERE od.order_state = '취소'  AND od.customer_id LIKE ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+	
+	//emp 회원 리뷰 추가&삭제 내역 (검색어 없을때)
+	public ArrayList<HashMap<String,Object>> empReviewList(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		String sql = "SELECT re.order_code orderCode, od.customer_id customerId, gd.goods_name goodsName "
@@ -146,8 +227,12 @@ public class EmpDao {
 				+ " FROM review_history re "
 				+ " INNER JOIN orders od ON re.order_code = od.order_code "
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-				+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code";
+				+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code"
+				+ " LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next())
@@ -164,6 +249,82 @@ public class EmpDao {
 		}
 		return list;
 	}
+	
+	////emp 회원 리뷰 추가&삭제 총 건 수 (검색어 없을때)
+	public int empReviewListCount(Connection conn)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) "
+				+ "				 FROM review_history re "
+				+ "				 INNER JOIN orders od ON re.order_code = od.order_code "
+				+ "				 INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "				 LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+	
+	//emp 회원 리뷰 추가&삭제 내역 (검색어 있을때)
+		public ArrayList<HashMap<String,Object>> empReviewListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+		{
+			ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+			String sql = "SELECT re.order_code orderCode, od.customer_id customerId, gd.goods_name goodsName "
+					+ "			, review_memo reviewMemo, re.createdate reviewDate, ph.point_kind pointKind, ph.createdate pointDate "
+					+ " FROM review_history re "
+					+ " INNER JOIN orders od ON re.order_code = od.order_code "
+					+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code"
+					+ " WHERE od.customer_id LIKE ?"
+					+ " LIMIT ?,?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1,"%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{
+				HashMap<String,Object> r = new HashMap<String,Object>();
+				r.put("orderCode",rs.getInt("orderCode"));
+				r.put("customerId",rs.getString("customerId"));
+				r.put("goodsname",rs.getString("goodsname"));
+				r.put("reviewMemo",rs.getString("reviewMemo"));
+				r.put("reviewDate",rs.getString("reviewDate"));
+				r.put("pointKind",rs.getString("pointKind"));
+				r.put("pointDate",rs.getString("pointDate"));
+				list.add(r);
+			}
+			return list;
+		}
+		
+		////emp 회원 리뷰 추가&삭제 총 건 수 (검색어 있을때)
+		public int empReviewListCountSearch(Connection conn, String search)throws Exception
+		{
+			int count = 0;
+			
+			String sql = "SELECT COUNT(*) count"
+					+ "			 FROM review_history re "
+					+ "			 INNER JOIN orders od ON re.order_code = od.order_code "
+					+ "			 INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ "			 LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code "
+					+ " 	WHERE od.customer_id LIKE ? ";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1,"%"+search+"%");
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+			{
+				count = rs.getInt("count");
+			}
+			return count;
+		}
+		
 	
 	//emp 주종별 판매금액 합계 + 판매횟수
 	public ArrayList<HashMap<String,Object>> empSumAlcoholByCategory(Connection conn)throws Exception
@@ -232,16 +393,18 @@ public class EmpDao {
 		return row;
 	}
 	
-	// emp 리스트
-	public ArrayList<Emp> selectEmpList(Connection conn) throws Exception {
+	// emp 리스트(검색어 없을때)
+	public ArrayList<Emp> selectEmpList(Connection conn, int beginRow, int rowPerPage) throws Exception {
 		ArrayList<Emp> list = new ArrayList<Emp>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT emp_code empCode, emp_id empId, emp_name empName, active, auth_code authCode, createdate"
 				+ " FROM emp"
-				+ " ORDER BY createdate DESC";
+				+ " ORDER BY createdate DESC"
+				+ " LIMIT ?,?";
 		stmt = conn.prepareStatement(sql);
-		
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		rs = stmt.executeQuery();
 		
 		while(rs.next()) {
@@ -256,6 +419,66 @@ public class EmpDao {
 		}
 		return list;
 	}
+	//emp 직원리스트 총 갯수(검색어 없을때)
+	public int selectEmpListCount(Connection conn)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count from emp";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+	// emp 리스트(검색어 있을때)
+	public ArrayList<Emp> selectEmpListSearch(Connection conn, int beginRow, int rowPerPage, String search) throws Exception {
+		ArrayList<Emp> list = new ArrayList<Emp>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT emp_code empCode, emp_id empId, emp_name empName, active, auth_code authCode, createdate"
+				+ " FROM emp"
+				+ " WHERE emp_id LIKE ?"
+				+ " ORDER BY createdate DESC"
+				+ " LIMIT ?,?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Emp emp = new Emp();
+			emp.setEmpCode(rs.getInt("empCode"));
+			emp.setEmpId(rs.getString("empId"));
+			emp.setEmpName(rs.getString("empName"));
+			emp.setActive(rs.getString("active"));
+			emp.setAuthCode(rs.getInt("authCode"));
+			emp.setCreatedate(rs.getString("createdate"));
+			list.add(emp);
+		}
+		return list;
+	}
+	//emp 직원리스트 총 갯수(검색어 있을때)
+	public int selectEmpListCountSearch(Connection conn, String search)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count from emp WHERE emp_id LIKE ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
+
 	
 	// emp 로그인
 	public Emp selectEmpByIdAndPw(Connection conn, Emp paramEmp) throws Exception {

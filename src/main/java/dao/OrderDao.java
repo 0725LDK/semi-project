@@ -143,8 +143,8 @@ public class OrderDao {
 		return row;
 	}
 	
-	//관리자 전체 고객 주문 내역 확인(취소제외)
-	public ArrayList<HashMap<String,Object>> empOrderListAll(Connection conn)throws Exception
+	//관리자 전체 고객 주문 내역 확인(취소제외 + 검색어 없을때)
+	public ArrayList<HashMap<String,Object>> empOrderListAll(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
@@ -154,8 +154,11 @@ public class OrderDao {
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
 				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
 				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-				+ " WHERE order_state != '취소'";
+				+ " WHERE order_state != '취소'"
+				+ " LIMIT ? , ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next())
@@ -174,6 +177,87 @@ public class OrderDao {
 		}
 		return list;
 	}
+	
+	//관리자 전체 고객 주문 내역 총 건 수(취소제외 + 검색어 없을때)
+	public int empOrderListCount(Connection conn) throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count "
+				+ "		FROM orders od "
+				+ "		INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "		INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ "		LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ "		WHERE order_state != '취소' ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		
+		return count;
+	}
+	
+	//관리자 전체 고객 주문 내역 확인(취소제외 + 검색어 있을때)
+		public ArrayList<HashMap<String,Object>> empOrderListAllSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+		{
+			ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+			
+			String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
+					+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
+					+ " FROM orders od "
+					+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+					+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+					+ " WHERE order_state != '취소' AND od.customer_id LIKE ? "
+					+ " LIMIT ? , ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{
+				HashMap<String,Object> o = new HashMap<String,Object>();
+				o.put("orderCode",rs.getInt("orderCode"));
+				o.put("goodsname",rs.getString("goodsname"));
+				o.put("customerId",rs.getString("customerId"));
+				o.put("address",rs.getString("address"));
+				o.put("orderQuantity",rs.getInt("orderQuantity"));
+				o.put("orderPrice",rs.getInt("orderPrice"));
+				o.put("orderState",rs.getString("orderState"));
+				o.put("reviewMemo",rs.getString("reviewMemo"));
+				o.put("createdate",rs.getString("createdate"));
+				list.add(o);
+			}
+			return list;
+		}
+		
+		//관리자 전체 고객 주문 내역 총 건 수(취소제외 + 검색어 있을때)
+		public int empOrderListCountSearch(Connection conn,String search) throws Exception
+		{
+			int count = 0;
+			
+			String sql = "SELECT COUNT(*) count "
+					+ "		FROM orders od "
+					+ "		INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+					+ "		INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+					+ "		LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+					+ "		WHERE order_state != '취소' AND od.customer_id LIKE ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+			{
+				count = rs.getInt("count");
+			}
+			
+			return count;
+		}
 	
 	//관리자 고객 주문 내역 상태 변경
 	public int empCustomerOrderStateUpdate(Connection conn, String orderState, int orderCode) throws Exception

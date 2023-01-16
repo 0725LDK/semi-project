@@ -39,5 +39,39 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<!-- 검색 기능 -->
+	<div>
+		<form action="${pageContext.request.contextPath}/emp/empCustomerCancle" method="get">
+			<span>고객 ID 검색 : </span>
+			<input type="text" name="search">
+			<button type="submit">검색</button>
+		</form>
+	</div>
+	
+	<!-- 페이징 버튼 -->
+	<div>
+		<c:if test="${currentPage == 1 }">
+			<span>처음으로</span>
+			<span>이전</span>
+		</c:if>
+		
+		<c:if test="${currentPage != 1 }">
+			<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?firstPage=${firstPage}">처음으로</a>
+			<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?currentPage=${currentPage-1}">이전</a>
+		</c:if>
+		
+			<span>${currentPage}</span>
+		
+		<c:if test="${currentPage == lastPage }">
+			<span>다음</span>
+			<span>마지막으로</span>
+		</c:if>
+		
+		<c:if test="${currentPage != lastPage}">
+			<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?currentPage=${currentPage+1}">다음</a>
+			<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?lastPage=${lastPage}">마지막으로</a>
+		</c:if>
+	</div>
+	
 </body>
 </html>

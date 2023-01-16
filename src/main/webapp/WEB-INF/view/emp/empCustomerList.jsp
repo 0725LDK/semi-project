@@ -41,8 +41,9 @@
 	<!-- 검색 기능 -->
 	<div>
 		<form action="${pageContext.request.contextPath}/emp/empCustomerList" method="get">
+			<span>고객 ID 검색 : </span>
 			<input type="text" name="search">
-			<button thpe="submit">검색</button>
+			<button type="submit">검색</button>
 		</form>
 	</div>
 	
@@ -60,7 +61,7 @@
 		
 			<span>${currentPage}</span>
 		
-		<c:if test="${currentPage == lastPage || lastPage == 0}">
+		<c:if test="${currentPage == lastPage}">
 			<span>다음</span>
 			<span>마지막으로</span>
 		</c:if>
