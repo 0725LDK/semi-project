@@ -84,8 +84,8 @@ public class CustomerCartOrderController extends HttpServlet {
 		customerService = new CustomerService();
 		CustomerAddress customerAddress = new CustomerAddress();
 		customerAddress = customerService.getSelectCustomerAddressCode(customerId, address);
-		int customerAddressCode = customerAddress.getAddressCode();
-		System.out.println(customerAddressCode+" : customerAddressCode CustomerCartOrderController");
+		int addressCode = customerAddress.getAddressCode();
+		System.out.println(addressCode+" : addressCode CustomerCartOrderController");
 		// 주문 가격
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		System.out.println(orderPrice+" : orderPrice CustomerCartOrderController");
@@ -100,7 +100,7 @@ public class CustomerCartOrderController extends HttpServlet {
 		
 		String code = null;
 		String quantity = null;
-		String price = null;
+		
 		for(int i=0; i<list.size(); i++) { // 장바구니에 있는 상품수만큼 반복
 			code = list.get(i).get("goodsCode").toString(); // list에 저장된 goodsCode 가져오기
 			quantity = list.get(i).get("cartQuantity").toString(); // list에 저장된 cartQuantity 가져오기
@@ -113,9 +113,9 @@ public class CustomerCartOrderController extends HttpServlet {
 			order.setOrderPrice(orderPrice);
 			order.setCustomerId(customerId);
 			order.setOrderState(orderState);
-			order.setAddressCode(customerAddressCode);
+
 			
-			int row = orderService.customerGetAddOrder(order, address, customerId);
+			int row = orderService.customerGetAddOrderByCart(order, addressCode);
 			if(row == 0) {
 				System.out.println("주문실패 CustomerCartOrderController, customerGetAddOrder");
 			} else {
@@ -123,14 +123,16 @@ public class CustomerCartOrderController extends HttpServlet {
 			}
 			
 			if(i == (list.size()-1)) { // order테이블 입력이 끝난후 
-				// /customer/customerOrderList
-				response.sendRedirect(request.getContextPath()+"/customer/customerOrderList");
+				int result = cartService.getRemoveCartById(customerId);
+				if(result == 0) {
+					System.out.println("cart삭제실패 CustomerCartOrderController, getRemoveCartById");
+				} else {
+					System.out.println("cart삭제성공 CustomerCartOrderController, getRemoveCartById");
+					// /customer/customerOrderList
+					response.sendRedirect(request.getContextPath()+"/customer/customerOrderList");
+				}
 			}
-			
 		}
 		
-
-		
 	}
-
 }

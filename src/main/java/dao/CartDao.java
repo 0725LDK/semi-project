@@ -126,7 +126,7 @@ public class CartDao {
 		return result;
 	}
 	
-	// 현재 장바구니에 있는 상품일시 수량 +1
+	// 현재 장바구니에 있는 상품일시 수량 +
 	public int modifyCartQuantityBySum(Connection conn, Cart cart) throws Exception {
 		int upResult = 0;
 		PreparedStatement stmt = null;
@@ -160,7 +160,7 @@ public class CartDao {
 		return result;
 	}
 	
-	// 장바구니 상품 삭제
+	// 장바구니 상품 삭제버튼
 	public int removeCartOne(Connection conn, Cart cart) throws Exception {
 		int result = 0;
 		PreparedStatement stmt = null;
@@ -174,4 +174,19 @@ public class CartDao {
 		
 		return result;
 	}
+	
+	// 구매완료시 장바구니상품 삭제
+	public int removeCartById(Connection conn, String customerId) throws Exception {
+		int result = 0;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM cart WHERE customer_id = ?";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		
+		result = stmt.executeUpdate();
+		
+		return result;
+	}
+	
 }

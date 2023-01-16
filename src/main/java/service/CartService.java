@@ -235,7 +235,7 @@ public class CartService {
 		return result;
 	}
 	
-	// CustomerCartRemoveController 장바구니 상품 삭제
+	// CustomerCartRemoveController 장바구니 상품 삭제 버튼
 	public int getRemoveCartOne(Cart cart) {
 		int result = 0;
 		Connection conn = null;
@@ -243,6 +243,33 @@ public class CartService {
 			conn = DBUtil.getConnection();
 			cartDao = new CartDao();
 			result = cartDao.removeCartOne(conn, cart);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				System.out.println("롤백 CartService : getSelectCartOneCk");
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	// CustomerCartOrderController 구매완료시 장바구니상품 삭제
+	public int getRemoveCartById(String customerId) {
+		int result = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			cartDao = new CartDao();
+			result = cartDao.removeCartById(conn, customerId);
 			conn.commit();
 		} catch(Exception e) {
 			try {

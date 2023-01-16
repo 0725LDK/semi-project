@@ -9,6 +9,11 @@
 </head>
 <body>
 	<h1>장바구니</h1>
+	<c:if test="${empty list}">
+		장바구니에 담긴 상품이 없습니다.
+		<a href="${pageContext.request.contextPath}/home/main">상품추가</a>
+	</c:if>
+	<c:if test="${not empty list}">
 		<table border="1">
 			<tr>
 				<td>상품코드</td>
@@ -41,8 +46,9 @@
 				<td colspan="2">총가격 : ${m.sumPrice}원</td>
 			</tr>
 		</table>
-	<a href="${pageContext.request.contextPath}/customer/customerCartOrder">주문하기</a>
-	<a href="${pageContext.request.contextPath}/home/main">상품추가</a>
+		<a href="${pageContext.request.contextPath}/customer/customerCartOrder">주문하기</a>
+		<a href="${pageContext.request.contextPath}/home/main">상품추가</a>
+	</c:if>
 </body>
 
 </html>

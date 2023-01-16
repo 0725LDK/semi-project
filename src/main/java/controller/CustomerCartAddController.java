@@ -59,7 +59,7 @@ public class CustomerCartAddController extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerCart1.jsp").forward(request, response);
 	}
 
 }
