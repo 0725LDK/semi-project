@@ -21,7 +21,7 @@
 	<div>
 		<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 	</div>	
-	
+		
 	
 	<!-- goodsList -->
 	<div>

@@ -17,6 +17,7 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	
 	
+	
 	// customer 카테고리별 상품 리스트
 	public ArrayList<HashMap<String, Object>> getGoodsCategoryList(String goodsCategory) {
 		ArrayList<HashMap<String, Object>> list = null;
@@ -44,13 +45,13 @@ public class GoodsService {
 	}	
 	
 	// emp 상품 리스트
-	public ArrayList<HashMap<String, Object>> getGoodsList() {
+	public ArrayList<HashMap<String, Object>> getGoodsList(String goodsSearch) {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();		
 			goodsDao = new GoodsDao();
-			list = goodsDao.selectGoodsList(conn);
+			list = goodsDao.selectGoodsList(conn, goodsSearch);
 			conn.commit();
 		} catch(Exception e) {
 			try {

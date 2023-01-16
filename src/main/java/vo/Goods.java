@@ -5,6 +5,7 @@ public class Goods {
 	private String goodsName;
 	private int goodsPrice;
 	private String goodsCategory;
+	private String categoryName;
 	private String goodsContent;
 	private double goodsAlcohol;
 	private int goodsLiter;
@@ -13,24 +14,26 @@ public class Goods {
 	private int hit;
 	private String createdate;
 	
-	
 	@Override
 	public String toString() {
 		return "Goods [goodsCode=" + goodsCode + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice
-				+ ", goodsCategory=" + goodsCategory + ", goodsContent=" + goodsContent + ", goodsAlcohol="
-				+ goodsAlcohol + ", goodsLiter=" + goodsLiter + ", soldout=" + soldout + ", empId=" + empId + ", hit="
-				+ hit + ", createdate=" + createdate + "]";
+				+ ", goodsCategory=" + goodsCategory + ", categoryName=" + categoryName + ", goodsContent="
+				+ goodsContent + ", goodsAlcohol=" + goodsAlcohol + ", goodsLiter=" + goodsLiter + ", soldout="
+				+ soldout + ", empId=" + empId + ", hit=" + hit + ", createdate=" + createdate + "]";
 	}
-
-	public Goods() {}
+	public Goods() {
+		super();
+	}
 	
-	public Goods(int goodsCode, String goodsName, int goodsPrice, String goodsCategory, String goodsContent,
-			double goodsAlcohol, int goodsLiter, String soldout, String empId, int hit, String createdate) {
+	public Goods(int goodsCode, String goodsName, int goodsPrice, String goodsCategory, String categoryName,
+			String goodsContent, double goodsAlcohol, int goodsLiter, String soldout, String empId, int hit,
+			String createdate) {
 		super();
 		this.goodsCode = goodsCode;
 		this.goodsName = goodsName;
 		this.goodsPrice = goodsPrice;
 		this.goodsCategory = goodsCategory;
+		this.categoryName = categoryName;
 		this.goodsContent = goodsContent;
 		this.goodsAlcohol = goodsAlcohol;
 		this.goodsLiter = goodsLiter;
@@ -62,6 +65,12 @@ public class Goods {
 	}
 	public void setGoodsCategory(String goodsCategory) {
 		this.goodsCategory = goodsCategory;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public String getGoodsContent() {
 		return goodsContent;
@@ -105,5 +114,7 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	 
+	
+	
+
 }

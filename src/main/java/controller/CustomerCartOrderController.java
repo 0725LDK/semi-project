@@ -115,7 +115,7 @@ public class CustomerCartOrderController extends HttpServlet {
 			order.setOrderState(orderState);
 			order.setAddressCode(customerAddressCode);
 			
-			int row = orderService.customerGetAddOrder(order);
+			int row = orderService.customerGetAddOrder(order, address, customerId);
 			if(row == 0) {
 				System.out.println("주문실패 CustomerCartOrderController, customerGetAddOrder");
 			} else {

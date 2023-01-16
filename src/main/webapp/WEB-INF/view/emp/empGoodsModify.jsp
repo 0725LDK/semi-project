@@ -31,11 +31,14 @@
 				<th>상품 종류 : </th>
 				<td>
 					<select name="goodsCategory">
-						<option value="${map.goodsCategory}">${map.goodsCategory}</option>
+						<option value="${map.goodsCategory}">${map.categoryName}</option>
 						<option value="1">탁주</option>
 						<option value="2">청주</option>
 						<option value="3">과실주</option>
-						<option value="4">증류주</option>
+						<option value="4">증류주</option>		
+						<option value="5">이벤트1</option>	
+						<option value="6">이벤트2</option>	
+						<option value="7">이벤트3</option>	
 					</select>
 				</td>
 			</tr>
@@ -90,7 +93,7 @@
 				<td><input type="number" name="hit" value="${map.hit}"></td>
 			</tr>
 			<tr>
-				<th>상품 이미지 : </th>
+				<th>상품 이미지 변경 : </th>
 				<td>
 					<input type="file" name="goodsImg">
 				</td>

@@ -17,7 +17,7 @@
 		<a href="${pageContext.request.contextPath}/emp/empNoticeAdd">상품 추가</a>
 	</div>	
 	<br>
-	<table border="1">
+	<table>
 		<tr>
 			<!-- 
 				varStatus 변수속성
@@ -47,17 +47,5 @@
 			</c:forEach>
 		</tr>
 	</table>
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>

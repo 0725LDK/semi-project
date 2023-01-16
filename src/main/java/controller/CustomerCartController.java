@@ -21,12 +21,26 @@ import vo.Customer;
 public class CustomerCartController extends HttpServlet {
 	private CartService cartService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginCustomer") == null) { // 비회원
+			System.out.println("비회원 장바구니");
+			request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
+			return;
+		}		
+		
+		
+		
+		
+		/*
 		HttpSession session = request.getSession();
 		// 로그인 안되어있으면 /home/login
 		if(session.getAttribute("loginCustomer") == null) {
 			response.sendRedirect(request.getContextPath()+"/home/login");
 			return;
 		}
+		*/
+		
 		// 세션 로그인 아이디
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
@@ -84,13 +98,4 @@ public class CustomerCartController extends HttpServlet {
 
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
 	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-		request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
-	}
-
 }

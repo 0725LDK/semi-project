@@ -17,6 +17,38 @@ public class NoticeService {
 	private NoticeDao noticeDao;
 	private NoticeImgDao noticeImgDao;
 	
+	public ArrayList<HashMap<String, Object>> getNoticeCategoryList(String noticeCategory) {
+		ArrayList<HashMap<String, Object>> list = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();		
+			noticeDao = new NoticeDao();
+			list = noticeDao.selectNoticeCategoryList(conn, noticeCategory);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}		
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// emp 공지 리스트
 	public ArrayList<HashMap<String, Object>> getNoticeList() {

@@ -29,13 +29,13 @@ public class EmpNoticeModifyController extends HttpServlet {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		NoticeService noticeService = new NoticeService();
 		
-		int goodsCode = 0;
+		int noticeCode = 0;
 		// 방어코드
-		if(request.getParameter("goodsCode") != null){
-			goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
-			System.out.println("goodsCode : " + goodsCode);
+		if(request.getParameter("noticeCode") != null){
+			noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
+			System.out.println("goodsCode : " + noticeCode);
 		} 
-		map = noticeService.getNoticeOne(goodsCode);
+		map = noticeService.getNoticeOne(noticeCode);
 		
 		request.setAttribute("map", map);		
 		
@@ -56,8 +56,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "UTF-8", fp);
 		
 		int noticeCode = Integer.parseInt(mreq.getParameter("noticeCode"));
-		String noticeTitle = mreq.getParameter("noticeTitle ");
-		String noticeCategory = mreq.getParameter("noticeCategory");
+		String noticeTitle = mreq.getParameter("noticeTitle");
 		String noticeContent = mreq.getParameter("noticeContent");
 		String empId = mreq.getParameter("empId");
 		System.out.println(mreq+"<-- EmpNoticeModifyController");
@@ -80,7 +79,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 			
 			notice.setNoticeCode(noticeCode);
 			notice.setNoticeTitle(noticeTitle);
-			notice.setNoticeCategory(noticeCategory);
+
 			notice.setNoticeContent(noticeContent);
 			notice.setEmpId(empId);
 
@@ -89,17 +88,16 @@ public class EmpNoticeModifyController extends HttpServlet {
 			noticeImg.setOriginName(originalFileName);
 			noticeImg.setContentType(contentType);
 	
-			/*
+			
 			System.out.println(noticeCode+"<-- 이벤트번호");		
-			System.out.println(gnoticeTitle+"<-- 이벤트제목");		
-			System.out.println(noticeCategory+"<-- 이벤트종류");		
+			System.out.println(noticeTitle+"<-- 이벤트제목");			
 			System.out.println(noticeContent+"<-- 이벤트내용");		
 			System.out.println(empId+"<-- 직원");		
 		
 			System.out.println(fileSystemName+"<-- 파일이름");		
 			System.out.println(originalFileName+"<-- 원본파일이름");		
 			System.out.println(contentType+"<-- 파일컨텐츠타입");			
-			*/
+			
 			
 			NoticeService noticeService = new NoticeService();
 			int row = noticeService.modifyNotice(notice, noticeImg, dir);
@@ -130,7 +128,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 				f.delete(); // 이미지가 아닌 파일이 업로드 되었기때문에 삭제
 			}
 			// View
-			response.sendRedirect(request.getContextPath()+"/emp/empGoodsModify?goodsCode="+goodsCode);
+			response.sendRedirect(request.getContextPath()+"/emp/empGoodsModify?goodsCode="+noticeCode);
 			*/
 		}
 	}

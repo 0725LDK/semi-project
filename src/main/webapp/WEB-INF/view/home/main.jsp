@@ -29,6 +29,20 @@
 	<div>
 		<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 	</div>	
+	<br>
+
+	<!-- 검색창 -->
+	<form method="get" action="${pageContext.request.contextPath}/home/main">
+		<c:if test="${goodsSearch != null}">
+			<input class="box" type="text" name="goodsSearch" value="${goodsSearch}">
+		</c:if>
+		<c:if test="${goodsSearch  == null}">
+			<input class="box" type="text" name="goodsSearch" placeholder="상품명을 입력하세요.">
+		</c:if>
+		<button class="btn btn-dark" type="submit">검색</button>
+	</form>	
+	<br>
+
 
 
 	<!-- 이벤트/신상품/히트상품 -->

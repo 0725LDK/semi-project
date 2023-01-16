@@ -19,11 +19,12 @@
 				<th>상품 종류 : </th>
 				<td>
 					<select name="goodsCategory">
-						<option value="${map.goodsCategory}">${map.goodsCategory}</option>
+						<option value="${map.goodsCategory}">카테고리를 선택하세요</option>
 						<option value="1">탁주</option>
 						<option value="2">청주</option>
 						<option value="3">과실주</option>
 						<option value="4">증류주</option>		
+						<option value="5">이벤트1</option>		
 					</select>
 				</td>
 			</tr>

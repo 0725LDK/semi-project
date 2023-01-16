@@ -46,7 +46,7 @@
 				<td>${map.goodsContent}</td>		
 			</tr>
 			<tr>
-				<th>주종: ${map.goodsCategory}</th>	
+				<th>주종: ${map.categoryName}</th>	
 	
 			</tr>
 			<tr>

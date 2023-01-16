@@ -3,26 +3,26 @@ package vo;
 public class Notice {
 	private int noticeCode;
 	private String noticeTitle;
-	private String noticeCategory;
 	private String noticeContent;
+	private int goodsCategory;
 	private String empId;
 	private String createdate;
-		
+	
 	@Override
 	public String toString() {
-		return "Notice [noticeCode=" + noticeCode + ", noticeTitle=" + noticeTitle + ", noticeCategory="
-				+ noticeCategory + ", noticeContent=" + noticeContent + ", empId=" + empId + ", createdate="
-				+ createdate + "]";
+		return "Notice [noticeCode=" + noticeCode + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+				+ ", goodsCategory=" + goodsCategory + ", empId=" + empId + ", createdate=" + createdate + "]";
 	}
+	
 	public Notice() {}
 	
-	public Notice(int noticeCode, String noticeTitle, String noticeCategory, String noticeContent, String empId,
+	public Notice(int noticeCode, String noticeTitle, String noticeContent, int goodsCategory, String empId,
 			String createdate) {
 		super();
 		this.noticeCode = noticeCode;
 		this.noticeTitle = noticeTitle;
-		this.noticeCategory = noticeCategory;
 		this.noticeContent = noticeContent;
+		this.goodsCategory = goodsCategory;
 		this.empId = empId;
 		this.createdate = createdate;
 	}
@@ -38,17 +38,17 @@ public class Notice {
 	public void setNoticeTitle(String noticeTitle) {
 		this.noticeTitle = noticeTitle;
 	}
-	public String getNoticeCategory() {
-		return noticeCategory;
-	}
-	public void setNoticeCategory(String noticeCategory) {
-		this.noticeCategory = noticeCategory;
-	}
 	public String getNoticeContent() {
 		return noticeContent;
 	}
 	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
+	}
+	public int getGoodsCategory() {
+		return goodsCategory;
+	}
+	public void setGoodsCategory(int goodsCategory) {
+		this.goodsCategory = goodsCategory;
 	}
 	public String getEmpId() {
 		return empId;
@@ -63,5 +63,4 @@ public class Notice {
 		this.createdate = createdate;
 	}
 	
-
 }

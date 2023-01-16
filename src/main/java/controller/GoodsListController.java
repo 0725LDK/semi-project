@@ -22,12 +22,12 @@ public class GoodsListController extends HttpServlet {
 		if(request.getParameter("goodsCategory") != null){
 			goodsCategory = request.getParameter("goodsCategory");
 		}
-		System.out.println(goodsCategory + "<-- GoodsTakjuController goodsCategory"); //디버깅
+		System.out.println(goodsCategory + "<--GoodsListController goodsCategory"); //디버깅
 		
 		goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsCategoryList(goodsCategory);
 		request.setAttribute("list", list);
-		System.out.println(list+"<--GoodsTakjuController  list");		
+		System.out.println(list+"<-- GoodsListController list");		
 		
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}

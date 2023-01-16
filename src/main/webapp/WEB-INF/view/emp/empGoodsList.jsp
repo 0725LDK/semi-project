@@ -13,6 +13,20 @@
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
+	
+	<!-- 검색창 -->
+	<form method="get" action="${pageContext.request.contextPath}/emp/empGoodsList">
+		<c:if test="${goodsSearch != null}">
+			<input class="box" type="text" name="goodsSearch" value="${goodsSearch}">
+		</c:if>
+		<c:if test="${goodsSearch  == null}">
+			<input class="box" type="text" name="goodsSearch" placeholder="상품명을 입력하세요.">
+		</c:if>
+		<button class="btn btn-dark" type="submit">검색</button>
+	</form>	
+	<br>
+	
+	
 	<table border="1">
 		<tr>
 			<!-- 
@@ -27,8 +41,8 @@
 				${s.step} for문의 증가값				
 			-->
 			<c:forEach var="m" items="${list}" varStatus="s">
-				<c:if test="${s.index != 0 && s.index % 5 == 0}">
-
+				<c:if test="${s.index != 0 && s.index % 7 == 0}">
+					</tr><tr>
 				</c:if>
 				
 				<td>

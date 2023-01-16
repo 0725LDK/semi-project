@@ -13,6 +13,10 @@
 			<td rowspan="10">
 				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="1000" height="300">
 			</td>
+			<th>이벤트 카테고리 : </th>
+			<td>${map.goodsCategory}</td>
+		</tr>
+		<tr>
 			<th>공지 제목 : </th>
 			<td>${map.noticeTitle}</td>
 		</tr>
@@ -28,7 +32,13 @@
 			<th>등록 일자 : </th>
 			<td>${map.createdate}</td>
 		</tr>
-	</table>				
+	</table>
+	
+	
+	
+	
+	
+					
 	<div>
 		<a href="${pageContext.request.contextPath}/emp/empNoticeModify?noticeCode=${map.noticeCode}">수정</a>
 		<a href="${pageContext.request.contextPath}/emp/empNoticeRemove?noticeCode=${map.noticeCode}">삭제</a>

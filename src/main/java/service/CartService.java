@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.CartDao;
+import dao.GoodsDao;
 import util.DBUtil;
 import vo.Cart;
 
 public class CartService {
 	private CartDao cartDao;
+	private GoodsDao goodsDao;
 	
 	// CustomerCartController 장바구니에 담긴 상품 정보 list
 	public ArrayList<HashMap<String, Object>> getSelectCartList(String customerId) {
@@ -65,6 +67,38 @@ public class CartService {
 		}
 		return result;
 	}
+	
+	
+	// 비회원 장바구니
+	public HashMap<String, Object> addCart(int goodsCode) {
+		HashMap<String, Object> m = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			goodsDao = new GoodsDao();
+			m = goodsDao.selectGoodsOne(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return m;
+	}	
+	
+	
+	
 	
 	// CustomerCartController 장바구니 상품가격 합계
 	public HashMap<String, Object> getSelectSumByCart(String customerId) {

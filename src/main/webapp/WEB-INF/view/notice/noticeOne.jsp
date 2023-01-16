@@ -3,46 +3,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-	
-	.banner {
-	  border: 1px outset black;
-	  background-color: white;    
-	  text-align: center;
-	}
-	
-</style>
 <meta charset="UTF-8">
 <title>EVENT PAGE</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/home/main">스토어</a>
-	<c:if test="${empty loginMember}">
-		<a href="${pageContext.request.contextPath}/home/login">로그인</a>
-	</c:if>
-	<c:if test="${not empty loginMember}">
-		<a href="#">${loginMember}</a>
-	</c:if>
-	<a href="${pageContext.request.contextPath}/customer/cart">장바구니</a>
-	<br>
-	<br>
-	
-	<!-- event page -->
-	<div class="banner">
-	  <h2>이벤트배너1 이미지</h2>
+	<!-- 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
 	</div>
-	<br>
-	<div class="banner">
-	  <h2>이벤트배너1 설명</h2>
+	<div>
+		<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 	</div>
-	<br>
-	<div class="banner">
-	  <h2>이벤트배너1 상품이미지..</h2>
+	
+	<table>
+		<tr>
+			<td rowspan="10">
+				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="1000" height="300">
+			</td>			
+	</table>	
+	
+	<!-- goodsList -->
+	<div>
+		<table border="1">
+			<tr>
+				<!-- 
+					varStatus 변수속성
+					${s.current} 현재 for문의 해당하는 번호
+					${s.index} 0부터의 순서
+					${s.count} 1부터의 순서
+					${s.first} 첫 번째인지 여부
+					${s.last} 마지막인지 여부
+					${s.begin} for문의 시작 번호
+					${s.end} for문의 끝 번호
+					${s.step} for문의 증가값				
+				-->
+				<c:forEach var="m" items="${list}" varStatus="s">
+					<c:if test="${s.index != 0 && s.index % 4 == 0}">
+						</tr><tr>
+					</c:if>		
+						
+					<td>
+						<div>
+							<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${list.goodsCode}">
+								<img src="${pageContext.request.contextPath}/upload/${list.filename}" width="200" height="250">
+							</a>
+						</div>
+						<div>
+							<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${list.goodsCode}">
+								${list.goodsName}
+							</a>
+						</div>
+						<br>
+						<div>
+							<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${list.goodsCode}">
+								${list.goodsPrice}원
+							</a>						
+						</div>
+					</td>
+				</c:forEach>
+			</tr>
+		</table>
+	</div>	
+	
+				
+	<div>
+		<a href="${pageContext.request.contextPath}/goods/goodsList?goodsCategory=5">${m.goodsCategory}구매하러가기</a>		
 	</div>
-	<br>		
-	
-	
-	
-	
 </body>
 </html>

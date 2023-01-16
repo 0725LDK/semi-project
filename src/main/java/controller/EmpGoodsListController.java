@@ -17,10 +17,19 @@ public class EmpGoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		goodsService = new GoodsService();
-		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList();
+		
+		// 검색 기능
+		request.setCharacterEncoding("UTF-8"); // 한글 처리
+		String goodsSearch = request.getParameter("goodsSearch");	
+		System.out.println("goodsSearch : " + goodsSearch);			
+				
+		goodsService = new GoodsService();		
+		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(goodsSearch);
 		request.setAttribute("list", list);
+		request.setAttribute("goodsSearch", goodsSearch); // view에서 필요	
+		
 		System.out.println(list+"<--EmpGoodsListController list");
+		System.out.println(goodsSearch+"<--EmpGoodsListController list");
 		
 		request.getRequestDispatcher("/WEB-INF/view/emp/empGoodsList.jsp").forward(request, response);
 	}

@@ -18,6 +18,7 @@ public class EmpNoticeListController extends HttpServlet {
 	private NoticeService noticeService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		noticeService = new NoticeService();
 		ArrayList<HashMap<String, Object>> list = noticeService.getNoticeList();
 		request.setAttribute("list", list);

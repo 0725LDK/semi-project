@@ -24,7 +24,7 @@
 				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="250">
 			</td>
 			<th>상품 종류 : </th>
-			<td>${map.goodsCategory}</td>
+			<td>${map.categoryName}</td>
 		</tr>
 		<tr>
 			<th>상품 이름 : </th>
