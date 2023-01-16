@@ -39,7 +39,7 @@
 							<c:if test="${q.commentMemo != null}">
 								<td>${q.commentMemo }</td>
 								<td>불가</td>
-								<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionRemove?questionCode=${q.questionCode }'>삭제</a></td>
+								<td>불가</td>
 							</c:if>
 				</tr>
 			</c:forEach>

@@ -131,15 +131,15 @@ public class EmpService {
 		return list;
 	}
 	
-	//emp 관리자 화면에서 고객 리스트 출력 서비스
-	public ArrayList<Customer> getEmpCustomerList()
+	//emp 관리자 화면에서 고객 리스트 출력 (검색어 없을때)
+	public ArrayList<Customer> getEmpCustomerList(int beginRow, int rowPerPage)
 	{
 		ArrayList<Customer> list = new ArrayList<Customer>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			empDao = new EmpDao();
-			list = empDao.empSelectCustomerList(conn);
+			list = empDao.empSelectCustomerList(conn, beginRow, rowPerPage);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -158,6 +158,91 @@ public class EmpService {
 		}
 		return list;
 	}
+	//emp 관리자 고객 총 수(검색어 없을떄)
+	public int empCustomerCount()
+	{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			count = empDao.empCustomerCount(conn);
+			System.out.println(count+"<--empService count 수");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	//emp 관리자 화면에서 고객 리스트 출력 (검색어 있을때)
+		public ArrayList<Customer> getEmpCustomerListSearch(int beginRow, int rowPerPage, String search)
+		{
+			ArrayList<Customer> list = new ArrayList<Customer>();
+			Connection conn = null;
+			try {
+				conn = DBUtil.getConnection();
+				empDao = new EmpDao();
+				list = empDao.empSelectCustomerListSearch(conn, beginRow, rowPerPage, search);
+				conn.commit();
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return list;
+		}
+		//emp 관리자 고객 총 수(검색어 있을때)
+		public int empCustomerCountSearch(String search)
+		{
+			int count = 0;
+			Connection conn = null;
+			try {
+				conn = DBUtil.getConnection();
+				empDao = new EmpDao();
+				count = empDao.empCustomerCountSearch(conn, search);
+				System.out.println(count+"<--empService searchCount 수");
+				conn.commit();
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return count;
+		}
+	
 	
 	// EmpListController 직원리스트
 	public ArrayList<Emp> getEmpList() {

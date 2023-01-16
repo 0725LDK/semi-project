@@ -11,16 +11,19 @@ import vo.Customer;
 import vo.Emp;
 
 public class EmpDao {
-	// emp 관리자 화면에서 고객 리스트업
-	public ArrayList<Customer> empSelectCustomerList(Connection conn)throws Exception
+	// emp 관리자 화면에서 고객 리스트업 (검색어 없을때)
+	public ArrayList<Customer> empSelectCustomerList(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
 		ArrayList<Customer> list = new ArrayList<Customer>();
 		
 		String sql = "SELECT customer_code customerCode, cu.customer_id customerId, customer_name customerName,"
 				+ "		 customer_phone customerPhone, ca.address address, POINT, cu.createdate"
 				+ " FROM customer cu"
-				+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id";
+				+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id"
+				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next())
 		{
@@ -36,6 +39,72 @@ public class EmpDao {
 		}
 		return list;
 	}
+	
+	// emp 관리자 화면에서 고객 리스트업 (검색어 있을때)
+		public ArrayList<Customer> empSelectCustomerListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+		{
+			ArrayList<Customer> list = new ArrayList<Customer>();
+			
+			String sql = "SELECT customer_code customerCode, cu.customer_id customerId, customer_name customerName, "
+					+ "		 customer_phone customerPhone, ca.address address, POINT, cu.createdate "
+					+ " FROM customer cu "
+					+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id "
+					+ " WHERE cu.customer_id LIKE ? "
+					+ " LIMIT ?, ? ";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next())
+			{
+				Customer c = new Customer();
+				c.setCustomerCode(rs.getInt("customerCode"));
+				c.setCustomerId(rs.getString("customerId"));
+				c.setCustomerName(rs.getString("customerName"));
+				c.setCustomerPhone(rs.getString("customerPhone"));
+				c.setAddress(rs.getString("address"));
+				c.setPoint(rs.getInt("point"));
+				c.setCreatedate(rs.getString("createdate"));
+				list.add(c);
+			}
+			return list;
+		}
+	//emp 고객 리스트 총 수(검색어 없을때)
+	public int empCustomerCount(Connection conn) throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count FROM customer";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next())
+		{
+			count = rs.getInt("count"); 
+			System.out.println(count +"<---empDao count 수");
+		}
+		
+		return count;
+	}
+	
+	//emp 고객 리스트 총 수(검색어 있을때)
+	public int empCustomerCountSearch(Connection conn, String search) throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count FROM customer WHERE customer_id LIKE ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next())
+		{
+			count = rs.getInt("count"); 
+			System.out.println(count +"<---empDao count 수");
+		}
+		
+		return count;
+	}
+	
 	
 	//emp 고객 취소 리스트
 	public ArrayList<HashMap<String,Object>> empOrderCancleList(Connection conn)throws Exception

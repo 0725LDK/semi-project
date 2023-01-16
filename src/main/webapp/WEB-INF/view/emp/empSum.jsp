@@ -43,7 +43,20 @@
 				<td>${s.categoryCount }건</td>
 			</tr>
 		</c:forEach>
-			
 	</table>
+	<br><br>
+	
+	<h3>사이트 접속자 수</h3>
+	<table border="1">
+		<tr>
+			<td>현재 접속자수 : ${currentCount }</td>
+		</tr>
+		<tr>
+			<td>오늘 접속자수 : ${todayCount }</td>
+		</tr>
+		<tr>
+			<td>누적 접속자수 : ${totalCount}</td>
+		</tr>
+	</table>	
 </body>
 </html>

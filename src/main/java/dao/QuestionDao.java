@@ -95,11 +95,13 @@ public class QuestionDao {
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
-		String sql = "SELECT qu.question_code questionCode, qu.orders_code ordersCode, qu.category category "
-				+ " 		 , qu.question_memo questionMemo, qu.createdate questionCreatedate"
-				+ "          , qc.comment_memo commentMemo, qc.createdate commentCreatedate"
-				+ " FROM question qu"
-				+ " LEFT OUTER JOIN question_comment qc ON qu.question_code = qc.question_code";
+		String sql = "SELECT qu.question_code questionCode, od.customer_id customerId, gd.goods_name goodsName, qu.category category "
+				+ "	 		, qu.question_memo questionMemo, qu.createdate questionCreatedate "
+				+ "         , qc.comment_memo commentMemo, qc.createdate commentCreatedate "
+				+ "		 FROM question qu "
+				+ "		 LEFT OUTER JOIN question_comment qc ON qu.question_code = qc.question_code "
+				+ "		 LEFT OUTER JOIN orders od ON qu.orders_code = od.order_code "
+				+ "		 LEFT OUTER JOIN goods gd ON od.goods_code = gd.goods_code ";
 				
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -108,7 +110,8 @@ public class QuestionDao {
 		{
 			HashMap<String,Object> q = new HashMap<String,Object>();
 			q.put("questionCode", rs.getInt("questionCode"));
-			q.put("ordersCode", rs.getInt("ordersCode"));
+			q.put("customerId", rs.getString("customerId"));
+			q.put("goodsName", rs.getString("goodsName"));
 			q.put("category", rs.getString("category"));
 			q.put("questionMemo", rs.getString("questionMemo"));
 			q.put("questionCreatedate", rs.getString("questionCreatedate"));

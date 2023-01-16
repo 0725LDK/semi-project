@@ -15,10 +15,11 @@
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
 	
-	<table>
+	<table border="1">
 		<tr>
 			<th>문의번호</th>
-			<th>문의상품</th>
+			<th>문의고객</th>
+			<th>상품이름</th>
 			<th>카테고리</th>
 			<th>문의사항</th>
 			<th>문의일자</th>
@@ -30,7 +31,8 @@
 		<c:forEach var="q" items="${questionList }">
 			<tr>
 				<td>${q.questionCode }</td>
-				<td>${q.ordersCode }</td>
+				<td>${q.customerId }</td>
+				<td>${q.goodsName }</td>
 				<td>${q.category }</td>
 				<td>${q.questionMemo }</td>
 				<td>${q.questionCreatedate }</td>
