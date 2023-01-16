@@ -56,6 +56,12 @@ public class LoginController extends HttpServlet {
 		if(returnCustomer != null) {
 			System.out.println("고객로그인 성공");
 			session.setAttribute("loginCustomer", returnCustomer);
+			// 미로그인시 장바구니에 상품 담은후 주문하기 클릭시 로그인 -> 장바구니페이지로 이동
+			if(session.getAttribute("productList") != null) {
+				System.out.println("고객로그인 성공 장바구니로");
+				response.sendRedirect(request.getContextPath()+"/customer/customerCart");
+				return;
+			}
 			response.sendRedirect(request.getContextPath()+"/home/main");
 			return;
 		}
