@@ -55,12 +55,12 @@ public class OrderService {
 			conn = DBUtil.getConnection();
 			addressCode = orderDao.customerAddressCodeGet(conn, address, customerId);
 			System.out.println(address +"<--oderService addressCode");
-			if(addressCode != 1)
+			if(addressCode == 0)
 			{
 				System.out.println("주소코드 추출 실패");
 				throw new Exception();
 			}
-			else if(addressCode == 1)
+			else if(addressCode != 0)
 			{
 				System.out.println("주소코드 추출 성공");
 				row = orderDao.addCustomerOrder(conn, order, addressCode);

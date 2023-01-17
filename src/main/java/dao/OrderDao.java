@@ -52,11 +52,10 @@ public class OrderDao {
 	{
 		int addressCode = 0;
 		
-		String sql = " SELECT ca.address_code addressCode"
+		String sql = " SELECT ca.address_code addressCode "
 				+ " FROM customer_address ca "
-				+ " INNER JOIN orders od ON ca.address_code = od.address_code "
-				+ " WHERE address = ? AND od.customer_id = ? "
-				+ " GROUP BY ca.address_code ";
+				+ " INNER JOIN customer cu ON ca.customer_id = cu.customer_id "
+				+ " WHERE ca.address = ? AND cu.customer_id = ? ";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, address);
 		stmt.setString(2, customerId);
@@ -201,64 +200,64 @@ public class OrderDao {
 	}
 	
 	//관리자 전체 고객 주문 내역 확인(취소제외 + 검색어 있을때)
-		public ArrayList<HashMap<String,Object>> empOrderListAllSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	public ArrayList<HashMap<String,Object>> empOrderListAllSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		
+		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
+				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
+				+ " FROM orders od "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ " WHERE order_state != '취소' AND od.customer_id LIKE ? "
+				+ " LIMIT ? , ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next())
 		{
-			ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-			
-			String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
-					+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo ,od.createdate "
-					+ " FROM orders od "
-					+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-					+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
-					+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-					+ " WHERE order_state != '취소' AND od.customer_id LIKE ? "
-					+ " LIMIT ? , ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%"+search+"%");
-			stmt.setInt(2, beginRow);
-			stmt.setInt(3, rowPerPage);
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next())
-			{
-				HashMap<String,Object> o = new HashMap<String,Object>();
-				o.put("orderCode",rs.getInt("orderCode"));
-				o.put("goodsname",rs.getString("goodsname"));
-				o.put("customerId",rs.getString("customerId"));
-				o.put("address",rs.getString("address"));
-				o.put("orderQuantity",rs.getInt("orderQuantity"));
-				o.put("orderPrice",rs.getInt("orderPrice"));
-				o.put("orderState",rs.getString("orderState"));
-				o.put("reviewMemo",rs.getString("reviewMemo"));
-				o.put("createdate",rs.getString("createdate"));
-				list.add(o);
-			}
-			return list;
+			HashMap<String,Object> o = new HashMap<String,Object>();
+			o.put("orderCode",rs.getInt("orderCode"));
+			o.put("goodsname",rs.getString("goodsname"));
+			o.put("customerId",rs.getString("customerId"));
+			o.put("address",rs.getString("address"));
+			o.put("orderQuantity",rs.getInt("orderQuantity"));
+			o.put("orderPrice",rs.getInt("orderPrice"));
+			o.put("orderState",rs.getString("orderState"));
+			o.put("reviewMemo",rs.getString("reviewMemo"));
+			o.put("createdate",rs.getString("createdate"));
+			list.add(o);
+		}
+		return list;
+	}
+	
+	//관리자 전체 고객 주문 내역 총 건 수(취소제외 + 검색어 있을때)
+	public int empOrderListCountSearch(Connection conn,String search) throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count "
+				+ "		FROM orders od "
+				+ "		INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "		INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ "		LEFT OUTER JOIN review re ON od.order_code = re.order_code "
+				+ "		WHERE order_state != '취소' AND od.customer_id LIKE ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
 		}
 		
-		//관리자 전체 고객 주문 내역 총 건 수(취소제외 + 검색어 있을때)
-		public int empOrderListCountSearch(Connection conn,String search) throws Exception
-		{
-			int count = 0;
-			
-			String sql = "SELECT COUNT(*) count "
-					+ "		FROM orders od "
-					+ "		INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-					+ "		INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
-					+ "		LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-					+ "		WHERE order_state != '취소' AND od.customer_id LIKE ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%"+search+"%");
-			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next())
-			{
-				count = rs.getInt("count");
-			}
-			
-			return count;
-		}
-	
+		return count;
+	}
+
 	//관리자 고객 주문 내역 상태 변경
 	public int empCustomerOrderStateUpdate(Connection conn, String orderState, int orderCode) throws Exception
 	{
