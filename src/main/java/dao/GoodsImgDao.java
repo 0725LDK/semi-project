@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import vo.GoodsImg;
 
 public class GoodsImgDao {
-	//INSERT
+	//상품 추가
 	public int insertGoods(Connection conn, GoodsImg goodsImg) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO goods_img(goods_code, filename, origin_name, content_type, createdate) VALUES(?, ?, ?, ?, NOW())";
@@ -20,7 +20,7 @@ public class GoodsImgDao {
 		return row;
 	}
 	
-	// UPDATE
+	// 상품 수정
 	public int updateGoods(Connection conn, GoodsImg goodsImg) throws Exception {
 		String sql = "UPDATE goods_img SET filename = ?, origin_name = ?, content_type = ? WHERE goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -34,11 +34,11 @@ public class GoodsImgDao {
 		return row;
 	}
 	
-	// DELETE
-	public int deleteGoods(Connection conn, GoodsImg goodsImg) throws Exception {
+	// 상품 삭제
+	public int deleteGoods(Connection conn, int goodsCode) throws Exception {
 		String sql = "DELETE FROM goods_img WHERE goods_code =?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, goodsImg.getGoodsCode());
+		stmt.setInt(1, goodsCode);
 		int row = stmt.executeUpdate();
 			
 		return row;

@@ -16,7 +16,7 @@
 	<form action="${pageContext.request.contextPath}/emp/empGoodsAdd" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
-				<th>상품 종류 : </th>
+				<th>상품 카테고리 : </th>
 				<td>
 					<select name="goodsCategory">
 						<option value="${map.goodsCategory}">카테고리를 선택하세요</option>
@@ -25,7 +25,17 @@
 						<option value="3">과실주</option>
 						<option value="4">증류주</option>		
 						<option value="5">이벤트1</option>		
+						<option value="6">이벤트2</option>		
+						<option value="7">이벤트3</option>		
 					</select>
+				</td>
+			</tr>
+
+
+			<tr>
+				<th>주종 : </th>
+				<td>
+					<input type="text" name="categoryName">
 				</td>
 			</tr>
 			<tr>

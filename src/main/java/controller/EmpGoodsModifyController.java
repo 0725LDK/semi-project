@@ -104,7 +104,9 @@ public class EmpGoodsModifyController extends HttpServlet {
 			System.out.println(goodsContent+"<-- 상품설명");		
 			System.out.println(goodsAlcohol+"<-- 상품도수");		
 			System.out.println(goodsLiter+"<-- 상품용량");		
-			System.out.println(soldout+"<-- 재고");
+			System.out.println(soldout+"<-- 품절");
+			System.out.println(empId+"<-- 재고");
+			System.out.println(hit+"<-- 재고");
 			
 			System.out.println(fileSystemName+"<-- 파일이름");		
 			System.out.println(originalFileName+"<-- 원본파일이름");		

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,19 +20,33 @@ public class EmpGoodsRemoveController extends HttpServlet {
 		 * 
 		 * 로그인 넣기
 		 */
-		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
-		String goodsImg = request.getParameter("goodsImg");
-		System.out.println(goodsCode+"<-- EmpGoodsRemoveController goodsCode");		
 		
-		//m
+
+		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
+		String dir = request.getServletContext().getRealPath("/upload");
+		String filename = request.getParameter("filename");
+		
+		System.out.println(goodsCode+"<-- EmpGoodsRemoveController goodsCode");		
+		System.out.println(dir+"<-- EmpGoodsRemoveController dir");		
+		System.out.println(filename+"<-- EmpGoodsRemoveController filename");		
+		
+		
+		// 서비스 호출
 		GoodsService goodsService = new GoodsService();
-		int row = goodsService.removeGoods(null, null);
-		System.out.println(row + "<--  row");
-		if(row == 1){
-			System.out.println("<-- 글 삭제 완료");		
+		int row = goodsService.removeGoods(goodsCode);
+		
+		if(row == 1) {
+			File f = new File(dir + "\\" + filename);
+			if(f.exists()) {
+				f.delete();
+			}			
+		} else {
+			System.out.println("삭제 실패");
+		}
+
 
 		response.sendRedirect(request.getContextPath()+"/emp/empGoodsList");
-		}
 	}
 }
+
 

@@ -16,7 +16,59 @@ public class GoodsService {
 	private GoodsDao goodsDao;
 	private GoodsImgDao goodsImgDao;
 	
+	// 신상품 리스트 출력
+	public ArrayList<HashMap<String, Object>> getGoodsNewList(int beginRow, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> newList = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();		
+			goodsDao = new GoodsDao();
+			newList = goodsDao.selectGoodsNewList(conn, beginRow, rowPerPage);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return newList;
+	}
 	
+	
+	
+	// 인기상품 리스트 출력
+	public ArrayList<HashMap<String, Object>> getGoodsHitList(int hit) {
+		ArrayList<HashMap<String, Object>> hitList = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();		
+			goodsDao = new GoodsDao();
+			hitList = goodsDao.selectGoodsHitList(conn, hit);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return hitList;
+	}
 	
 	// customer 카테고리별 상품 리스트
 	public ArrayList<HashMap<String, Object>> getGoodsCategoryList(String goodsCategory) {
@@ -165,18 +217,18 @@ public class GoodsService {
 		}
 		return row;
 	}
-	
-	// Remove
-	public int removeGoods(Goods goods, GoodsImg goodsImg) {
+
+	// 상품 삭제
+	public int removeGoods(int goodsCode) {
 		goodsDao = new GoodsDao();
 		goodsImgDao = new GoodsImgDao();
 		Connection conn = null;
 		int row = 0;
 		try {
 			conn = DBUtil.getConnection();
-			row = goodsImgDao.deleteGoods(conn, goodsImg);
+			row = goodsImgDao.deleteGoods(conn, goodsCode);
 			if(row == 1) {
-				row = goodsDao.deleteGoods(conn, goods);
+				row = goodsDao.deleteGoods(conn, goodsCode);
 				System.out.println("성공");
 			} else {
 				System.out.println("실패");

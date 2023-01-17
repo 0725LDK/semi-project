@@ -43,6 +43,7 @@ public class EmpGoodsAddController extends HttpServlet {
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
 		String goodsCategory = mreq.getParameter("goodsCategory");
+		String categoryName = mreq.getParameter("categoryName");
 		String goodsContent = mreq.getParameter("goodsContent");
 		Double goodsAlcohol = Double.parseDouble(mreq.getParameter("goodsAlcohol"));
 		int goodsLiter = Integer.parseInt(mreq.getParameter("goodsLiter"));
@@ -65,6 +66,7 @@ public class EmpGoodsAddController extends HttpServlet {
 			goods.setGoodsName(goodsName);
 			goods.setGoodsPrice(goodsPrice);
 			goods.setGoodsCategory(goodsCategory);
+			goods.setCategoryName(categoryName);
 			goods.setGoodsContent(goodsContent);
 			goods.setGoodsAlcohol(goodsAlcohol);
 			goods.setGoodsLiter(goodsLiter);
@@ -87,6 +89,7 @@ public class EmpGoodsAddController extends HttpServlet {
 			System.out.println("상품 이름 : " + goodsName);
 			System.out.println("상품 가격 : " + goodsPrice);
 			System.out.println("카테고리 : " + goodsCategory);
+			System.out.println("카테고리 이름 : " + categoryName);
 			System.out.println("상품 내용 : " + goodsContent);
 			System.out.println("상품 도수 : " + goodsAlcohol);
 			System.out.println("상품 용량 : " + goodsLiter);

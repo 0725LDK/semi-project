@@ -49,8 +49,8 @@
 			<td>${map.goodsLiter}ml</td>
 		</tr>
 		<tr>
-			<th>상품 품절 : </th>
-			<td>${map.soldout}</td>
+			<th>상품 재고 : </th>
+			<td><span value="${map.soldout}">품절</span></td>
 		</tr>		
 		<tr>
 			<th>직원 아이디 : </th>

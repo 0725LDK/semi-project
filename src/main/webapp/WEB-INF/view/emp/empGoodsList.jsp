@@ -19,7 +19,7 @@
 		<c:if test="${goodsSearch != null}">
 			<input class="box" type="text" name="goodsSearch" value="${goodsSearch}">
 		</c:if>
-		<c:if test="${goodsSearch  == null}">
+		<c:if test="${goodsSearch == null}">
 			<input class="box" type="text" name="goodsSearch" placeholder="상품명을 입력하세요.">
 		</c:if>
 		<button class="btn btn-dark" type="submit">검색</button>
@@ -28,6 +28,7 @@
 	
 	
 	<table border="1">
+	
 		<tr>
 			<!-- 
 				varStatus 변수속성
@@ -43,25 +44,34 @@
 			<c:forEach var="m" items="${list}" varStatus="s">
 				<c:if test="${s.index != 0 && s.index % 7 == 0}">
 					</tr><tr>
-				</c:if>
-				
+				</c:if>				
 				<td>
-					<div>
-						<a href="${pageContext.request.contextPath}/emp/empGoodsOne?goodsCode=${m.goodsCode}">
-							<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250">
-						</a>
-					</div>
-					<div>
-						<a href="${pageContext.request.contextPath}/emp/empGoodsOne?goodsCode=${m.goodsCode}">
-							${m.goodsName}
-						</a>
-					</div>
+						<c:if test="${m.soldout == 'Y'}">
+							<div class="soldout">
+								<a href="${pageContext.request.contextPath}/emp/empGoodsOne?goodsCode=${m.goodsCode}">
+									<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250">
+								</a>
+								<p>${m.goodsName}</p>
+									<div value="${m.soldout}" class="soldout">품절</div>
+							</div>
+						</c:if>		
+						<c:if test="${m.soldout == 'N'}">
+							<div>
+								<a href="${pageContext.request.contextPath}/emp/empGoodsOne?goodsCode=${m.goodsCode}">
+									<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250">
+								</a>
+								<p>${m.goodsName}</p>
+
+							</div>
+						</c:if>						
+				
 					<a href="${pageContext.request.contextPath}/emp/empGoodsModify?goodsCode=${m.goodsCode}">수정</a>
 					<a href="${pageContext.request.contextPath}/emp/empGoodsRemove?goodsCode=${m.goodsCode}">삭제</a>
 				</td>
-			</c:forEach>
+			</c:forEach>		
 		</tr>
 	</table>
+	<br>
 	<div>
 		<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">
 			상품 추가
