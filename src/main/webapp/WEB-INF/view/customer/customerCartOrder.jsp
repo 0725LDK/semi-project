@@ -27,15 +27,14 @@
 				</td>
 				<td>${l.goodsName}</td>
 				<td>${l.cartQuantity}</td>
-				<td>2,500원</td>
+				<td>무료</td>
 				<td>${l.goodsPrice}</td>
 				<td><a href="${pageContext.request.contextPath}/customer/customerCartRemove?goodsCode=${l.goodsCode}">삭제</a></td>
 			</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="4">총수량 : ${n.sumQuantity}개</td>
-				<td>배송비 : 2500원</td>
-				<td colspan="2">총가격 : ${m.sumPrice+2500}원</td>
+				<td colspan="5">총수량 : ${n.sumQuantity}개</td>
+				<td colspan="2">총가격 : ${m.sumPrice}원</td>
 			</tr>
 			<tr>
 				<td colspan="7" style="color:red">&#10071;상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</td>
@@ -54,7 +53,21 @@
 					주소선택 <span style="color:red">*</span>
 				</td>
 				<td>
-					<input type="text" name="newAddress">
+					<select name="newAddress">
+						<option value="서울특별시">서울특별시</option>
+						<option value="인천광역시">인천광역시</option>
+						<option value="부산광역시">부산광역시</option>
+						<option value="대전광역시">대전광역시</option>
+						<option value="대구광역시">대구광역시</option>
+						<option value="울산광역시">울산광역시</option>
+						<option value="광주광역시">광주광역시</option>
+						<option value="경기도">경기도</option>
+						<option value="강원도">강원도</option>
+						<option value="충청도">충청도</option>
+						<option value="전라도">전라도</option>
+						<option value="경상도">경상도</option>
+						<option value="제주특별자지도">제주특별자지도</option>
+					</select>
 					<button type="button" onclick="return submit2(this.form);">주소추가</button>
 					<br>
 					<select name="address">

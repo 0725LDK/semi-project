@@ -69,7 +69,7 @@ public class CartDao {
 				+ "				, g.goods_price goodsPrice"
 				+ " 	FROM cart c"
 				+ "			INNER JOIN goods g ON c.goods_code = g.goods_code"
-				+ " WHERE c.customer_id = 'goodee') t";
+				+ " WHERE c.customer_id = ?) t";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
@@ -93,7 +93,7 @@ public class CartDao {
 				+ "				, g.goods_price goodsPrice"
 				+ "		FROM cart c\r\n"
 				+ "			INNER JOIN goods g ON c.goods_code = g.goods_code"
-				+ " 	WHERE c.customer_id = 'goodee') t";
+				+ " 	WHERE c.customer_id = ?) t";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
