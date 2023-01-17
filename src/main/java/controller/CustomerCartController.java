@@ -35,7 +35,7 @@ public class CustomerCartController extends HttpServlet {
 				productList = (ArrayList<HashMap<String, Object>>)session.getAttribute("productList");
 				System.out.println(productList.size() +"list.size()"); // productList 크기 확인
 				
-				for(int i=0; i<productList.size(); i++) {
+				for(int i=0; i<productList.size(); i++) { // 장바구니 상품수만큼 반복
 					String code = productList.get(i).get("goodsCode").toString(); // list에 저장된 goodsCode 가져오기
 					String quantity = productList.get(i).get("cartQuantity").toString(); // list에 저장된 cartQuantity 가져오기
 					int goodsCode = Integer.parseInt(code); 
@@ -117,7 +117,7 @@ public class CustomerCartController extends HttpServlet {
 			m = cartService.getSelectSumByCart(customerId);
 			// 장바구니 수량 합계
 			n = cartService.getSelectCartQuantitySum(customerId);
-	
+			// view로 값 넘기기
 			request.setAttribute("list", list);
 			request.setAttribute("m", m);
 			request.setAttribute("n", n);
@@ -128,33 +128,32 @@ public class CustomerCartController extends HttpServlet {
 			if(request.getParameter("goodsCode") != null && request.getParameter("goodsQuantity") != null) {
 				int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 				int cartQuantity = Integer.parseInt(request.getParameter("goodsQuantity"));
-				System.out.println(goodsCode+" : goodsCode CustomerCartAddController1");
-				System.out.println(cartQuantity+" : cartQuantity CustomerCartAddController1");
+				System.out.println(goodsCode+" : goodsCode CustomerCartController");
+				System.out.println(cartQuantity+" : cartQuantity CustomerCartController");
 		
 				HashMap<String, Object> m = new HashMap<String, Object>();
 				cartService = new CartService();
 				m = cartService.addCart(goodsCode);
 				
-				//int product = Integer.parseInt(request.getParameter("goodsCode"));
 				ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("productList");
 				if(list == null) { // 비회원 처음 장바구니 클릭시
-					list = new ArrayList<HashMap<String, Object>>();
-					session.setAttribute("productList", list);
-					m.put("cartQuantity", cartQuantity);
+					list = new ArrayList<HashMap<String, Object>>(); // list초기화
+					session.setAttribute("productList", list); // list 세션 생성
+					m.put("cartQuantity", cartQuantity); // 선택한 수량 저장
 					list.add(m);
 					System.out.println("처음 장바구니 입력");
-				} else {
+				} else { // 비회원 장바구니 생성되어 있으면
 					for(HashMap<String, Object> map : list) {
 						// 장바구니 중복상품 확인
-						if((int)map.get("goodsCode") == goodsCode) {
+						if((int)map.get("goodsCode") == goodsCode) { // 중복상품이면 수량만 추가
 							System.out.println("중복상품");
 							map.put("cartQuantity", (int)map.get("cartQuantity")+cartQuantity);
 							request.setAttribute("productList", list);
-							request.getRequestDispatcher("/WEB-INF/view/customer/customerCart1.jsp").forward(request, response);
+							request.getRequestDispatcher("/WEB-INF/view/customer/customerCart.jsp").forward(request, response);
 							return;
 						} 
 					}
-					System.out.println("중복아님");
+					System.out.println("중복아닌상품");
 					m.put("cartQuantity", cartQuantity);
 					list.add(m);
 				}

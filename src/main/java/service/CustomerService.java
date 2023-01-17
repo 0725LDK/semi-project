@@ -300,33 +300,6 @@ public class CustomerService {
 		return row;
 	}
 	
-	// CustomerCartOrderController customerAddressCode 
-	public CustomerAddress getSelectCustomerAddressCode(String customerId, String address) {
-		CustomerAddress customerAddress = null;
-		Connection conn = null;
-		try {
-			conn = DBUtil.getConnection();
-			customerDao = new CustomerDao();
-			customerAddress = customerDao.selectCustomerAddressCode(conn, customerId, address);
-			conn.commit();
-		} catch(Exception e) {
-			try {
-				System.out.println("롤백 CustomerService : getSelectCustomerOne");
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			} 
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return customerAddress;
-	}
-	
 	// CustomerCartAddAddressController 주문시 주소추가
 	public int getAddCustomerAddress(Customer customer) {
 		int row = 0;

@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,37 +95,7 @@ public class OrderService {
 		
 		return row;
 	}
-	
-	//고객 주문 - 주문 내역 추가 By Cart
-	public int customerGetAddOrderByCart(Order order, int addressCode)
-	{
-		int row = 0;
-		orderDao = new OrderDao();
-		Connection conn = null;
 		
-		try {
-			conn = DBUtil.getConnection();
-			row = orderDao.addCustomerOrder(conn, order, addressCode);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return row;
-	}
-	
 	//고객 주문내역 결제상태 수정
 	public int  customerGetUpdateOrderState(String orderState, int orderCode)
 	{

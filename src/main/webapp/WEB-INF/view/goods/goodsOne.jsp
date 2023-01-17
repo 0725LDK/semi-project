@@ -22,6 +22,12 @@
 				console.log(typeof totalPrice);
 			} );
 		} );
+		//장바구니 버튼 submit
+		function submit2(fo) { 
+			fo.action='${pageContext.request.contextPath}/customer/customerCart';
+			fo.submit();
+			return true;
+		}
 	</script>
 
 </head>
@@ -71,7 +77,7 @@
 				</th>
 			</tr>
 		</table>	
-		<button type="button"><a href="${pageContext.request.contextPath}/customer/customerCart">장바구니</a></button>		
+		<button type="button" onclick="return submit2(this.form);">장바구니</button>		
 		<button type="submit">구매하기</button>
 	</form>
 

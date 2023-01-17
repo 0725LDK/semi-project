@@ -80,12 +80,6 @@ public class CustomerCartOrderController extends HttpServlet {
 		// 주문시 선택한 주소
 		String address = request.getParameter("address");
 		System.out.println(address+" : address CustomerCartOrderController");
-		// 주소 code값 받기
-		customerService = new CustomerService();
-		CustomerAddress customerAddress = new CustomerAddress();
-		customerAddress = customerService.getSelectCustomerAddressCode(customerId, address);
-		int addressCode = customerAddress.getAddressCode();
-		System.out.println(addressCode+" : addressCode CustomerCartOrderController");
 		// 주문 가격
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		System.out.println(orderPrice+" : orderPrice CustomerCartOrderController");
@@ -115,7 +109,7 @@ public class CustomerCartOrderController extends HttpServlet {
 			order.setOrderState(orderState);
 
 			
-			int row = orderService.customerGetAddOrderByCart(order, addressCode);
+			int row = orderService.customerGetAddOrder(order, address, customerId);
 			if(row == 0) {
 				System.out.println("주문실패 CustomerCartOrderController, customerGetAddOrder");
 			} else {

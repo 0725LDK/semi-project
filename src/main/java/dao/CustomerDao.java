@@ -280,30 +280,6 @@ public class CustomerDao {
 		return row;
 	}
 	
-	// customerAddress
-	public CustomerAddress selectCustomerAddressCode(Connection conn, String customerId, String address) throws Exception {
-		CustomerAddress customerAddress = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT address_code addressCode, customer_id customerId, address"
-				+ " FROM customer_address"
-				+ " WHERE customer_id = ? AND address = ?";
-		
-		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customerId);
-		stmt.setString(2, address);
-		
-		rs = stmt.executeQuery();
-		
-		if(rs.next()) {
-			customerAddress = new CustomerAddress();
-			customerAddress.setAddressCode(rs.getInt("addressCode"));
-			customerAddress.setCustomerId(rs.getString("customerId"));
-			customerAddress.setAddress(rs.getString("address"));
-		}
-		return customerAddress;
-	}
-	
 	// customerAddressList
 	public ArrayList<CustomerAddress> selectCustomerAddressList(Connection conn, String customerId) throws Exception {
 		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
