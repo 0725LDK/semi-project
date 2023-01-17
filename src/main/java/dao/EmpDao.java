@@ -255,7 +255,7 @@ public class EmpDao {
 	{
 		int count = 0;
 		
-		String sql = "SELECT COUNT(*) "
+		String sql = "SELECT COUNT(*) count "
 				+ "				 FROM review_history re "
 				+ "				 INNER JOIN orders od ON re.order_code = od.order_code "
 				+ "				 INNER JOIN goods gd ON od.goods_code = gd.goods_code "

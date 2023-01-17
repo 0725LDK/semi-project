@@ -5,6 +5,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$( document ).ready( function() {
+			var point = parseInt($('#point').val());
+			var usedPoint = point * (-1)
+			var orderPrice = parseInt($('#orderPrice').val());
+			var totalPrice = orderPrice - point; 
+			$('#pointUse').click(function(){
+				$('#pointUse').hide();
+				$('input[name=orderPrice]').attr('value',totalPrice);
+				$('input[name=point]').attr('value',usedPoint);
+				console.log(point);
+				console.log(orderPrice);
+				console.log(totalPrice);
+				console.log(typeof point);
+				console.log(typeof orderPrice);
+				console.log(typeof totalPrice);
+			});
+		});
+	</script>
 </head>
 <body>
 	<h1>주문하기</h1>
@@ -14,8 +34,8 @@
 	</div>	
 	
 	<form action="${pageContext.request.contextPath}/customer/customerOrder" method="post">
+		<input name="goodsCode" value="${map.goodsCode}" type="hidden">
 		<table>
-			<input name="goodsCode" value="${map.goodsCode}" type="hidden">
 			<tr>
 				<!-- <td>상품명</td> -->
 				<td>상품이미지</td>
@@ -23,16 +43,21 @@
 				<td>상품수량</td>
 				<td>상품가격</td>
 				<td>배송지</td>
+				<td>사용 가능한 포인트</td>
 			</tr>
 			<tr>
 				<!--<td><input name="goodsName"></td>  -->
 				<td rowspan="10">
 					<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="100" height="150">
 				</td>
-				<td><input name="customerId" value="${loginCustomer.customerId}"> </td>
-				<td><input name="orderQuantity" value="${goodsQuantity }"></td>
-				<td><input name="orderPrice" value="${totalPrice}"></td>
+				<td><input name="customerId" value="${loginCustomer.customerId}" readonly="readonly">  </td>
+				<td><input name="orderQuantity" value="${goodsQuantity }" readonly="readonly"></td>
+				<td><input name="orderPrice" id="orderPrice" value="${totalPrice}" readonly="readonly"></td>
 				<td><input name="address" value="${customer.address}"></td>
+				<td>
+					<input name="point" id="point" value="${customer.point}"><br>
+					<button type="button" id="pointUse">포인트 사용</button>
+				</td>
 			</tr>
 		</table>
 		<button type="submit">주문하기</button>

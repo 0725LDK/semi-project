@@ -37,13 +37,6 @@ public class CustomerOrderListController extends HttpServlet {
 		this.orderService = new OrderService();
 		list = orderService.customerGetOrderList(customerId);
 		
-		int noAdd = 0; 
-		if(request.getParameter("noAdd") != null)
-		{
-			noAdd = Integer.parseInt(request.getParameter("noAdd"));
-		}
-		request.setAttribute("noAdd", noAdd);
-	
 		request.setAttribute("orderList", list);
 		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerOrderList.jsp").forward(request, response);

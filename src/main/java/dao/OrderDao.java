@@ -142,6 +142,8 @@ public class OrderDao {
 		return row;
 	}
 	
+	
+	
 	//관리자 전체 고객 주문 내역 확인(취소제외 + 검색어 없을때)
 	public ArrayList<HashMap<String,Object>> empOrderListAll(Connection conn, int beginRow, int rowPerPage)throws Exception
 	{
@@ -338,6 +340,20 @@ public class OrderDao {
 		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'리뷰삭제',-100,CURRENT_TIMESTAMP());";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, orderCode);
+		result = stmt.executeUpdate();
+		
+		return result;
+	}
+	
+	//상품구매시 포인트 업데이트
+	public int addCustomerOrderPoint(Connection conn, int orderCode, int orderPoint)throws Exception
+	{
+		int result = 0;
+		
+		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'상품구매',?,CURRENT_TIMESTAMP())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		stmt.setInt(2, orderPoint);
 		result = stmt.executeUpdate();
 		
 		return result;

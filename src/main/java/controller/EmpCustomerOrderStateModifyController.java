@@ -16,15 +16,15 @@ public class EmpCustomerOrderStateModifyController extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		String orderState = request.getParameter("orderState");
 		System.out.println(orderCode+"<---주문번호");
 		System.out.println(orderState+"<---주문상태");
-				
 		
 		OrderService orderService = new OrderService();
 		orderService.empCustomerOrderStateUpdate(orderState, orderCode);
 		
 		System.out.println("직원 고객주문내역 상태 변경 성공");
-		response.sendRedirect(request.getContextPath()+"/emp/empCustomerOrder");
+		response.sendRedirect(request.getContextPath()+"/emp/empCustomerOrder?currentPage="+currentPage);
 	}
 }

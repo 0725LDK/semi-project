@@ -65,7 +65,7 @@
 							</c:if>
 					</td>
 					<td>${o.createdate }</td>
-					<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=1">문의등록</a></td>
+					<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=${o.orderCode}">문의등록</a></td>
 				</tr>
 			</c:forEach>
 		</table>

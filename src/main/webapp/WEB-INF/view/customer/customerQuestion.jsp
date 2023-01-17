@@ -26,21 +26,21 @@
 		</tr>
 			<c:forEach var="q" items="${questionList}">
 				<tr>
-						<td>${q.questionCode }</td>
-						<td>${q.ordersCode }</td>
-						<td>${q.category }</td>
-						<td>${q.questionMemo }</td>
-						<td>${q.createdate }</td>
-							<c:if test="${q.commentMemo == null}">
-								<td>..답변중..</td>
-								<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionModify?questionCode=${q.questionCode }&ordersCode=${q.ordersCode}&category=${q.category}'>수정</a></td>
-								<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionRemove?questionCode=${q.questionCode }'>삭제</a></td>
-							</c:if>
-							<c:if test="${q.commentMemo != null}">
-								<td>${q.commentMemo }</td>
-								<td>불가</td>
-								<td>불가</td>
-							</c:if>
+					<td>${q.questionCode }</td>
+					<td>${q.ordersCode }</td>
+					<td>${q.category }</td>
+					<td>${q.questionMemo }</td>
+					<td>${q.createdate }</td>
+						<c:if test="${q.commentMemo == null}">
+							<td>..답변중..</td>
+							<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionModify?questionCode=${q.questionCode }&ordersCode=${q.ordersCode}&category=${q.category}'>수정</a></td>
+							<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionRemove?questionCode=${q.questionCode }'>삭제</a></td>
+						</c:if>
+						<c:if test="${q.commentMemo != null}">
+							<td>${q.commentMemo }</td>
+							<td>불가</td>
+							<td>불가</td>
+						</c:if>
 				</tr>
 			</c:forEach>
 	</table>

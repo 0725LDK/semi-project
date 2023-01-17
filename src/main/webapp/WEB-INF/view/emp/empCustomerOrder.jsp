@@ -34,20 +34,21 @@
 				<td>${o.orderQuantity }</td>
 				<td>${o.orderPrice }</td>
 				<td>
-						<div>
-								${o.orderState }
-							
-							<c:if test="${o.orderState != '구매확정' && o.orderState != '취소' && o.orderState != '배송완료'}">
-								<form action="${pageContext.request.contextPath}/emp/empCustomerOrderStateModify" method="post">
-									<input type="hidden" name="orderCode" value="${o.orderCode}">
-									<select name="orderState">
-										<option value="배송중">배송중</option>
-										<option value="배송완료">배송완료</option>
-									</select>
-									<button type="submit">변경</button>
-								</form>
-							</c:if>
-						</div>
+					<div>
+						${o.orderState }
+						
+						<c:if test="${o.orderState != '구매확정' && o.orderState != '취소' && o.orderState != '배송완료'}">
+							<form action="${pageContext.request.contextPath}/emp/empCustomerOrderStateModify" method="post">
+								<input type="hidden" name="orderCode" value="${o.orderCode}">
+								<input type="hidden" name="currentPage" value="${currentPage}">
+								<select name="orderState">
+									<option value="배송중">배송중</option>
+									<option value="배송완료">배송완료</option>
+								</select>
+								<button type="submit">변경</button>
+							</form>
+						</c:if>
+					</div>
 				</td>
 				<td>${o.createdate }</td>
 			</tr>

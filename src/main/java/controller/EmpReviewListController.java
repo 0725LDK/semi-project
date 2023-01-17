@@ -42,7 +42,7 @@ public class EmpReviewListController extends HttpServlet {
 		if(search == null)
 		{
 			list = empService.empReviewList(beginRow, rowPerPage);
-			count = empService.empOrderCancleListCount(beginRow, rowPerPage);
+			count = empService.empReviewListCount(beginRow, rowPerPage);
 		}
 		else if(search != null)
 		{
@@ -56,6 +56,9 @@ public class EmpReviewListController extends HttpServlet {
 			lastPage = lastPage+1;
 		}
 		
+		System.out.println(lastPage+"<--emoReviewListCont lastPage");
+		System.out.println(count+"<--emoReviewListCont lastPage");
+
 		request.setAttribute("reviewList", list);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("firstPage", firstPage);

@@ -53,7 +53,7 @@ public class EmpService {
 			conn = DBUtil.getConnection();
 			empDao = new EmpDao();
 			count = empDao.empReviewListCount(conn);
-			System.out.println(count+"<--empService count 수");
+			System.out.println(count+"<--empService empReviewListCount 수");
 			conn.commit();
 		} catch (Exception e) {
 			try {

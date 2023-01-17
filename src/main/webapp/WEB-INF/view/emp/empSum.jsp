@@ -38,6 +38,9 @@
 					<c:if test="${s.goodsCategory == 4}">
 						증류주
 					</c:if>
+					<c:if test="${s.goodsCategory == 5}">
+						이벤트
+					</c:if>
 				</td>
 				<td>${s.sumByCategory }원</td>
 				<td>${s.categoryCount }건</td>

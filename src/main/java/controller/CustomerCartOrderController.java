@@ -51,8 +51,10 @@ public class CustomerCartOrderController extends HttpServlet {
 		list = cartService.getSelectCartList(customerId);
 		// 장바구니 가격 합계
 		m = cartService.getSelectSumByCart(customerId);
+		System.out.println(m +"가격");
 		// 장바구니 수량 합계
 		n = cartService.getSelectCartQuantitySum(customerId);
+		System.out.println(n +"수량");
 		
 		request.setAttribute("list", list); // 장바구니 리스트
 		request.setAttribute("m", m); // 장바구니 가격 합계

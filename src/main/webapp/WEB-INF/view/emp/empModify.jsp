@@ -30,14 +30,12 @@
 			<td><input type="text" name="empName" value="${empName }"></td>
 			<td>
 				<select name="active">
-					<option>--계정 활성 여부--</option>
 					<option value="Y">활성화</option>
 					<option value="N">비활성화</option>
 				</select>
 			</td>
 			<td>
 				<select name="authCode">
-				<option>--레벨 선택--</option>
 					<option value="0">0-관리자</option>
 					<option value="1">1-상품관리</option>
 					<option value="2">2-고객관리</option>
