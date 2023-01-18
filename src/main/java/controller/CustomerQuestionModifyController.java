@@ -19,10 +19,12 @@ public class CustomerQuestionModifyController extends HttpServlet {
 		int questionCode = Integer.parseInt(request.getParameter("questionCode"));
 		int ordersCode = Integer.parseInt(request.getParameter("ordersCode"));
 		String category = request.getParameter("category");
+		String questionMemo = request.getParameter("questionMemo");
 		
 		request.setAttribute("questionCode", questionCode);
 		request.setAttribute("ordersCode", ordersCode);
 		request.setAttribute("category", category);
+		request.setAttribute("questionMemo", questionMemo);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerQuestionModify.jsp").forward(request, response);

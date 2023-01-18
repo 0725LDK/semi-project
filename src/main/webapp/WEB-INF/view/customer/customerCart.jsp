@@ -5,16 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>934마켓 장바구니 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<h1>장바구니</h1>
 	<c:if test="${empty productList && empty list}">
+		<h1>장바구니</h1>
 		장바구니에 담긴 상품이 없습니다.
 		<a href="${pageContext.request.contextPath}/home/main">상품추가</a>
 	</c:if>
 	<!-- 회원 장바구니 list(VIEW) -->
 	<c:if test="${not empty list}">
+		<h1>장바구니</h1>
 		<table border="1">
 			<tr>
 				<td>상품코드</td>
@@ -52,6 +53,7 @@
 	</c:if>
 	<!-- 비회원 장바구니 list(VIEW) -->
 	<c:if test="${not empty productList}">
+		<h1>비회원 장바구니</h1>
 		<table border="1">
 			<tr>
 				<td>상품코드</td>

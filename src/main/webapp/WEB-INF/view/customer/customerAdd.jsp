@@ -3,8 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>customerAdd</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<title>934마켓 회원 가입 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>고객회원가입</h1>
@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
-				<td><input type="password" id="pwPw" name="pwCheck"></td>
+				<td><input type="password" id="pwCheck" name="pwCheck"></td>
 			</tr>
 			<tr>
 				<td>이름</td>
@@ -34,8 +34,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td>전화번호</td>
-				<td><input type="text" id="customerPhone" name="customerPhone"></td>
+				<td>휴대폰</td>
+				<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone"></td>
 			</tr>
 			<tr>
 				<td>주소</td>
@@ -62,23 +62,28 @@
 	</form>
 </body>
 <script>
+	let regNumber = /^[0-9]*$/; 
 	// 주민등록번호 숫자만 입력가능
 	$('#customerJumin').bind('keyup', function(event) {
-		let regNumber = /^[0-9]*$/;
 		let temp = $('#customerJumin').val();
 		if(!regNumber.test(temp)) { // 숫자만 입력가능
-			alert("숫자만 입력하세요");
+			alert("숫자만 입력해주세요");
 			$('#customerJumin').val(temp.replace(/[^0-9]/g,"")); // 숫자가아니면 지우기
 		}
 	});
 	$('#customerJumin1').bind('keyup', function(event) {
-		let regNumber = /^[0-9]*$/;
 		let temp = $('#customerJumin1').val();
 		if(!regNumber.test(temp)) {
-			alert("숫자만 입력하세요");
+			alert("숫자만 입력해주세요");
 			$('#customerJumin1').val(temp.replace(/[^0-9]/g,""));
 		}
 	});
+	// 전화번호 입력시 - 자동입력 (000-0000-0000), 숫자만 입력가능
+	const autoHyphen = (target) => {
+		target.value = target.value
+		.replace(/[^0-9]/g, '')
+		.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
 	// 현재 년도 구하기
 	now = new Date();
 	nowYear = now.getFullYear();
@@ -114,7 +119,7 @@
 	});
 	// 회원가입 버튼 누르면 확인
 	function check() {
-		var getCheck=RegExp(/^{4,12}$/);
+		let getCheck = RegExp(/^[A-Za-z0-9]{4,12}$/); //영문대소문자,숫자 4~12자리만 가능
 		
 		// 아이디 공백확인
 		if($('#customerId').val() == '') {
@@ -122,14 +127,66 @@
 			$('#customerId').focus();
 			return false;
 		}
-		// 아이디 4~12자리만 가능 확인
+		// 아이디 영문대소문자,숫자 4~12자리만 가능 확인
 		if(!getCheck.test($('#customerId').val())) {
-			alert("4~12자리만 가능합니다");
+			alert("아이디는 4~12자리의 영문 대소문자와 숫자로만 입력 가능합니다");
 			$('#customerId').val('');
 			$('#customerId').focus();
 			return false;
 		}
-	
+		
+		// 비밀번호 공백확인
+		if($('#customerPw').val() == '' || $('#pwCheck').val() == '') {
+			alert("비밀번호를 입력해주세요");
+			$('#customerPw').focus();
+			return false;
+		}
+		// 비밀번호 영문대소문자,숫자 4~12자리만 가능 확인
+		if(!getCheck.test($('#customerPw').val())) {
+			alert("비밀번호는 4~12자리의 영문 대소문자와 숫자로만 입력 가능합니다");
+			$('#customerPw').val('');
+			$('#pwCheck').val('');
+			$('#customerPw').focus();
+			return false;
+		}
+		// 비밀번호 확인 check
+		if($('#customerPw').val() != ($('#pwCheck').val())) {
+			alert("비밀번호가 다릅니다");
+			$('#customerPw').val('');
+			$('#pwCheck').val('');
+			$('#customerPw').focus();
+			return false;
+		}
+		
+		// 이름 공백확인
+		if($('#customerName').val() == '') {
+			alert("이름을 입력해주세요");
+			$('#customerName').focus();
+			return false;
+		}
+		
+		// 주민등록번호 공백확인
+		if($('#customerJumin').val() == '' || $('#customerJumin1').val() == '') {
+			alert("주민등록번호를 입력해주세요")
+			$('#customerJumin').forcus();
+			return false;
+		}
+		// 주민등록번호 입력확인
+		if($('#customerJumin').val().length != 6 || $('#customerJumin1').val().length != 7) {
+			alert("주민등록번호를 확인해주세요");
+			$('#customerJumin').val('');
+			$('#customerJumin1').val('');
+			$('#customerJumin').focus();
+			return false;
+		}
+		
+		// 전화번호 공백확인
+		if($('#customerPhone').val() == '') {
+			alert("전화번호를 입력해주세요");
+			$('#customerPhone').focus();
+			return false;
+		}
+
 	}
 </script>
 </html>
