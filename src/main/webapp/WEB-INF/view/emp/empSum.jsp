@@ -39,7 +39,13 @@
 						증류주
 					</c:if>
 					<c:if test="${s.goodsCategory == 5}">
-						이벤트
+						이벤트1-막쿠르트
+					</c:if>
+					<c:if test="${s.goodsCategory == 6}">
+						이벤트2-설 프로모션
+					</c:if>
+					<c:if test="${s.goodsCategory == 7}">
+						이벤트3-설 선물set
 					</c:if>
 				</td>
 				<td>${s.sumByCategory }원</td>
