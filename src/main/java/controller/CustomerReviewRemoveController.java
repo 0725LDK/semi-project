@@ -30,7 +30,7 @@ public class CustomerReviewRemoveController extends HttpServlet {
 		
 		
 		OrderService orderService = new OrderService();
-		orderService.deleteOrderReview(orderCode);
+		orderService.deleteOrderReview(orderCode, customerId);
 		
 		System.out.println("리뷰 삭제 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerOrderList?customerId="+customerId);

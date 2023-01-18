@@ -271,7 +271,7 @@ public class CustomerService {
 	public int customerPointUpdate(String customerId)
 	{
 		customerDao = new CustomerDao();
-		int row = 0;
+		int updatePoint = 0;
 		int searchPoint = 0;
 		Connection conn = null;
 		
@@ -279,8 +279,8 @@ public class CustomerService {
 			conn = DBUtil.getConnection();
 			searchPoint = customerDao.customerSearchPoint(conn, customerId);
 			System.out.println(searchPoint+"<--searchPoint custormerCervice");
-			row = customerDao.customerPointUpdate(conn, searchPoint, customerId);
-			System.out.println(row+"<--row custormerCervice");
+			updatePoint = customerDao.customerPointUpdate(conn, searchPoint, customerId);
+			System.out.println(updatePoint+"<--update custormerCervice");
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -297,7 +297,7 @@ public class CustomerService {
 				e.printStackTrace();
 			}
 		} 
-		return row;
+		return searchPoint;
 	}
 	
 	// CustomerCartAddAddressController 주문시 주소추가

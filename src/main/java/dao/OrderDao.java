@@ -15,15 +15,16 @@ public class OrderDao {
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
-		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsname,od.customer_id customerId, cuad.address address, order_quantity orderQuantity, "
-				+ "		order_price orderPrice, order_state orderState,re.review_memo reviewMemo,ph.order_code pointCode ,ph.point_kind pointKind,od.createdate  "
+		String sql = "SELECT od.order_code orderCode, gd.goods_name goodsName, od.customer_id customerId "
+				+ "		 , ca.address address, order_quantity orderQuantity, order_price orderPrice "
+				+ "		 , order_state orderState, od.createdate createdate, re.review_memo reviewMemo "
+				+ "		 , rh.order_code rhistoryCode, rh.review_memo rhistoryMemo "
 				+ " FROM orders od "
 				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-				+ " INNER JOIN customer_address cuad ON od.address_code = cuad.address_code "
+				+ " INNER JOIN customer_address ca ON od.address_code = ca.address_code "
 				+ " LEFT OUTER JOIN review re ON od.order_code = re.order_code "
-				+ " LEFT OUTER JOIN point_history ph ON od.order_code = ph.order_code "
-				+ " WHERE od.customer_id = ? AND od.order_state != '취소'"
-				+ " GROUP BY orderCode ";
+				+ " LEFT OUTER JOIN review_history rh ON od.order_code = rh.order_code "
+				+ " WHERE od.customer_id= ? AND order_state != '취소'";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
@@ -38,10 +39,11 @@ public class OrderDao {
 			o.put("orderQuantity",rs.getInt("orderQuantity"));
 			o.put("orderPrice",rs.getInt("orderPrice"));
 			o.put("orderState",rs.getString("orderState"));
-			o.put("reviewMemo",rs.getString("reviewMemo"));
-			o.put("pointCode",rs.getInt("pointCode"));
-			o.put("pointKind",rs.getString("pointKind"));
 			o.put("createdate",rs.getString("createdate"));
+			o.put("reviewMemo",rs.getString("reviewMemo"));
+			o.put("rhistoryCode",rs.getInt("rhistoryCode"));
+			o.put("rhistoryMemo",rs.getString("rhistoryMemo"));
+			
 			list.add(o);
 		}
 		return list;
@@ -89,6 +91,20 @@ public class OrderDao {
 		return row;
 	}
 	
+	//상품구매시 포인트 차감
+	public int subCustomerOrderPoint(Connection conn, String customerId, int usedPoint)throws Exception
+	{
+		int result = 0;
+		
+		String sql = "INSERT INTO point_history(customer_id,point_kind,POINT,createdate)VALUES(?,'상품구매',?,CURRENT_TIMESTAMP())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setInt(2, usedPoint);
+		result = stmt.executeUpdate();
+		
+		return result;
+	}
+
 	//고객 주문내역 결제상태 수정
 	public int updateCustomerOrderState(Connection conn, String orderState, int orderCode) throws Exception
 	{
@@ -104,7 +120,7 @@ public class OrderDao {
 	}
 	
 	//고객 주문내역 구매 확정 한정 리뷰 작성 
-	public int addOrderConfirmReview(Connection conn, int orderCode, String reviewMemo)throws Exception
+	public int addOrderConfirmReview(Connection conn,int orderCode, String customerId, String reviewMemo)throws Exception
 	{
 		int row = 0;
 		
@@ -141,8 +157,6 @@ public class OrderDao {
 		
 		return row;
 	}
-	
-	
 	
 	//관리자 전체 고객 주문 내역 확인(취소제외 + 검색어 없을때)
 	public ArrayList<HashMap<String,Object>> empOrderListAll(Connection conn, int beginRow, int rowPerPage)throws Exception
@@ -320,42 +334,32 @@ public class OrderDao {
 	}
 	
 	//고객 리뷰 작성시 포인트 지급
-	public int addCustomerReviewPoint(Connection conn, int orderCode)throws Exception
+	public int addCustomerReviewPoint(Connection conn, String customerId,int orderCode)throws Exception
 	{
 		int result = 0;
 		
-		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'리뷰작성',100,CURRENT_TIMESTAMP())";
+		String sql = "INSERT INTO point_history(customer_id,point_kind,order_code,POINT,createdate)VALUES(?,'리뷰작성',?,100,CURRENT_TIMESTAMP())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, orderCode);
+		stmt.setString(1, customerId);
+		stmt.setInt(2, orderCode);
 		result = stmt.executeUpdate();
 		
 		return result;
 	}
 	
 	//고객 리뷰 삭제시 포인트 차감
-	public int subCustomerReviewPoint(Connection conn, int orderCode) throws Exception
+	public int subCustomerReviewPoint(Connection conn, int orderCode, String customerId) throws Exception
 	{
 		int result = 0;
 		
-		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'리뷰삭제',-100,CURRENT_TIMESTAMP());";
+		String sql = "INSERT INTO point_history(customer_id,point_kind,order_code,POINT,createdate)VALUES(?,'리뷰삭제', ? ,-100,CURRENT_TIMESTAMP());";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, orderCode);
+		stmt.setString(1, customerId);
+		stmt.setInt(2, orderCode);
 		result = stmt.executeUpdate();
 		
 		return result;
 	}
 	
-	//상품구매시 포인트 업데이트
-	public int addCustomerOrderPoint(Connection conn, int orderCode, int orderPoint)throws Exception
-	{
-		int result = 0;
-		
-		String sql = "INSERT INTO point_history(order_code,point_kind,POINT,createdate)VALUES(?,'상품구매',?,CURRENT_TIMESTAMP())";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, orderCode);
-		stmt.setInt(2, orderPoint);
-		result = stmt.executeUpdate();
-		
-		return result;
-	}
+	
 }

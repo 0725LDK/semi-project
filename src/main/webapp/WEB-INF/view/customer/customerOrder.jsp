@@ -8,14 +8,14 @@
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		$( document ).ready( function() {
-			var point = parseInt($('#point').val());
-			var usedPoint = point * (-1)
+			var point = parseInt($('#usedPoint').val());
+			var usedPoint = point * (-1);
 			var orderPrice = parseInt($('#orderPrice').val());
 			var totalPrice = orderPrice - point; 
 			$('#pointUse').click(function(){
 				$('#pointUse').hide();
 				$('input[name=orderPrice]').attr('value',totalPrice);
-				$('input[name=point]').attr('value',usedPoint);
+				$('input[name=usedPoint]').attr('value',usedPoint);
 				console.log(point);
 				console.log(orderPrice);
 				console.log(totalPrice);
@@ -55,7 +55,7 @@
 				<td><input name="orderPrice" id="orderPrice" value="${totalPrice}" readonly="readonly"></td>
 				<td><input name="address" value="${customer.address}"></td>
 				<td>
-					<input name="point" id="point" value="${customer.point}"><br>
+					<input name="usedPoint" id="usedPoint" value="${customer.point}" readonly="readonly"><br>
 					<button type="button" id="pointUse">포인트 사용</button>
 				</td>
 			</tr>

@@ -33,36 +33,36 @@
 					<td>${o.orderQuantity }</td>
 					<td>${o.orderPrice }</td>
 					<td>
-							${o.orderState }
-							<c:if test="${o.orderState == '배송완료'}">
-								<a href="${pageContext.request.contextPath}/customer/customerOrderStateModify?orderState=구매확정&orderCode=${o.orderCode}&customerId=${customerId}">구매확정</a>
-							</c:if>
-							
-							<c:if test="${o.orderState != '배송완료' && o.orderState != '구매확정'}">
-								<a href="${pageContext.request.contextPath}/customer/customerOrderCancle?orderCode=${o.orderCode}">구매취소</a>
-							</c:if>
-							
-							<c:if test="${o.orderState == '구매확정'}">
-								<div>
-										<c:if test="${empty o.reviewMemo}">
-											<c:if test="${empty o.pointKind || empty o.pointCode}">
-												<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
-													<input type="hidden" name="orderCode" value="${o.orderCode}">
-													리뷰작성 : <input type="text" name="reviewMemo">
-													<button type="submit">작성</button>
-												</form>
-											</c:if>
-											<c:if test="${not empty o.pointCode && not empty o.pointKind}">
-												리뷰 삭제됨..재입력 불가
-											</c:if>
-										</c:if>
-										
-										<c:if test="${not empty o.reviewMemo}">
-											작성한 리뷰 : ${o.reviewMemo}
-											<a href="${pageContext.request.contextPath}/customer/customerReviewRemove?orderCode=${o.orderCode}&noAdd=1">삭제</a>
-										</c:if>
-								</div>
-							</c:if>
+						${o.orderState }
+						<c:if test="${o.orderState == '배송완료'}">
+							<a href="${pageContext.request.contextPath}/customer/customerOrderStateModify?orderState=구매확정&orderCode=${o.orderCode}&customerId=${customerId}">구매확정</a>
+						</c:if>
+						
+						<c:if test="${o.orderState != '배송완료' && o.orderState != '구매확정'}">
+							<a href="${pageContext.request.contextPath}/customer/customerOrderCancle?orderCode=${o.orderCode}">구매취소</a>
+						</c:if>
+						
+						<c:if test="${o.orderState == '구매확정'}">
+							<div>
+								<c:if test="${o.reviewMemo eq null}">
+									<c:if test="${o.rhistoryMemo eq null }">
+										<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
+											<input type="hidden" name="orderCode" value="${o.orderCode}">
+											리뷰작성 : <input type="text" name="reviewMemo">
+											<button type="submit">작성</button>
+										</form>
+									</c:if>
+									<c:if test="${o.rhistoryMemo ne null }">
+										<span>삭제된 리뷰-재작성 불가</span>
+									</c:if>
+								</c:if>
+								
+								<c:if test="${not empty o.reviewMemo}">
+									작성한 리뷰 : ${o.reviewMemo}
+									<a href="${pageContext.request.contextPath}/customer/customerReviewRemove?orderCode=${o.orderCode}&noAdd=1">삭제</a>
+								</c:if>
+							</div>
+						</c:if>
 					</td>
 					<td>${o.createdate }</td>
 					<td><a href="${pageContext.request.contextPath}/customer/customerQuestionAdd?ordersCode=${o.orderCode}">문의등록</a></td>

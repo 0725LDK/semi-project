@@ -39,8 +39,10 @@ public class CustomerDao {
 		Customer customer = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT  t.customerId customerId, t.customerName customerName, t.customerPhone customerPhone, t.address address, t.addressCode addressCode, t.point point "
-				+ "				FROM(SELECT POINT, c.customer_id customerId, c.customer_name customerName, c.customer_phone customerPhone, a.address address, a.address_code addressCode "
+		String sql = "SELECT  t.customerId customerId, t.customerName customerName, t.customerPhone customerPhone"
+				+ "				, t.address address, t.addressCode addressCode, t.point point "
+				+ "				FROM(SELECT POINT, c.customer_id customerId, c.customer_name customerName, c.customer_phone customerPhone"
+				+ "									, a.address address, a.address_code addressCode "
 				+ "						FROM customer c INNER JOIN customer_address a "
 				+ "						ON c.customer_id = a.customer_id) t "
 				+ "				WHERE customerId = ? "
@@ -251,11 +253,10 @@ public class CustomerDao {
 	{
 		int searchPoint = 0;
 
-		String sql = "SELECT SUM(POINT) sumPoint "
+		String sql = "SELECT  SUM(POINT) sumPoint "
 				+ "		FROM point_history ph "
-				+ "		RIGHT OUTER JOIN orders od ON ph.order_code = od.order_code "
-				+ " WHERE customer_id = ? "
-				+ " GROUP BY customer_id";
+				+ "		WHERE ph.customer_id = ? "
+				+ "     GROUP BY ph.customer_id ";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
@@ -267,17 +268,19 @@ public class CustomerDao {
 
 		return searchPoint; 
 	}
+	
+	//회원 포인트 업데이트
 	public int customerPointUpdate(Connection conn, int searchPoint, String customerId)throws Exception
 	{
-		int row = 0;
+		int updatePoint = 0;
 		
 		String sql = "UPDATE customer SET POINT = ? WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchPoint);
 		stmt.setString(2, customerId);
-		row = stmt.executeUpdate(); 
+		updatePoint = stmt.executeUpdate(); 
 		
-		return row;
+		return updatePoint;
 	}
 	
 	// customerAddressList

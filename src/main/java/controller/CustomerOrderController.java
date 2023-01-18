@@ -70,6 +70,7 @@ public class CustomerOrderController extends HttpServlet {
 		String address = request.getParameter("address");
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		int usedPoint = Integer.parseInt(request.getParameter("usedPoint"));
 		String orderState = "결제";
 		
 		Order order = new Order();
@@ -81,6 +82,7 @@ public class CustomerOrderController extends HttpServlet {
 		
 		OrderService orderService = new OrderService();
 		orderService.customerGetAddOrder(order, address, customerId);
+		orderService.subCustomerOrderPoint(customerId, usedPoint);
 		
 		System.out.println("order 성공");
 		response.sendRedirect(request.getContextPath()+"/customer/customerOrderList");

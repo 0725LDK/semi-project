@@ -125,7 +125,7 @@ public class OrderService {
 	}
 	
 	//고객 주문내역 구매 확정 한정 리뷰 작성 + 포인트 지급 + 리뷰히스토리 저장
-	public int addOrderConfirmReview(int orderCode, String reviewMemo)
+	public int addOrderConfirmReview(int orderCode,String customerId, String reviewMemo)
 	{
 		int row = 0;
 		int result = 0;
@@ -134,7 +134,7 @@ public class OrderService {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			row = orderDao.addOrderConfirmReview(conn, orderCode, reviewMemo);
+			row = orderDao.addOrderConfirmReview(conn,orderCode, customerId, reviewMemo);
 			if(row != 1)
 			{
 				System.out.println("review 추가 실패");
@@ -143,7 +143,7 @@ public class OrderService {
 			else if(row == 1)
 			{
 				System.out.println("review 추가 성공");
-				result = orderDao.addCustomerReviewPoint(conn, orderCode);
+				result = orderDao.addCustomerReviewPoint(conn, customerId, orderCode);
 				if(result != 1)
 				{
 					System.out.println("review 추가 후 point 적립 실패");
@@ -184,7 +184,7 @@ public class OrderService {
 	}
 	
 	//고객 리뷰 삭제 + 포인트 차감
-	public int deleteOrderReview(int orderCode)
+	public int deleteOrderReview(int orderCode, String customerId)
 	{
 		int row = 0;
 		int result = 0;
@@ -202,7 +202,7 @@ public class OrderService {
 			else if(row == 1)
 			{
 				System.out.println("review 삭제 성공");
-				result = orderDao.subCustomerReviewPoint(conn, orderCode);
+				result = orderDao.subCustomerReviewPoint(conn, orderCode, customerId);
 				if(result != 1)
 				{
 					System.out.println("review 삭제 성공 + 포인트 차감 실패");
@@ -435,5 +435,35 @@ public class OrderService {
 		}
 		
 		return row;
+	}
+	
+	//상품구매시 포인트 차감
+	public int subCustomerOrderPoint(String customerId,int usedPoint)
+	{
+		int result = 0;
+		orderDao = new OrderDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			result = orderDao.subCustomerOrderPoint(conn, customerId, usedPoint);
+			System.out.println(result+"<---orderDao.subCustomerOrderPoint");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }

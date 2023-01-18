@@ -37,9 +37,9 @@ public class CustomerOneController extends HttpServlet {
 		customerService = new CustomerService();
 		//포인트 업데이트
 		int point = customerService.customerPointUpdate(customerId);
-		customer.setPoint(point);
 		
 		customer = customerService.getSelectCustomerOne(customerId);
+		customer.setPoint(point);
 		
 		request.setAttribute("customer", customer);
 		request.setAttribute("customerId", customerId);

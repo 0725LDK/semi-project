@@ -30,7 +30,7 @@ public class CustomerReviewAddController extends HttpServlet {
 		String reviewMemo = request.getParameter("reviewMemo");
 		
 		OrderService orderService = new OrderService();
-		orderService.addOrderConfirmReview(orderCode, reviewMemo);
+		orderService.addOrderConfirmReview(orderCode, customerId, reviewMemo);
 		
 		response.sendRedirect(request.getContextPath()+"/customer/customerOrderList?customerId="+customerId);
 	}
