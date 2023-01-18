@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 관리자 전체상품 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>상품 리스트</h1>
@@ -66,7 +66,6 @@
 						</c:if>						
 				
 					<a href="${pageContext.request.contextPath}/emp/empGoodsModify?goodsCode=${m.goodsCode}">수정</a>
-					<a href="${pageContext.request.contextPath}/emp/empGoodsRemove?goodsCode=${m.goodsCode}">삭제</a>
 				</td>
 			</c:forEach>		
 		</tr>

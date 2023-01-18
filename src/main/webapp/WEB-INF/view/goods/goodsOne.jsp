@@ -56,24 +56,24 @@
 	
 			</tr>
 			<tr>
-				<th>도수: ${map.goodsAlcohol}</th>	
+				<th>도수: ${map.goodsAlcohol}%</th>	
 	
 			</tr>
 			<tr>
-				<th>용량: ${map.goodsLiter}</th>	
+				<th>용량: ${map.goodsLiter}ml</th>	
 	
 			</tr>
 			<tr>
-				<th>판매 가격: <input type="number" name="goodsPrice" id="goodPrice" value="${map.goodsPrice}" readonly="readonly"></th>
+				<th>판매 가격: <input type="number" name="goodsPrice" id="goodPrice" value="${map.goodsPrice}" readonly="readonly">원</th>
 			</tr>		
 			<tr>
 				<th>
-					수량 :  <input type="number" name="goodsQuantity" id="goodsQuantity">
+					수량 :  <input type="number" name="goodsQuantity" id="goodsQuantity">병
 				</th>
 			</tr>	
 			<tr>
 				<th>
-					총 가격(￦) : <input type="text" name="totalPrice" id="totalPrice" value=""> 
+					총 가격(￦) : <input type="text" name="totalPrice" id="totalPrice" value="">원 
 				</th>
 			</tr>
 		</table>	

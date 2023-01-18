@@ -20,19 +20,9 @@ public class MainController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 검색 기능
-		request.setCharacterEncoding("UTF-8"); // 한글 처리
-		String goodsSearch = request.getParameter("goodsSearch");	
-		System.out.println("goodsSearch : " + goodsSearch);			
+		
 				
 		goodsService = new GoodsService();	
-		
-		// 전체 상품 
-		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(goodsSearch);
-		request.setAttribute("list", list);
-		request.setAttribute("goodsSearch", goodsSearch); // view에서 필요		
-		System.out.println(list+"<--MainController list");
-		System.out.println(goodsSearch+"<--MainController list");		
 
 		// 인기 상품
 		int hit = 0;

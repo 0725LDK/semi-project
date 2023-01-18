@@ -14,7 +14,7 @@
 	<div>
 		<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 	</div>
-
+	<br>
 	<!--  이벤트 배너 클릭시 이벤트 상품 페이지로 이동 -->
 	<table>
 		<tr>

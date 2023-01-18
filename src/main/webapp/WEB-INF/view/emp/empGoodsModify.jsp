@@ -19,7 +19,7 @@
 	<form action="${pageContext.request.contextPath}/emp/empGoodsModify" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
-				<td rowspan="10">
+				<td rowspan="12">
 					<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="200">
 				</td>
 				<th>상품 번호 : </th>
@@ -28,7 +28,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>상품 종류 : </th>
+				<th>상품 카테고리 : </th>
 				<td>
 					<select name="goodsCategory">
 						<option value="${map.goodsCategory}">${map.categoryName}</option>
@@ -40,6 +40,12 @@
 						<option value="6">이벤트2</option>	
 						<option value="7">이벤트3</option>	
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>상품 주종 : </th>
+				<td>
+					<input type="text" name="categoryName" value="${map.categoryName}">
 				</td>
 			</tr>
 			<tr>
@@ -63,20 +69,20 @@
 			<tr>
 				<th>상품 도수 : </th>
 				<td>
-					<input type="number" name="goodsAlcohol" value="${map.goodsAlcohol}">
+					<input type="number" name="goodsAlcohol" value="${map.goodsAlcohol}"> %
 				</td>
 			</tr>			
 			<tr>
 				<th>상품 용량 : </th>
 				<td>
-					<input type="number" name="goodsLiter" value="${map.goodsLiter}">
+					<input type="number" name="goodsLiter" value="${map.goodsLiter}"> ml
 				</td>
 			</tr>			
 			<tr>
-				<th>상품 품절 : </th>
+				<th>상품 재고 : </th>
 				<td>
 					<select name="soldout">
-						<option value="${map.soldout}">${map.soldout}</option>
+						<option value="${map.soldout}">품절/재고</option>
 						<option value="Y">품절</option>
 						<option value="N">재고 있음</option>
 					</select>
@@ -89,8 +95,10 @@
 				</td>
 			</tr>
 			<tr>
-				<th>히트 상품 : </th>
-				<td><input type="number" name="hit" value="${map.hit}"></td>
+				<th>베스트 상품 : </th>
+				<td>
+					<input type="number" name="hit" value="${map.hit}">
+				</td>
 			</tr>
 			<tr>
 				<th>상품 이미지 변경 : </th>

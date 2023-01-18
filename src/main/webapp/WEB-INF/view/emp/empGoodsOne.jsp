@@ -11,7 +11,7 @@
 	
 	<!-- 네비메뉴 -->
 	<div>
-		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
+		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
 
 
@@ -23,7 +23,7 @@
 			<td rowspan="10">
 				<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="250">
 			</td>
-			<th>상품 종류 : </th>
+			<th>상품 주종 : </th>
 			<td>${map.categoryName}</td>
 		</tr>
 		<tr>
@@ -50,15 +50,29 @@
 		</tr>
 		<tr>
 			<th>상품 재고 : </th>
-			<td><span value="${map.soldout}">품절</span></td>
+			<td>
+				<c:if test="${map.soldout == 'Y'}">
+					<span value="${map.soldout}">품절</span>
+				</c:if>
+				<c:if test="${map.soldout == 'N'}">
+					<span value="${map.soldout}">재고 있음</span>
+				</c:if>
+			</td>
 		</tr>		
 		<tr>
 			<th>직원 아이디 : </th>
 			<td>${map.empId}</td>
 		</tr>
 		<tr>
-			<th>히트 상품 : </th>
-			<td>${map.hit}</td>
+			<th>베스트 상품 : </th>
+			<td>
+				<c:if test="${map.hit == '1'}">
+					<span value="${map.hit}">베스트 상품</span>
+				</c:if>
+				<c:if test="${map.hit == '0'}">
+					<span value="${map.hit}">일반 상품</span>
+				</c:if>
+			</td>
 		</tr>
 		<tr>
 			<th>등록 일자 : </th>
@@ -67,7 +81,6 @@
 	</table>				
 	<div>
 		<a href="${pageContext.request.contextPath}/emp/empGoodsModify?goodsCode=${map.goodsCode}">수정</a>
-		<a href="${pageContext.request.contextPath}/emp/empGoodsRemove?goodsCode=${map.goodsCode}">삭제</a>
 	</div>
 </body>
 </html>

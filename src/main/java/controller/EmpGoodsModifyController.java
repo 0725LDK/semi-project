@@ -55,6 +55,7 @@ public class EmpGoodsModifyController extends HttpServlet {
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
 		String goodsCategory = mreq.getParameter("goodsCategory");
+		String categoryName = mreq.getParameter("categoryName");
 		String goodsContent = mreq.getParameter("goodsContent");
 		Double goodsAlcohol = Double.parseDouble(mreq.getParameter("goodsAlcohol"));
 		int goodsLiter = Integer.parseInt(mreq.getParameter("goodsLiter"));
@@ -84,6 +85,7 @@ public class EmpGoodsModifyController extends HttpServlet {
 			goods.setGoodsName(goodsName);
 			goods.setGoodsPrice(goodsPrice);
 			goods.setGoodsCategory(goodsCategory);
+			goods.setCategoryName(categoryName);
 			goods.setGoodsContent(goodsContent);
 			goods.setGoodsAlcohol(goodsAlcohol);
 			goods.setGoodsLiter(goodsLiter);
@@ -101,12 +103,13 @@ public class EmpGoodsModifyController extends HttpServlet {
 			System.out.println(goodsName+"<-- 상품이름");		
 			System.out.println(goodsPrice+"<-- 상품가격");		
 			System.out.println(goodsCategory+"<-- 상품카테고리");		
+			System.out.println(goodsCategory+"<-- 카테고리이름");		
 			System.out.println(goodsContent+"<-- 상품설명");		
 			System.out.println(goodsAlcohol+"<-- 상품도수");		
 			System.out.println(goodsLiter+"<-- 상품용량");		
-			System.out.println(soldout+"<-- 품절");
-			System.out.println(empId+"<-- 재고");
-			System.out.println(hit+"<-- 재고");
+			System.out.println(soldout+"<-- 재고");
+			System.out.println(empId+"<-- 등록직원");
+			System.out.println(hit+"<-- 인기상품");
 			
 			System.out.println(fileSystemName+"<-- 파일이름");		
 			System.out.println(originalFileName+"<-- 원본파일이름");		
@@ -119,7 +122,7 @@ public class EmpGoodsModifyController extends HttpServlet {
 				System.out.println("수정성공");
 		    	
 		    	String msg = null;
-		    	msg = URLEncoder.encode("게시글을 수정하였습니다.", "utf-8");
+		    	msg = URLEncoder.encode("게시글을 수정완료", "utf-8");
 				
 				// View
 				response.sendRedirect(request.getContextPath()+"/emp/empGoodsOne?goodsCode="+goodsCode+"&msg="+msg);
@@ -127,7 +130,7 @@ public class EmpGoodsModifyController extends HttpServlet {
 				System.out.println("수정실패");
 		    	
 		    	String msg = null;
-		    	msg = URLEncoder.encode("게시글 수정에 실패하였습니다.", "utf-8");
+		    	msg = URLEncoder.encode("게시글 수정에 실패", "utf-8");
 		    	
 		    	// View
 				response.sendRedirect(request.getContextPath()+"/emp/empGoodsModify?goodsCode="+goodsCode+"&msg="+msg);

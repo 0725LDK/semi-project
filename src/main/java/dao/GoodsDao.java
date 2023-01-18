@@ -138,7 +138,7 @@ public class GoodsDao {
 	// 상품 상세페이지 goodsOne
 	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		HashMap<String, Object> map = null;
-		String sql = "SELECT g.goods_code goodsCode, g.goods_name goodsName, g.goods_price goodsPrice, g.goods_category goodsCategory, g.category_name categoryName, g.goods_content goodsContent, g.goods_alcohol goodsAlcohol, g.goods_liter goodsLiter, g.soldout soldout, g.emp_id empId, g.hit hit, g.createdate createdate, img.filename filename, img.origin_name originName\r\n"
+		String sql = "SELECT g.goods_code goodsCode, g.goods_name goodsName, g.goods_price goodsPrice, g.goods_category goodsCategory, g.category_name categoryName, g.goods_content goodsContent, g.goods_alcohol goodsAlcohol, g.goods_liter goodsLiter, g.soldout soldout, g.emp_id empId, g.hit hit, g.createdate createdate, img.filename filename, img.origin_name originName"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
 				+ " WHERE g.goods_code = ?";
@@ -200,7 +200,7 @@ public class GoodsDao {
 	
 	// 상품 수정
 	public int updateGoods(Connection conn, Goods goods) throws Exception {
-		String sql = "UPDATE goods SET goods_name = ?, goods_price = ?, goods_category = ?, goods_content = ?, goods_alcohol = ?, goods_liter = ?, soldout = ?, emp_id = ?, hit = ? WHERE goods_code = ?";
+		String sql = "UPDATE goods SET goods_name = ?, goods_price = ?, goods_category = ?, category_name = ?, goods_content = ?, goods_alcohol = ?, goods_liter = ?, soldout = ?, emp_id = ?, hit = ? WHERE goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, goods.getGoodsName());
 		stmt.setInt(2, goods.getGoodsPrice());
@@ -221,6 +221,7 @@ public class GoodsDao {
 		return row;
 	}
 	
+	/*
 	// 상품 삭제
 	public int deleteGoods(Connection conn, int goodsCode) throws Exception {
 		String sql = "DELETE FROM goods WHERE goods_code = ?";
@@ -231,4 +232,5 @@ public class GoodsDao {
 
 		return row;
 	}
+	*/
 }

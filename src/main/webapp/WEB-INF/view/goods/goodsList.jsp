@@ -4,23 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체상품리스트</title>
+<title>934마켓 카테고리 상품 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<!-- 네비메뉴 -->
+	<!-- 메인 네비메뉴 -->
 	<div>
-		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
+		<jsp:include page="/inc/mainNavMenu.jsp"></jsp:include>
 	</div>	
-	<!--  네비메뉴로 수정예정 -->
-	<div>
-		<a href="${pageContext.request.contextPath}/goods/goodsList">전체상품</a>
-		<a href="${pageContext.request.contextPath}#">신상품</a>
-		<a href="${pageContext.request.contextPath}#">베스트</a>
-	</div>
+	<br>
+
 	<!-- 상품 네비메뉴 -->
 	<div>
 		<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 	</div>	
+	<br>
 		
 	
 	<!-- goodsList -->
