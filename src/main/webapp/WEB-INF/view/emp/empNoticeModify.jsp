@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 이벤트 수정 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>이벤트 수정</h1>

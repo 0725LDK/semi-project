@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 직원 리스트 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>직원 리스트</h1>

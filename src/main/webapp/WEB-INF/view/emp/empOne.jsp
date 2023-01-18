@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 관리자 메인 페이지 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>관리자 페이지(기본)</h1>

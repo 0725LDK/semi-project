@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 회원 리뷰 작성 내역 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<h1>회원 리뷰 리스트</h1>
+	<h1>회원 리뷰 작성 내역</h1>
 	
 	<!-- 네비메뉴 -->
 	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 통계데이터 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>판매 합계 데이터</h1>

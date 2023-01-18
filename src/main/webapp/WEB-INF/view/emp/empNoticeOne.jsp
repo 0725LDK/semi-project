@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 이벤트 상세보기 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-
+	<h1>이벤트 상세보기</h1>
 	<table>
 		<tr>
 			<td rowspan="10">
@@ -33,11 +33,6 @@
 			<td>${map.createdate}</td>
 		</tr>
 	</table>
-	
-	
-	
-	
-	
 					
 	<div>
 		<a href="${pageContext.request.contextPath}/emp/empNoticeModify?noticeCode=${map.noticeCode}">수정</a>
