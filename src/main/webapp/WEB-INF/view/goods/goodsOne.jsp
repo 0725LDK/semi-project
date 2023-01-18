@@ -81,5 +81,21 @@
 		<button type="submit">구매하기</button>
 	</form>
 
+	<h4>고객 리뷰</h4>
+	<c:forEach var="m" items="${list}">
+		<div>
+			<div>
+				<span>고객 아이디 : ${m.customerId}</span>
+			</div>
+			<div>
+				<p>
+					댓글 내용 : ${m.reviewMemo}
+				</p>
+			</div>
+			<div>
+				<span>댓글 작성일 : ${m.createdate}</span>
+			</div>			
+		</div>
+	</c:forEach>	
 </body>
 </html>

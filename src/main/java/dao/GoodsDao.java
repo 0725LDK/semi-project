@@ -221,6 +221,29 @@ public class GoodsDao {
 		return row;
 	}
 	
+	// 상품 리뷰
+	public ArrayList<HashMap<String, Object>> selectGoodsReview(Connection conn, int goodsCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT r.order_code orderCode, r.review_memo reviewMemo, r.createdate createdate, o.customer_id customerId"
+				+ " FROM review r INNER JOIN orders o"
+				+ " ON r.order_code = o.order_code"
+				+ " WHERE r.order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("orderCode", rs.getInt("orderCode"));
+			m.put("reviewMemo", rs.getString("reviewMemo"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("customerId", rs.getString("customerId"));
+			list.add(m);
+		}		
+		return list;
+	}	
+	
+	
+	
 	/*
 	// 상품 삭제
 	public int deleteGoods(Connection conn, int goodsCode) throws Exception {

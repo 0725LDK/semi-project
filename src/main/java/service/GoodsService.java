@@ -70,7 +70,7 @@ public class GoodsService {
 		return hitList;
 	}
 	
-	// customer 카테고리별 상품 리스트
+	// 카테고리별 상품 리스트
 	public ArrayList<HashMap<String, Object>> getGoodsCategoryList(String goodsCategory) {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
@@ -96,7 +96,7 @@ public class GoodsService {
 		return list;
 	}	
 	
-	// emp 상품 리스트
+	// 상품 리스트
 	public ArrayList<HashMap<String, Object>> getGoodsList(String goodsSearch) {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
@@ -217,7 +217,37 @@ public class GoodsService {
 		}
 		return row;
 	}
-
+	
+	// 상품 리뷰
+	public ArrayList<HashMap<String, Object>> getGoodsReview(int goodsCode) {
+		ArrayList<HashMap<String, Object>> list = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();		
+			goodsDao = new GoodsDao();
+			list = goodsDao.selectGoodsReview(conn, goodsCode);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}	
+	
+	
+	
+	
+/*
 	// 상품 삭제
 	public int removeGoods(int goodsCode) {
 		goodsDao = new GoodsDao();
@@ -250,4 +280,5 @@ public class GoodsService {
 		}
 		return row;
 	}
+*/
 }
