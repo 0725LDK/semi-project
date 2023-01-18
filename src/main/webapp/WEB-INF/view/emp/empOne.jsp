@@ -10,7 +10,6 @@
 	<h1>관리자 페이지(기본)</h1>
 	
 	<!-- 네비메뉴 -->
-	
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
@@ -46,8 +45,6 @@
 			<a href="${pageContext.request.contextPath}/emp/empQuestion">고객센터</a>
 		</c:if>
 	</div>
-	
-	
 	
 </body>
 </html>

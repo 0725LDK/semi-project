@@ -7,6 +7,12 @@
 <title>934마켓 이벤트 상세보기 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
+
+	<!-- 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
+	</div>
+	
 	<h1>이벤트 상세보기</h1>
 	<table>
 		<tr>

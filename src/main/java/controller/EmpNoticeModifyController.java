@@ -35,6 +35,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 			return;
 		}
 		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		NoticeService noticeService = new NoticeService();
 		
@@ -47,7 +48,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 		map = noticeService.getNoticeOne(noticeCode);
 		
 		request.setAttribute("map", map);		
-		
+	
 		
 		
 		request.getRequestDispatcher("/WEB-INF/view/emp/empNoticeModify.jsp").forward(request, response);

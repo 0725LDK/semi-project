@@ -12,6 +12,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.NoticeService;
+import vo.Emp;
 import vo.Notice;
 import vo.NoticeImg;
 
@@ -30,6 +31,11 @@ public class EmpNoticeAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/home/login");
 			return;
 		}
+		
+		Emp empId = (Emp) session.getAttribute("loginEmp");
+		String empIdNow = empId.getEmpId();
+		System.out.println(empId.getEmpId()+"<--- empNoticeModify empId 값");
+		request.setAttribute("empIdNow", empIdNow);
 		
 		request.getRequestDispatcher("/WEB-INF/view/emp/empNoticeAdd.jsp").forward(request, response);
 	}

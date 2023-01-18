@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>934마켓 회원 주문 내역 | 전통주의 모든것, 934마켓</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		
+		//배송 상태 변경
+		$('#stateFormBtn').click(function()
+		{
+			$('#stateForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
 	<h1>회원 주문 내역</h1>
@@ -38,14 +49,14 @@
 						${o.orderState }
 						
 						<c:if test="${o.orderState != '구매확정' && o.orderState != '취소' && o.orderState != '배송완료'}">
-							<form action="${pageContext.request.contextPath}/emp/empCustomerOrderStateModify" method="post">
+							<form action="${pageContext.request.contextPath}/emp/empCustomerOrderStateModify" method="post" id="stateForm">
 								<input type="hidden" name="orderCode" value="${o.orderCode}">
 								<input type="hidden" name="currentPage" value="${currentPage}">
 								<select name="orderState">
 									<option value="배송중">배송중</option>
 									<option value="배송완료">배송완료</option>
 								</select>
-								<button type="submit">변경</button>
+								<button type="button" id="stateFormBtn">변경</button>
 							</form>
 						</c:if>
 					</div>

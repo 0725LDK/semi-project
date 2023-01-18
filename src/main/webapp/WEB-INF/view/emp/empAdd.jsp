@@ -47,6 +47,11 @@
 </script>
 </head>
 <body>
+	<!-- 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
+	</div>
+	
 	<h1>직원 회원 가입</h1>
 	<form method="post" action="${pageContext.request.contextPath}/emp/empAdd" id="empAddForm">
 		<table border="1">

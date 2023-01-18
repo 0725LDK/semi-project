@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>934마켓 회원 정보 리스트 | 전통주의 모든것, 934마켓</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		
+		//검색
+		$('#searchFormBtn').click(function()
+		{
+			$('#searchForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
 	<h1>회원 정보 리스트</h1>
@@ -40,10 +51,10 @@
 	
 	<!-- 검색 기능 -->
 	<div>
-		<form action="${pageContext.request.contextPath}/emp/empCustomerList" method="get">
+		<form action="${pageContext.request.contextPath}/emp/empCustomerList" method="get" id="searchForm">
 			<span>고객 ID 검색 : </span>
 			<input type="text" name="search">
-			<button type="submit">검색</button>
+			<button type="button" id="searchFormBtn">검색</button>
 		</form>
 	</div>
 	
