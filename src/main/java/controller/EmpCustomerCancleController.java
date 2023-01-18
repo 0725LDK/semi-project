@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.EmpService;
 
@@ -16,8 +17,16 @@ import service.EmpService;
 @WebServlet("/emp/empCustomerCancle")
 public class EmpCustomerCancleController extends HttpServlet {
 	
+	//관리자 고객 주문 취소 내역
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		
+		// 세션 확인
+		HttpSession session = request.getSession();
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			return;
+		}
 		EmpService empService = new EmpService();
 		ArrayList<HashMap<String,Object>> list = null;
 		

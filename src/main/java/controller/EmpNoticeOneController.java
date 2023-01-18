@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.GoodsService;
 import service.NoticeService;
@@ -16,20 +17,16 @@ import service.NoticeService;
 @WebServlet("/emp/empNoticeOne")
 public class EmpNoticeOneController extends HttpServlet {
 
+	//관리자 이벤트 상세보기
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*
-		// 로그인 후에만 진입가능
-	
+		// 세션 확인
 		HttpSession session = request.getSession();
-		
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(loginMember == null) { // 로그아웃 상태
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
 			response.sendRedirect(request.getContextPath()+"/home/login");
 			return;
 		}
-		
-	*/	
 		
 		// noticeOne
 		int noticeCode = 0;	

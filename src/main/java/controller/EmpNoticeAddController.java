@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -19,16 +20,21 @@ import vo.NoticeImg;
 public class EmpNoticeAddController extends HttpServlet {
 	private NoticeService noticeService;
 	
+	//관리자 이벤트 추가 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * 
-		 * 로그인 넣기
-		 */
+		
+		// 세션 확인
+		HttpSession session = request.getSession();
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			return;
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/view/emp/empNoticeAdd.jsp").forward(request, response);
 	}
 
-
+	//관리자 이벤트 추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 프로젝트안 upload폴더의 실제 물리적 위치를 반환
 		String dir = request.getServletContext().getRealPath("/upload");

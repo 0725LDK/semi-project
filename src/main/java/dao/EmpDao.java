@@ -41,35 +41,35 @@ public class EmpDao {
 	}
 	
 	// emp 관리자 화면에서 고객 리스트업 (검색어 있을때)
-		public ArrayList<Customer> empSelectCustomerListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	public ArrayList<Customer> empSelectCustomerListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+		
+		String sql = "SELECT customer_code customerCode, cu.customer_id customerId, customer_name customerName, "
+				+ "		 customer_phone customerPhone, ca.address address, POINT, cu.createdate "
+				+ " FROM customer cu "
+				+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id "
+				+ " WHERE cu.customer_id LIKE ? "
+				+ " LIMIT ?, ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next())
 		{
-			ArrayList<Customer> list = new ArrayList<Customer>();
-			
-			String sql = "SELECT customer_code customerCode, cu.customer_id customerId, customer_name customerName, "
-					+ "		 customer_phone customerPhone, ca.address address, POINT, cu.createdate "
-					+ " FROM customer cu "
-					+ " INNER JOIN customer_address ca ON cu.customer_id = ca.customer_id "
-					+ " WHERE cu.customer_id LIKE ? "
-					+ " LIMIT ?, ? ";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%"+search+"%");
-			stmt.setInt(2, beginRow);
-			stmt.setInt(3, rowPerPage);
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next())
-			{
-				Customer c = new Customer();
-				c.setCustomerCode(rs.getInt("customerCode"));
-				c.setCustomerId(rs.getString("customerId"));
-				c.setCustomerName(rs.getString("customerName"));
-				c.setCustomerPhone(rs.getString("customerPhone"));
-				c.setAddress(rs.getString("address"));
-				c.setPoint(rs.getInt("point"));
-				c.setCreatedate(rs.getString("createdate"));
-				list.add(c);
-			}
-			return list;
+			Customer c = new Customer();
+			c.setCustomerCode(rs.getInt("customerCode"));
+			c.setCustomerId(rs.getString("customerId"));
+			c.setCustomerName(rs.getString("customerName"));
+			c.setCustomerPhone(rs.getString("customerPhone"));
+			c.setAddress(rs.getString("address"));
+			c.setPoint(rs.getInt("point"));
+			c.setCreatedate(rs.getString("createdate"));
+			list.add(c);
 		}
+		return list;
+	}
 	//emp 고객 리스트 총 수(검색어 없을때)
 	public int empCustomerCount(Connection conn) throws Exception
 	{
@@ -250,7 +250,7 @@ public class EmpDao {
 		return list;
 	}
 	
-	////emp 회원 리뷰 추가&삭제 총 건 수 (검색어 없을때)
+	//emp 회원 리뷰 추가&삭제 총 건 수 (검색어 없을때)
 	public int empReviewListCount(Connection conn)throws Exception
 	{
 		int count = 0;
@@ -271,59 +271,59 @@ public class EmpDao {
 	}
 	
 	//emp 회원 리뷰 추가&삭제 내역 (검색어 있을때)
-		public ArrayList<HashMap<String,Object>> empReviewListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
-		{
-			ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-			String sql = "SELECT re.order_code orderCode, od.customer_id customerId, gd.goods_name goodsName "
-					+ "			, review_memo reviewMemo, re.createdate reviewDate, ph.point_kind pointKind, ph.createdate pointDate "
-					+ " FROM review_history re "
-					+ " INNER JOIN orders od ON re.order_code = od.order_code "
-					+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-					+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code"
-					+ " WHERE od.customer_id LIKE ?"
-					+ " LIMIT ?,?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1,"%"+search+"%");
-			stmt.setInt(2, beginRow);
-			stmt.setInt(3, rowPerPage);
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next())
-			{
-				HashMap<String,Object> r = new HashMap<String,Object>();
-				r.put("orderCode",rs.getInt("orderCode"));
-				r.put("customerId",rs.getString("customerId"));
-				r.put("goodsname",rs.getString("goodsname"));
-				r.put("reviewMemo",rs.getString("reviewMemo"));
-				r.put("reviewDate",rs.getString("reviewDate"));
-				r.put("pointKind",rs.getString("pointKind"));
-				r.put("pointDate",rs.getString("pointDate"));
-				list.add(r);
-			}
-			return list;
-		}
+	public ArrayList<HashMap<String,Object>> empReviewListSearch(Connection conn, int beginRow, int rowPerPage, String search)throws Exception
+	{
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT re.order_code orderCode, od.customer_id customerId, gd.goods_name goodsName "
+				+ "			, review_memo reviewMemo, re.createdate reviewDate, ph.point_kind pointKind, ph.createdate pointDate "
+				+ " FROM review_history re "
+				+ " INNER JOIN orders od ON re.order_code = od.order_code "
+				+ " INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ " LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code"
+				+ " WHERE od.customer_id LIKE ?"
+				+ " LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1,"%"+search+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
 		
-		////emp 회원 리뷰 추가&삭제 총 건 수 (검색어 있을때)
-		public int empReviewListCountSearch(Connection conn, String search)throws Exception
+		while(rs.next())
 		{
-			int count = 0;
-			
-			String sql = "SELECT COUNT(*) count"
-					+ "			 FROM review_history re "
-					+ "			 INNER JOIN orders od ON re.order_code = od.order_code "
-					+ "			 INNER JOIN goods gd ON od.goods_code = gd.goods_code "
-					+ "			 LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code "
-					+ " 	WHERE od.customer_id LIKE ? ";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1,"%"+search+"%");
-			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next())
-			{
-				count = rs.getInt("count");
-			}
-			return count;
+			HashMap<String,Object> r = new HashMap<String,Object>();
+			r.put("orderCode",rs.getInt("orderCode"));
+			r.put("customerId",rs.getString("customerId"));
+			r.put("goodsname",rs.getString("goodsname"));
+			r.put("reviewMemo",rs.getString("reviewMemo"));
+			r.put("reviewDate",rs.getString("reviewDate"));
+			r.put("pointKind",rs.getString("pointKind"));
+			r.put("pointDate",rs.getString("pointDate"));
+			list.add(r);
 		}
+		return list;
+	}
+	
+	////emp 회원 리뷰 추가&삭제 총 건 수 (검색어 있을때)
+	public int empReviewListCountSearch(Connection conn, String search)throws Exception
+	{
+		int count = 0;
+		
+		String sql = "SELECT COUNT(*) count"
+				+ "			 FROM review_history re "
+				+ "			 INNER JOIN orders od ON re.order_code = od.order_code "
+				+ "			 INNER JOIN goods gd ON od.goods_code = gd.goods_code "
+				+ "			 LEFT OUTER JOIN point_history ph ON re.order_code = ph.order_code "
+				+ " 	WHERE od.customer_id LIKE ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1,"%"+search+"%");
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			count = rs.getInt("count");
+		}
+		return count;
+	}
 		
 	
 	//emp 주종별 판매금액 합계 + 판매횟수

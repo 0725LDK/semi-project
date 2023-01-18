@@ -18,13 +18,16 @@ import vo.Emp;
 public class EmpAddController extends HttpServlet {
 	private EmpService empService;
 	private CustomerService customerService;
+	
 	// emp 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// 세션 확인
 		HttpSession session = request.getSession();
-		// 로그인 되어있으면 /home/main
-		if(session.getAttribute("loginCustomer") != null || session.getAttribute("loginEmp") != null) {
-			response.sendRedirect(request.getContextPath()+"/home/main");
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			System.out.println("접근제한");
 			return;
 		}
 		
@@ -32,10 +35,8 @@ public class EmpAddController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/view/emp/empAdd.jsp").forward(request, response);
 	}
 
-	
+	//emp 회원가입 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 한글처리 인코딩
-		request.setCharacterEncoding("utf-8");
 		
 		int row = 0;
 		boolean boolResult = true;

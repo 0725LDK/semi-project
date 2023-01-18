@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.QuestionService;
 import vo.QuestionComment;
@@ -16,6 +17,14 @@ public class EmpQuestionModifyController extends HttpServlet {
 	
 	//고객센터 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 세션 확인
+		HttpSession session = request.getSession();
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			return;
+		}
 		
 		int questionCode = Integer.parseInt(request.getParameter("questionCode"));
 		String questionMemo = request.getParameter("questionMemo");
@@ -31,7 +40,6 @@ public class EmpQuestionModifyController extends HttpServlet {
 	//고객센터 수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
 		int questionCode = Integer.parseInt(request.getParameter("questionCode"));
 		String commentMemo = request.getParameter("commentMemo");
 		

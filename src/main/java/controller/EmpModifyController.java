@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.EmpService;
 import vo.Emp;
@@ -14,10 +15,17 @@ import vo.Emp;
 @WebServlet("/emp/empModify")
 public class EmpModifyController extends HttpServlet {
 	
-	
-	
 	//직원정보 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 세션 확인
+		HttpSession session = request.getSession();
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			return;
+		}
+		
 		int empCode = Integer.parseInt(request.getParameter("empCode"));
 		String empId = request.getParameter("empId");
 		String empName = request.getParameter("empName");

@@ -248,62 +248,62 @@ public class EmpService {
 	}
 	
 	//관리자 고객 주문 취소 내역 리스트(검색어 없을때)
-		public ArrayList<HashMap<String,Object>> empOrderCancleListSearch(int beginRow, int rowPerPage, String search)
-		{
-			ArrayList<HashMap<String,Object>> list = null;
-			Connection conn = null;
-			
-			try {
-				conn = DBUtil.getConnection();
-				empDao = new EmpDao();
-				list = empDao.empOrderCancleListSearch(conn, beginRow, rowPerPage, search); 
-				conn.commit();
-			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				e.printStackTrace();
-			}
-			finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			return list;
-		}
+	public ArrayList<HashMap<String,Object>> empOrderCancleListSearch(int beginRow, int rowPerPage, String search)
+	{
+		ArrayList<HashMap<String,Object>> list = null;
+		Connection conn = null;
 		
-		//관리자 고객 취소 총 건수 (검색어 없을때)
-		public int empOrderCancleListCountSearch(int beginRow, int rowPerPage, String search)
-		{
-			int count = 0;
-			Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			list = empDao.empOrderCancleListSearch(conn, beginRow, rowPerPage, search); 
+			conn.commit();
+		} catch (Exception e) {
 			try {
-				conn = DBUtil.getConnection();
-				empDao = new EmpDao();
-				count = empDao.empOrderCancleListCountSearch(conn, search);
-				System.out.println(count+"<--empService count 수");
-				conn.commit();
-			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			return count;
 		}
+		return list;
+	}
+	
+	//관리자 고객 취소 총 건수 (검색어 없을때)
+	public int empOrderCancleListCountSearch(int beginRow, int rowPerPage, String search)
+	{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			empDao = new EmpDao();
+			count = empDao.empOrderCancleListCountSearch(conn, search);
+			System.out.println(count+"<--empService count 수");
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
 	
 	//emp 관리자 화면에서 고객 리스트 출력 (검색어 없을때)
 	public ArrayList<Customer> getEmpCustomerList(int beginRow, int rowPerPage)

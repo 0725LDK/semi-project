@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CounterDao;
 import service.CounterService;
@@ -26,6 +27,13 @@ public class EmpSumController extends HttpServlet {
 	//판매합계데이터 + 사이트 접속자수
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		// 세션 확인
+		HttpSession session = request.getSession();
+		// 로그인 안되어있으면 /home/login
+		if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmp") == null && session.getAttribute("authCode") == null) {
+			response.sendRedirect(request.getContextPath()+"/home/login");
+			return;
+		}
 		//판매합계데이터
 		ArrayList<HashMap<String,Object>> list = null;
 		this.empService = new EmpService();
