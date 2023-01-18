@@ -68,6 +68,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 		int noticeCode = Integer.parseInt(mreq.getParameter("noticeCode"));
 		String noticeTitle = mreq.getParameter("noticeTitle");
 		String noticeContent = mreq.getParameter("noticeContent");
+		int goodsCategory = Integer.parseInt(mreq.getParameter("goodsCategory"));
 		String empId = mreq.getParameter("empId");
 		System.out.println(mreq+"<-- EmpNoticeModifyController");
 		
@@ -89,8 +90,8 @@ public class EmpNoticeModifyController extends HttpServlet {
 			
 			notice.setNoticeCode(noticeCode);
 			notice.setNoticeTitle(noticeTitle);
-
 			notice.setNoticeContent(noticeContent);
+			notice.setGoodsCategory(goodsCategory);
 			notice.setEmpId(empId);
 
 			noticeImg.setNoticeCode(noticeCode);
@@ -102,6 +103,7 @@ public class EmpNoticeModifyController extends HttpServlet {
 			System.out.println(noticeCode+"<-- 이벤트번호");		
 			System.out.println(noticeTitle+"<-- 이벤트제목");			
 			System.out.println(noticeContent+"<-- 이벤트내용");		
+			System.out.println(goodsCategory+"<-- 카테고리");		
 			System.out.println(empId+"<-- 직원");		
 		
 			System.out.println(fileSystemName+"<-- 파일이름");		

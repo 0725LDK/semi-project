@@ -52,6 +52,7 @@ public class EmpNoticeAddController extends HttpServlet {
 		
 		String noticeTitle = mreq.getParameter("noticeTitle");
 		String noticeContent = mreq.getParameter("noticeContent");
+		int goodsCategory = Integer.parseInt(mreq.getParameter("goodsCategory"));
 		String empId = mreq.getParameter("empId");	
 	
 		// input type=file 바이너리 파일은 마임타입형태의 파일로 변환되어 upload폴더의 자동으로 저장
@@ -67,13 +68,14 @@ public class EmpNoticeAddController extends HttpServlet {
 
 			notice.setNoticeTitle(noticeTitle);
 			notice.setNoticeContent(noticeContent);
+			notice.setGoodsCategory(goodsCategory);
 			notice.setEmpId(empId);
-			System.out.println(notice+"<-- EmpGoodsAddController");
+			System.out.println(notice+"<-- EmpNoticeAddController 이벤트");
 			
 			noticeImg.setFilename(fileSystemName);
 			noticeImg.setOriginName(originalFileName);
 			noticeImg.setContentType(contentType);
-			System.out.println(noticeImg+"<-- EmpGoodsAddController");	
+			System.out.println(noticeImg+"<-- EmpNoticeAddController 이벤트이미지");	
 			
 			NoticeService noticeService = new NoticeService();
 			noticeService.addNotice(notice, noticeImg, dir);
@@ -81,14 +83,11 @@ public class EmpNoticeAddController extends HttpServlet {
 			/*
 			// 디버깅 코드
 			System.out.println("문자열 매개값 : ");
-			System.out.println("상품 이름 : " + goodsName);
-			System.out.println("상품 가격 : " + goodsPrice);
+			System.out.println("이벤트 제목 : " + noticeTitle);
+			System.out.println("이벤트 내용 : " + noticeContent);
 			System.out.println("카테고리 : " + goodsCategory);
-			System.out.println("상품 내용 : " + goodsContent);
-			System.out.println("상품 도수 : " + goodsAlcohol);
-			System.out.println("상품 용량 : " + goodsLiter);
-			System.out.println("직원 아이디 : " + empId);
-			System.out.println("히트 : " + hit);
+			System.out.println("직원아이디 : " + empId);
+
 			
 			System.out.println("파일 매개값 : ");
 			System.out.println("파일이름 : " + fileSystemName);

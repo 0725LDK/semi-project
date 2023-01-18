@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>934마켓 전체상품 | 전통주의 모든것, 934마켓 </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	
+	<style>
+	.soldout{
+		pointer-events : none;
+	}
+	</style>
 </head>
 <body>
 	<!-- 메인 네비메뉴 -->

@@ -10,6 +10,7 @@ import vo.Notice;
 
 public class NoticeDao {
 	
+	//
 	public ArrayList<HashMap<String, Object>> selectNoticeCategoryList(Connection conn, String noticeCategory) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		String sql = "SELECT n.*, g.*"
@@ -25,7 +26,7 @@ public class NoticeDao {
 			m.put("noticeTitle", rs.getString("noticeTitle"));
 			m.put("noticeContent", rs.getString("noticeContent"));
 			m.put("goodsCategory", rs.getString("goodsCategory"));
-			m.put("goodsCategory", rs.getString("goodsCategory"));
+			m.put("empId", rs.getString("empId"));
 			System.out.println(m+"<-- NoticeDao");
 			list.add(m);
 		}
@@ -116,6 +117,7 @@ public class NoticeDao {
 		stmt.setString(2, notice.getNoticeContent());
 		stmt.setInt(3, notice.getGoodsCategory());
 		stmt.setString(4, notice.getEmpId());
+		stmt.setInt(5, notice.getNoticeCode());
 		System.out.println(notice+"<-- NoticeDao");	
 		
 		int row = stmt.executeUpdate();

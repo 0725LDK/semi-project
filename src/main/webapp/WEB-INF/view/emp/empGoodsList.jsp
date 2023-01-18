@@ -26,6 +26,11 @@
 	</form>	
 	<br>
 	
+	<div>
+		<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">
+			상품 추가
+		</a>
+	</div>	
 	
 	<table border="1">
 	
@@ -70,11 +75,5 @@
 			</c:forEach>		
 		</tr>
 	</table>
-	<br>
-	<div>
-		<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">
-			상품 추가
-		</a>
-	</div>
 </body>
 </html>

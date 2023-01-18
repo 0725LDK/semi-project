@@ -14,7 +14,7 @@
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
 	</div>
 	<div>
-		<a href="${pageContext.request.contextPath}/emp/empNoticeAdd">상품 추가</a>
+		<a href="${pageContext.request.contextPath}/emp/empNoticeAdd">공지 추가</a>
 	</div>	
 	<br>
 	<table>
@@ -41,8 +41,6 @@
 							<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="1000" height="300">
 						</a>
 					</div>
-					<a href="${pageContext.request.contextPath}/emp/empNoticeModify?noticeCode=${m.noticeCode}">수정</a>
-					<a href="${pageContext.request.contextPath}/emp/empNoticeRemove?noticeCode=${m.noticeCode}">삭제</a>
 				</td>
 			</c:forEach>
 		</tr>

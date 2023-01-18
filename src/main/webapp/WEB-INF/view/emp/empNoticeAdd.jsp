@@ -33,6 +33,17 @@
 	<form action="${pageContext.request.contextPath}/emp/empNoticeAdd" method="post" enctype="multipart/form-data" id="eventAddForm">
 		<table border="1">
 			<tr>
+				<th>해당 공지 상품 카테고리 : </th>
+				<td>
+					<select name="goodsCategory">
+						<option value="${map.goodsCategory}">카테고리를 선택하세요</option>
+						<option value="5">이벤트1</option>		
+						<option value="6">이벤트2</option>		
+						<option value="7">이벤트3</option>		
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<th>공지 제목 : </th>
 				<td>
 					<input type="text" name="noticeTitle" id="noticeTitle">

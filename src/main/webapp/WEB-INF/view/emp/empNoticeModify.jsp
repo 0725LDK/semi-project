@@ -60,8 +60,8 @@
 					<input type="number" name="noticeCode" value="${map.noticeCode}" readonly="readonly">
 				</td>
 				<td>
-					<select name="noticeCategory">
-						<option value="${map.goodsCategory}">${map.goodsCategory}</option>
+					<select name="goodsCategory">
+						<option value="${map.goodsCategory}">카테고리를 선택하세요.</option>
 						<option value="5">이벤트1</option>
 						<option value="6">이벤트2</option>
 						<option value="7">이벤트3</option>
