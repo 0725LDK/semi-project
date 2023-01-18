@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>934마켓 장바구니 주문하기 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>주문하기</h1>
@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 	<h1>배송정보</h1>
-	<form method="post" action="${pageContext.request.contextPath}/customer/customerCartOrder?orderPrice=${m.sumPrice+2500}">
+	<form method="post" action="${pageContext.request.contextPath}/customer/customerCartOrder?orderPrice=${m.sumPrice}">
 		<table border="1">
 			<tr>
 				<td>받으시는 분 <span style="color:red">*</span></td>
@@ -90,6 +90,7 @@
 	</form>
 </body>
 <script>
+	// 주소추가 버튼 클릭시 action변경
 	function submit2(fo) {
 		fo.action='${pageContext.request.contextPath}/customer/customerCartAddAddress';
 		fo.submit();

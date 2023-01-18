@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 고객센터 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>고객센터</h1>
@@ -33,7 +33,7 @@
 					<td>${q.createdate }</td>
 						<c:if test="${q.commentMemo == null}">
 							<td>..답변중..</td>
-							<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionModify?questionCode=${q.questionCode }&ordersCode=${q.ordersCode}&category=${q.category}'>수정</a></td>
+							<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionModify?questionCode=${q.questionCode }&ordersCode=${q.ordersCode}&questionMemo=${q.questionMemo}&category=${q.category}'>수정</a></td>
 							<td><a type="button" href='${pageContext.request.contextPath}/customer/customerQuestionRemove?questionCode=${q.questionCode }'>삭제</a></td>
 						</c:if>
 						<c:if test="${q.commentMemo != null}">

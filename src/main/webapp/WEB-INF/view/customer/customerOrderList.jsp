@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<title>934마켓 주문내역 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
 	<h1>주문내역</h1>
@@ -46,9 +47,9 @@
 							<div>
 								<c:if test="${o.reviewMemo eq null}">
 									<c:if test="${o.rhistoryMemo eq null }">
-										<form action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
+										<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerReviewAdd" method="get">
 											<input type="hidden" name="orderCode" value="${o.orderCode}">
-											리뷰작성 : <input type="text" name="reviewMemo">
+											리뷰작성 : <input type="text" id="reviewMemo" name="reviewMemo">
 											<button type="submit">작성</button>
 										</form>
 									</c:if>
@@ -70,4 +71,14 @@
 			</c:forEach>
 		</table>
 </body>
+<script>
+	function check() {
+		// 리뷰내용 공백확인
+		if($('#reviewMemo').val() == '') {
+			alert("내용을 입력해주세요");
+			$('#reviewMemo').focus();
+			return false;
+		}
+	}
+</script>
 </html>

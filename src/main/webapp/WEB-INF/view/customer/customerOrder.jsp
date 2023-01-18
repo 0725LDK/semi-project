@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>934마켓 주문하기 | 전통주의 모든것, 934마켓</title>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		$( document ).ready( function() {
