@@ -4,62 +4,85 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link href="../resources/css/bootstrap.form.css" rel="stylesheet">
 <title>934마켓 회원 가입 | 전통주의 모든것, 934마켓</title>
+<style>
+	table {
+		width: 500px;
+	}
+</style>
 </head>
 <body>
-	<h1>고객회원가입</h1>
-	<form method="post" onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerAdd">
-		<table border="1">
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" id="customerId" name="customerId"></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" id="customerPw" name="customerPw"></td>
-			</tr>
-			<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="password" id="pwCheck" name="pwCheck"></td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" id="customerName" name="customerName"></td>
-			</tr>
-			<tr>
-				<td>주민등록번호</td>
-				<td>
-					<input type="text" id="customerJumin" name="customerJumin">-
-					<input type="text" id="customerJumin1" name="customerJumin1">
-				</td>
-			</tr>
-			<tr>
-				<td>휴대폰</td>
-				<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone"></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td>
-					<select name="customerAddress">
-						<option value="서울특별시">서울특별시</option>
-						<option value="인천광역시">인천광역시</option>
-						<option value="부산광역시">부산광역시</option>
-						<option value="대전광역시">대전광역시</option>
-						<option value="대구광역시">대구광역시</option>
-						<option value="울산광역시">울산광역시</option>
-						<option value="광주광역시">광주광역시</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청도">충청도</option>
-						<option value="전라도">전라도</option>
-						<option value="경상도">경상도</option>
-						<option value="제주특별자지도">제주특별자지도</option>
-					</select>
-				</td>
-			</tr>
-		</table>
-		<button type="submit">회원가입</button>
-	</form>
+<main>
+	<div class="container d-flex flex-column">
+		<div class="row pt-5">
+			<div class="col-lg-6 mx-auto d-table">
+				<div class="card">
+					<div class="card-header text-center">
+						<h2>회원가입</h2>
+					</div>
+					<div class="card-body">
+						<div class="m-sm-3 text-center">
+							<form method="post" onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerAdd">
+								<table>
+									<tr>
+										<td>아이디</td>
+										<td><input type="text" id="customerId" name="customerId" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>비밀번호</td>
+										<td><input type="password" id="customerPw" name="customerPw" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>비밀번호 확인</td>
+										<td><input type="password" id="pwCheck" name="pwCheck" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>이름</td>
+										<td><input type="text" id="customerName" name="customerName" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>주민등록번호</td>
+										<td>
+											<input type="text" id="customerJumin" name="customerJumin" style="width:193px; height:57px; border:none; background:transparent;">-
+											<input type="text" id="customerJumin1" name="customerJumin1" style="width:193px; height:57px; border:none; background:transparent;">
+										</td>
+									</tr>
+									<tr>
+										<td>휴대폰</td>
+										<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>주소</td>
+										<td>
+											<select name="customerAddress" class="form-control">
+												<option value="서울특별시">서울특별시</option>
+												<option value="인천광역시">인천광역시</option>
+												<option value="부산광역시">부산광역시</option>
+												<option value="대전광역시">대전광역시</option>
+												<option value="대구광역시">대구광역시</option>
+												<option value="울산광역시">울산광역시</option>
+												<option value="광주광역시">광주광역시</option>
+												<option value="경기도">경기도</option>
+												<option value="강원도">강원도</option>
+												<option value="충청도">충청도</option>
+												<option value="전라도">전라도</option>
+												<option value="경상도">경상도</option>
+												<option value="제주특별자지도">제주특별자지도</option>
+											</select>
+										</td>
+									</tr>
+								</table>
+								<br>
+								<button type="submit" class="btn btn-success" style="width:300px;">회원가입</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
 </body>
 <script>
 	let regNumber = /^[0-9]*$/; 

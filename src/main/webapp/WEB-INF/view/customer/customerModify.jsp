@@ -5,46 +5,62 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link href="../resources/css/bootstrap.form.css" rel="stylesheet">
 <title>934마켓 회원 정보 수정 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<h1>회원정보(수정)</h1>
 	<!-- 네비메뉴 -->
 	<div>
 		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
 	</div>	
 	
-	
 	<!-- 회원정보 -->
-	<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerModify" method="post">
-		<table>
-			<tr>
-				<td>계정명 : </td>
-				<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>이름 : </td>
-				<td><input type="text" id="customerName" name="customerName" value="${loginCustomer.customerName}"></td>
-			</tr>
-			<tr>
-				<td>비밀번호 : </td>
-				<td><input type="password" id="customerPw" name="customerPw"></td>
-			</tr>
-			<tr>
-				<td>변경할 비밀번호 : </td>
-				<td><input type="password" id="newPw" name="newPw"></td>
-			</tr>
-			<tr>
-				<td>변경할 비밀번호 확인 : </td>
-				<td><input type="password" id="newPwCk" name="newPwCk"></td>
-			</tr>
-			<tr>
-				<td>휴대폰 : </td>
-				<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone" value="${loginCustomer.customerPhone}"></td>
-			</tr>
-		</table>
-		<button type="submit">변경하기</button>
-	</form>
+	<main>
+		<div class="container d-flex flex-column">
+			<div class="row pt-5">
+				<div class="col-lg-6 mx-auto d-table">
+					<div class="card">
+						<div class="card-header text-center">
+							<h2>회원정보(수정)</h2>
+						</div>
+						<div class="card-body">
+							<div class="m-sm-3 text-center">
+								<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerModify" method="post">
+									<table style="width:500px;">
+										<tr>
+											<td>계정명</td>
+											<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control"></td>
+										</tr>
+										<tr>
+											<td>이름</td>
+											<td><input type="text" id="customerName" name="customerName" value="${loginCustomer.customerName}" class="form-control"></td>
+										</tr>
+										<tr>
+											<td>비밀번호</td>
+											<td><input type="password" id="customerPw" name="customerPw" class="form-control"></td>
+										</tr>
+										<tr>
+											<td>변경할 비밀번호</td>
+											<td><input type="password" id="newPw" name="newPw" class="form-control"></td>
+										</tr>
+										<tr>
+											<td>변경할 비밀번호 확인</td>
+											<td><input type="password" id="newPwCk" name="newPwCk" class="form-control"></td>
+										</tr>
+										<tr>
+											<td>휴대폰</td>
+											<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone" value="${loginCustomer.customerPhone}" class="form-control"></td>
+										</tr>
+									</table>
+									<button type="submit" class="btn btn-success" style="width:300px;">변경하기</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 </body>
 <script>
 	//전화번호 입력시 - 자동입력 (000-0000-0000), 숫자만 입력가능

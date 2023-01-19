@@ -39,7 +39,7 @@
       </tr>
    </table>
    
-   <!-- 수정/삭제/탈퇴 -->
+   <!-- 수정/탈퇴 -->
    <a href="${pageContext.request.contextPath}/customer/customerModify">수정</a>
    <a href="${pageContext.request.contextPath}/customer/customerRemove">회원탈퇴</a>
 </body>

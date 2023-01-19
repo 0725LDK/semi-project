@@ -4,37 +4,53 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link href="../resources/css/bootstrap.form.css" rel="stylesheet">
 <title>934마켓 문의사항 추가 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<h1>문의사항 추가</h1>
-	<!-- 네비메뉴 -->
-	<div>
-		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
-	</div>	
-	
-	<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerQuestionAdd" method="post">
-		<div>
-			<label>주문번호</label>
-			<input type="text" name="ordersCode" value="${ordersCode}" readonly="readonly">
+<main>
+	<div class="container d-flex flex-column">
+		<div class="row pt-5">
+			<div class="col-lg-6 mx-auto d-table">
+				<div class="card">
+					<div class="card-header text-center">
+						<h2>문의하기</h2>
+					</div>
+					<div class="card-body">
+						<div class="m-sm-3 text-center">
+							<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerQuestionAdd" method="post">
+								<table style="width: 500px;">
+									<tr>
+										<td>주문번호</td>
+										<td><input type="text" name="ordersCode" value="${ordersCode}" readonly="readonly" class="form-control"></td>
+									</tr>
+									
+									<tr>
+										<td>카테고리</td>
+										<td>
+											<select name="category" id="category" class="form-control">
+												<option value="X">==선택==</option>
+												<option value="배송">배송</option>
+												<option value="교환">교환</option>
+												<option value="반품">반품</option>
+												<option value="기타">기타</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td>문의내용</td>
+										<td><textarea rows="4" cols="40" id="questionMemo" name="questionMemo" class="form-control"></textarea></td>
+									</tr>
+								</table>
+								<button type="submit" class="btn btn-success" style="width:300px;">문의하기</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		<div>
-			<label>카테고리</label>
-			<select name="category" id="category">
-				<option value="X">==선택==</option>
-				<option value="배송">배송</option>
-				<option value="교환">교환</option>
-				<option value="반품">반품</option>
-				<option value="기타">기타</option>
-			</select>
-		</div>
-		<div>
-			<label>문의내용</label>
-			<textarea rows="5" cols="50" id="questionMemo" name="questionMemo"></textarea>
-		</div>
-		<button type="submit">추가</button>
-	</form>
+	</div>
+</main>
 </body>
 <script>
 	function check() {

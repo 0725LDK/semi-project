@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<title>934마켓 장바구니 주문하기 | 전통주의 모든것, 934마켓</title>
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 	<!-- Css Styles -->
-	<link rel="stylesheet" href="../resource/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/font-awesome.min.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/nice-select.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/jquery-ui.min.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/owl.carousel.min.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/slicknav.min.css" type="text/css">
-	<link rel="stylesheet" href="../resource/css/style.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/nice-select.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/jquery-ui.min.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/owl.carousel.min.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/slicknav.min.css" type="text/css">
+	<link rel="stylesheet" href="../resources/css/style.css" type="text/css">
 </head>
 <body>
     <!-- Page Preloder -->
@@ -40,7 +40,7 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
+                <img src="../resources/img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="../resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -218,7 +218,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="../resource/img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="../resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -235,7 +235,7 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- 장바구니 테이블 리스트 -->
+    <!-- 장바구니 주문테이블 리스트 -->
     <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
@@ -247,6 +247,7 @@
                                     <th>상품코드</th>
                                     <th>이미지</th>
                                     <th>상품명</th>
+                                    <th>상품가격</th>
                                     <th>수량</th>
                                     <th>가격</th>
                                     <th>삭제</th>
@@ -260,8 +261,9 @@
 	                                        <img src="${pageContext.request.contextPath}/upload/${l.filename}" width="80" height="80">
 	                                    </td>
 	                                    <td>${l.goodsName}</td>
-	                                    <td>${l.cartQuantity}</td>
-	                                    <td>${l.goodsPrice}</td>
+	                                    <td><fmt:formatNumber value="${l.goodsPrice}" pattern="#,###"/>원</td>
+	                                    <td>${l.cartQuantity}개</td>
+	                                    <td><fmt:formatNumber value="${l.goodsPrice * l.cartQuantity}" pattern="#,###"/>원</td>
 	                                    <td>
 	                                    	<a href="${pageContext.request.contextPath}/customer/customerCartRemove?goodsCode=${l.goodsCode}">
 	                                        	<span class="icon_close"></span>
@@ -280,17 +282,59 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">쇼핑 더하기</a>
+                        <a href="${pageContext.request.contextPath}/home/main" class="primary-btn cart-btn">쇼핑 더하기</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>배송정보</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
-                                <button type="submit" class="site-btn">APPLY COUPON</button>
-                            </form>
+                            <form method="post" id="form" action="${pageContext.request.contextPath}/customer/customerCartOrder?orderPrice=${m.sumPrice}">
+                           		<table>
+									<tr>
+										<td>받으시는 분 <span style="color:red">*</span></td>
+										<td><input type="text" style="width:385px" value="${customer.customerName}"></td>
+									</tr>
+									<tr>
+										<td>
+											주소추가 <br>
+											주소선택 <span style="color:red">*</span>
+										</td>
+										<td>
+											<select name="newAddress">
+												<option value="서울특별시">서울특별시</option>
+												<option value="인천광역시">인천광역시</option>
+												<option value="부산광역시">부산광역시</option>
+												<option value="대전광역시">대전광역시</option>
+												<option value="대구광역시">대구광역시</option>
+												<option value="울산광역시">울산광역시</option>
+												<option value="광주광역시">광주광역시</option>
+												<option value="경기도">경기도</option>
+												<option value="강원도">강원도</option>
+												<option value="충청도">충청도</option>
+												<option value="전라도">전라도</option>
+												<option value="경상도">경상도</option>
+												<option value="제주특별자지도">제주특별자지도</option>
+											</select>
+											<button type="button" onclick="return submit2(this.form);">주소추가</button>
+											<br>
+											<select name="address">
+												<c:forEach var="ca" items="${ca}">
+													<option value="${ca.address}">${ca.address}</option>
+												</c:forEach>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td>전화번호 <span style="color:red">*</span></td>
+										<td><input type="text" style="width:385px" value="${customer.customerPhone}"></td>
+									</tr>
+									<tr>
+										<td>배송메세지</td>
+										<td><textarea rows="5" cols="50"></textarea></td>
+									</tr>
+								</table>
+							</form>                      
                         </div>
                     </div>
                 </div>
@@ -299,11 +343,12 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>총 수량 <span>${n.sumQuantity}개</span></li>
-                            <li>총 가격 <span>${m.sumPrice}원</span></li>
+                            <li>총 가격 <span><fmt:formatNumber value="${m.sumPrice}" pattern="#,###"/>원</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">구매하기</a>
+                        <button type="submit" form="form" class="primary-btn col-lg-12" style="color:white;" >구매하기</button>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -316,7 +361,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="../resource/img/logo.png" alt=""></a>
+                            <a href="./index.html"><img src="../resources/img/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
@@ -369,7 +414,7 @@
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__payment"><img src="../resources/img/payment-item.png" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -378,98 +423,15 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="../resource/js/jquery-3.3.1.min.js"></script>
-    <script src="../resource/js/bootstrap.min.js"></script>
-    <script src="../resource/js/jquery.nice-select.min.js"></script>
-    <script src="../resource/js/jquery-ui.min.js"></script>
-    <script src="../resource/js/jquery.slicknav.js"></script>
-    <script src="../resource/js/mixitup.min.js"></script>
-    <script src="../resource/js/owl.carousel.min.js"></script>
-    <script src="../resource/js/main.js"></script>
+    <script src="../resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../resources/js/bootstrap.min.js"></script>
+    <script src="../resources/js/jquery.nice-select.min.js"></script>
+    <script src="../resources/js/jquery-ui.min.js"></script>
+    <script src="../resources/js/jquery.slicknav.js"></script>
+    <script src="../resources/js/mixitup.min.js"></script>
+    <script src="../resources/js/owl.carousel.min.js"></script>
+    <script src="../resources/js/main.js"></script>
 
-
-<!-- 
-	<h1>주문하기</h1>
-		<table border="1">
-			<tr>
-				<td>상품코드</td>
-				<td>이미지</td>
-				<td>상품명</td>
-				<td>수량</td>
-				<td>배송비</td>
-				<td>가격</td>
-				<td>삭제</td>
-			</tr>
-			<c:forEach var="l" items="${list}">
-			<tr>
-				<td>${l.goodsCode}</td>
-				<td>
-					<img src="${pageContext.request.contextPath}/upload/${l.filename}" width="70" height="70">
-				</td>
-				<td>${l.goodsName}</td>
-				<td>${l.cartQuantity}</td>
-				<td>무료</td>
-				<td>${l.goodsPrice}</td>
-				<td><a href="${pageContext.request.contextPath}/customer/customerCartRemove?goodsCode=${l.goodsCode}">삭제</a></td>
-			</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="5">총수량 : ${n.sumQuantity}개</td>
-				<td colspan="2">총가격 : ${m.sumPrice}원</td>
-			</tr>
-			<tr>
-				<td colspan="7" style="color:red">&#10071;상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</td>
-			</tr>
-		</table>
-	<h1>배송정보</h1>
-	<form method="post" action="${pageContext.request.contextPath}/customer/customerCartOrder?orderPrice=${m.sumPrice}">
-		<table border="1">
-			<tr>
-				<td>받으시는 분 <span style="color:red">*</span></td>
-				<td><input type="text" value="${customer.customerName}"></td>
-			</tr>
-			<tr>
-				<td>
-					주소추가 <br>
-					주소선택 <span style="color:red">*</span>
-				</td>
-				<td>
-					<select name="newAddress">
-						<option value="서울특별시">서울특별시</option>
-						<option value="인천광역시">인천광역시</option>
-						<option value="부산광역시">부산광역시</option>
-						<option value="대전광역시">대전광역시</option>
-						<option value="대구광역시">대구광역시</option>
-						<option value="울산광역시">울산광역시</option>
-						<option value="광주광역시">광주광역시</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청도">충청도</option>
-						<option value="전라도">전라도</option>
-						<option value="경상도">경상도</option>
-						<option value="제주특별자지도">제주특별자지도</option>
-					</select>
-					<button type="button" onclick="return submit2(this.form);">주소추가</button>
-					<br>
-					<select name="address">
-						<c:forEach var="ca" items="${ca}">
-							<option value="${ca.address}">${ca.address}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>전화번호 <span style="color:red">*</span></td>
-				<td><input type="text" value="${customer.customerPhone}"></td>
-			</tr>
-			<tr>
-				<td>배송메세지</td>
-				<td><textarea rows="5" cols="50"></textarea></td>
-			</tr>
-		</table>
-		<button type="submit">결제하기</button>
-	</form>
--->
 </body>
 <script>
 	// 주소추가 버튼 클릭시 action변경
