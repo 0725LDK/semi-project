@@ -21,4 +21,5 @@
 	<!-- Custom js for this page-->
 	<script src="${pageContext.request.contextPath}/resource1/js/dashboard.js"></script>
 	<script src="${pageContext.request.contextPath}/resource1/js/Chart.roundedBarCharts.js"></script>
+	<script src="${pageContext.request.contextPath}/resource1/js/chart.js"></script>
 	<!-- End custom js for this page-->

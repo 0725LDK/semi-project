@@ -16,3 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resource1/css/vertical-layout-light/style.css">
 	<!-- endinject -->
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resource1/images/favicon.png" />
+	
+	<style>
+        tr { text-align: center  }
+    </style>

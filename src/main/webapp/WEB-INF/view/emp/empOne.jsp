@@ -8,10 +8,9 @@
 	
 	<!-- CSS link -->
 	<jsp:include page="/inc/empHeadScript.jsp"></jsp:include>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script>
-		$.fn.dataTable.ext.errMode = 'throw';
-	</script>
+
 </head>
 <body>
 	<div class="container-scroller">
@@ -38,16 +37,16 @@
 								 <div class="card-body">
 								 	<a href="${pageContext.request.contextPath}/emp/empCustomerList">
 								 		<p class="card-title mb-0">고객 리스트</p>
-								 	</a>
+								 	</a><br>
 								 	<div class="table-responsive">
 										 <table class="table table-striped table-borderless">
 										 	<tr>
-												<td>회원 번호</td>
-												<td>회원 ID</td>
-												<td>회원 이름</td>
-												<td>주소</td>
-												<td>보유 포인트</td>
-												<td>가입 일자</td>
+												<th>회원 번호</th>
+												<th>회원 ID</th>
+												<th>회원 이름</th>
+												<th>주소</th>
+												<th>보유 포인트</th>
+												<th>가입 일자</th>
 											</tr>
 											<c:forEach var="c" items="${customerList}">
 												<tr>
@@ -69,13 +68,13 @@
 								<div class="card-body">
 									<a href="${pageContext.request.contextPath}/emp/empSum">
 										<p class="card-title mb-0">주류별  구매 데이터</p>
-									</a>
+									</a><br>
 									<div class="table-responsive">
 										<table class="table table-striped table-borderless">
 										 	<tr>
-												<td>주류</td>
-												<td>판매액</td>
-												<td>판매건수</td>
+												<th>주류</th>
+												<th>판매액</th>
+												<th>판매건수</th>
 											</tr>
 											<c:forEach var="s" items="${sumByCategory }">
 												<tr>
@@ -122,15 +121,15 @@
 									<div class="row">
 										<div class="col-12">
 											<div class="table-responsive">
-												<table class="table table-striped table-borderless" style="width:100%">
-													<tr>
-														<td>상품명</td>
-														<td>고객ID</td>
-														<td>배송지</td>
-														<td>상품수량</td>
-														<td>총가격</td>
-														<td>주문상태</td>
-														<td>결제일자</td>
+												<table class="table table-striped table-borderless" style="width:100%" >
+													<tr style="text-align:center">
+														<th>상품명</th>
+														<th>고객ID</th>
+														<th>배송지</th>
+														<th>상품수량</th>
+														<th>총가격</th>
+														<th>주문상태</th>
+														<th>결제일자</th>
 													</tr>
 													<c:forEach var="o" items="${orderList }">
 														<tr>
@@ -169,6 +168,7 @@
 		            </div>
 				</div>
 				<!-- content-wrapper ends -->
+				
 				<!-- partial:partials/_footer.html -->
 				<div>
 					<jsp:include page="/inc/empCopyright.jsp"></jsp:include>

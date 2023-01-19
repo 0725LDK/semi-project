@@ -51,7 +51,7 @@ public class EmpQuestionModifyController extends HttpServlet {
 		questionService.empGetModifyQuestion(questionComment);
 		
 		System.out.println("고객센터 수정 성공");
-		response.sendRedirect(request.getContextPath()+"/emp/empQuestion");
+		response.sendRedirect(request.getContextPath()+"/emp/empQuestionList");
 		
 	}
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import service.QuestionService;
 
 
-@WebServlet("/emp/empQuestion")
+@WebServlet("/emp/empQuestionList")
 public class EmpQuestionList extends HttpServlet {
 	
 	private QuestionService questionService;

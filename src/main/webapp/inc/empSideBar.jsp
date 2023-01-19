@@ -17,9 +17,9 @@
 						<div class="collapse" id="error">
 							<ul class="nav flex-column sub-menu">
 								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerList"> 회원 정보 </a></li>
-								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerOrder"> 회원 주문 내역 </a></li>
-								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerCancle"> 회원 취소/환불 내역 </a></li>
-								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerReviewList"> 회원 리뷰 작성/삭제 내역</a></li>
+								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerOrder"> 주문 내역 </a></li>
+								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerCancle"> 취소/환불 내역 </a></li>
+								<li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/emp/empCustomerReviewList"> 리뷰 작성/삭제 내역</a></li>
 							</ul>
 						</div>
 					</li>
@@ -42,7 +42,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empQuestion">
+						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empQuestionList">
 							<i class="icon-contract menu-icon"></i>
 							<span class="menu-title">고객센터</span>
 						</a>

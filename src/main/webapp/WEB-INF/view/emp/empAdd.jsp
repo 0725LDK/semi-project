@@ -4,49 +4,53 @@
 <head>
 <meta charset="UTF-8">
 <title>934마켓 직원 회원 가입 | 전통주의 모든것, 934마켓</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-	$(document).ready(function() {
-		
-		//회원가입시 유효성 검사
-		$('#empAddFormBtn').click(function()
-				{
-					if($('#empId').val() == '')
+	<!-- CSS link -->
+	<jsp:include page="/inc/empHeadScript.jsp"></jsp:include>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			
+			//회원가입시 유효성 검사
+			$('#empAddFormBtn').click(function()
 					{
-						alert('아이디를 입력하세요');
-						$('#empId').focus();
-						return;
-					}
-					if($('#empPw').val() == '')
-					{
-						alert('비밀번호를 입력하세요');
-						$('#empPw').focus();
-						return;
-					}
-					if($('#pwCheck').val() == '')
-					{
-						alert('비밀번호를 입력하세요');
-						$('#pwCheck').focus();
-						return;
-					}
-					if($('#empPw').val() != $('#pwCheck').val())
-					{
-						alert('비밀번호가 맞지 않습니다');
-						$('#empPw').focus();
-						return;
-					}
-					if($('#empName').val() == '')
-					{
-						alert('사용할 이름를 입력하세요');
-						$('#empName').focus();
-						return;
-					}
-					$('#empAddForm').submit();
-				});
-	});
-</script>
+						if($('#empId').val() == '')
+						{
+							alert('아이디를 입력하세요');
+							$('#empId').focus();
+							return;
+						}
+						if($('#empPw').val() == '')
+						{
+							alert('비밀번호를 입력하세요');
+							$('#empPw').focus();
+							return;
+						}
+						if($('#pwCheck').val() == '')
+						{
+							alert('비밀번호를 입력하세요');
+							$('#pwCheck').focus();
+							return;
+						}
+						if($('#empPw').val() != $('#pwCheck').val())
+						{
+							alert('비밀번호가 맞지 않습니다');
+							$('#empPw').focus();
+							return;
+						}
+						if($('#empName').val() == '')
+						{
+							alert('사용할 이름를 입력하세요');
+							$('#empName').focus();
+							return;
+						}
+						$('#empAddForm').submit();
+					});
+		});
+	</script>
 </head>
 <body>
+
 	<!-- 네비메뉴 -->
 	<div>
 		<jsp:include page="/inc/empOneNavMenu.jsp"></jsp:include>
