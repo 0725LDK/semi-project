@@ -93,7 +93,7 @@
 					<div class="col-12 grid-margin stretch-card">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">삼품 수정</h4>
+								<h4 class="card-title">상품 수정</h4>
 									<form class="forms-sample" id="goodsModifyForm" action="${pageContext.request.contextPath}/emp/empGoodsModify" method="post" enctype="multipart/form-data">
 										<table class="table table-striped table-borderless" style="width:100%">
 											<tr>

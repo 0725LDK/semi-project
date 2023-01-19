@@ -91,8 +91,8 @@
 														</c:if>
 														
 														<c:if test="${currentPage != 1 }">
-															<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?firstPage=${firstPage}">&nbsp;처음으로&nbsp;</a>
-															<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?currentPage=${currentPage-1}">&nbsp;이전&nbsp;</a>
+															<a href="${pageContext.request.contextPath}/emp/empList?firstPage=${firstPage}">&nbsp;처음으로&nbsp;</a>
+															<a href="${pageContext.request.contextPath}/emp/empList?currentPage=${currentPage-1}">&nbsp;이전&nbsp;</a>
 														</c:if>
 														
 															<span>[ ${currentPage} ]</span>
@@ -103,8 +103,8 @@
 														</c:if>
 														
 														<c:if test="${currentPage != lastPage}">
-															<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?currentPage=${currentPage+1}">&nbsp;다음&nbsp;</a>
-															<a href="${pageContext.request.contextPath}/emp/empCustomerCancle?lastPage=${lastPage}">&nbsp;마지막으로&nbsp;</a>
+															<a href="${pageContext.request.contextPath}/emp/empList?currentPage=${currentPage+1}">&nbsp;다음&nbsp;</a>
+															<a href="${pageContext.request.contextPath}/emp/empList?lastPage=${lastPage}">&nbsp;마지막으로&nbsp;</a>
 														</c:if>
 													</td>
 												</tr>
