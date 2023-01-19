@@ -84,6 +84,7 @@ public class GoodsDao {
 			m.put("goodsCategory", rs.getString("goodsCategory"));
 			m.put("categoryName", rs.getString("categoryName"));
 			m.put("goodsContent", rs.getString("goodsContent"));
+			m.put("soldout", rs.getString("soldout"));
 			m.put("filename", rs.getString("filename"));
 
 			list.add(m);
