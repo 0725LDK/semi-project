@@ -19,35 +19,26 @@
 	  margin-right: auto;
 	}
 	
-
+	 a:link { color: red; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: blue; text-decoration: underline;}
 </style>
 
 </head>
 
 <body>
-<!-- 메인 상단 네비메뉴 -->
-<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
+	<!-- 상단 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/mainNavMenu.jsp"></jsp:include>
+	</div>	
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+	<!-- 카테고리 네비메뉴 -->
+	<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
+
+	<!-- 배너 네비메뉴 -->
+	<jsp:include page="/inc/banner.jsp"></jsp:include>
 
 
-    
     <!-- 신상품 Begin -->
     <section class="featured spad">
         <div class="container">
@@ -114,8 +105,7 @@
 	<div>
 		<jsp:include page="/inc/customerFooter.jsp"></jsp:include>
 	</div>
-
-
+ 
 </body>
 
 </html>

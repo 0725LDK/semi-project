@@ -18,17 +18,22 @@
 	  margin-left: auto;
 	  margin-right: auto;
 	}
-
+	  
+	 a:link { color: red; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: blue; text-decoration: underline;}
 </style>
 
 </head>
 
 <body>
-
-<!-- 메인 상단 네비메뉴 -->
-<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
-
-
+	<!-- 상단 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/mainNavMenu.jsp"></jsp:include>
+	</div>	
+	
+	<!-- 카테고리 네비메뉴 -->
+	<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 
     <!-- Hero Section Begin -->
     <section class="hero">
@@ -36,13 +41,8 @@
             <div class="row ">
 
                 <div class="col-lg-12">
-                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/banner.jpg">
-                        <div class="hero__text">
-                            <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
-                        </div>
+                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/b.jpg">
+
                     </div>
                 </div>
             </div>
@@ -52,35 +52,35 @@
 
     <!-- Categories Section Begin -->
 	<div class="section-title">
-		<h2>934 PICK!</h2>
+		<h2>이번 주 934 PICK!</h2>
     </div>
     <section class="categories">
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-1.jpg">
+                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/upload/우주멜론미.jpg">
                             <h5><a href="#">우주멜론미</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-2.jpg">
+                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/upload/요새로제.jpg">
                             <h5><a href="#">요새로제</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-3.jpg">
+                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/upload/허니문배.jpg">
                             <h5><a href="#">허니문배</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/upload/매실원주.jpg">
+                            <h5><a href="#">매실원주</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/upload/니모메.jpg">
+                            <h5><a href="#">니모메</a></h5>
                         </div>
                     </div>
                 </div>

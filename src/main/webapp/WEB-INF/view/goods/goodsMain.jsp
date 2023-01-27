@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 <title>934마켓 전체상품 | 전통주의 모든것, 934마켓</title>
 <!-- 메인 네비메뉴 -->
 <jsp:include page="/inc/customerCss.jsp"></jsp:include>
@@ -18,33 +22,31 @@
 	  margin-left: auto;
 	  margin-right: auto;
 	}
-
+	.section {
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	 a:link { color: red; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: blue; text-decoration: underline;}
 
 </style>
 
 </head>
 
 <body>
-<!-- 메인 상단 네비메뉴 -->
-<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
+	<!-- 상단 네비메뉴 -->
+	<div>
+		<jsp:include page="/inc/mainNavMenu.jsp"></jsp:include>
+	</div>	
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+	<!-- 카테고리 네비메뉴 -->
+	<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
+	
+	<!-- 배너 네비메뉴 -->
+	<jsp:include page="/inc/banner.jsp"></jsp:include>
+
+
 
     <!-- 검색 시작 -->
 	<br>
@@ -131,7 +133,30 @@
         </div>
     </section>
     <!-- Featured Section End -->
+    
+    <!-- Hero Section Begin -->
+    
+        <div class="container">
+            <div class="row">
 
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    934 Market
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="상품명을 입력하세요.">
+                                <button type="submit" class="site-btn">검색</button>
+                            </form>
+                        </div>
+					</div>
+                </div>
+            </div>
+        </div>
+        
+   
 
 	<!-- Footer 네비 -->
 	<div>

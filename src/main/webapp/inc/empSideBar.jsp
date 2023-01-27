@@ -4,13 +4,13 @@
 				<ul class="nav">
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empOne">
-							<i class="icon-paper menu-icon"></i>
+							<i class="icon-layout menu-icon"></i>
 							<span class="menu-title">메인 페이지</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-							<i class="icon-layout menu-icon"></i>
+							<i class="icon-head menu-icon"></i>
 								<span class="menu-title">회원 관리</span>
 							<i class="menu-arrow"></i>
 						</a>
@@ -25,7 +25,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empList">
-							<i class="icon-columns menu-icon"></i>
+							<i class="icon-head menu-icon"></i>
 							<span class="menu-title">직원 정보</span>
 						</a>
 					</li>
@@ -43,14 +43,20 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empQuestionList">
-							<i class="icon-contract menu-icon"></i>
+							<i class="icon-paper menu-icon"></i>
 							<span class="menu-title">고객센터</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/emp/empSum">
-							<i class="icon-head menu-icon"></i>
+							<i class="icon-bar-graph menu-icon"></i>
 							<span class="menu-title">판매 데이터</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/home/main">
+							<i class="icon-contract menu-icon"></i>
+							<span class="menu-title">상품 판매 페이지</span>
 						</a>
 					</li>
 				</ul>

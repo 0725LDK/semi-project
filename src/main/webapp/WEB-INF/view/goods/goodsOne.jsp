@@ -5,7 +5,30 @@
 <head>
 <meta charset="utf-8">
 <title>jQuery</title>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 메인 네비메뉴 -->
+<jsp:include page="/inc/customerCss.jsp"></jsp:include>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<style>
+	.soldout{
+		pointer-events : none;
+	}	
+	.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	
+
+</style>
+
+
 	<script>
 		$( document ).ready( function() {
 			$( '#goodsPrice, #goodsQuantity' ).change( function() {
@@ -32,15 +55,29 @@
 
 </head>
 <body>
+<!-- 메인 상단 네비메뉴 -->
+<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
 
-	<!-- 네비메뉴 -->
-	<div>
-		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>
-	</div>
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>934 Market</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">home</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
 
-	<br>
 	<form action="${pageContext.request.contextPath}/customer/customerOrder" method="get">
-		<input type="hidden" name="goodsCode" value="${map.goodsCode }">
+		<input type="hidden" name="goodsCode" value="${map.goodsCode}">
 		<table>
 			<tr>
 				<td rowspan="10">
@@ -97,5 +134,23 @@
 			</div>			
 		</div>
 	</c:forEach>	
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Footer 네비 -->
+	<div>
+		<jsp:include page="/inc/customerFooter.jsp"></jsp:include>
+	</div>
+	
+	
 </body>
 </html>

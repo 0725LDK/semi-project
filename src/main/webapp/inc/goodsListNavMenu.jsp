@@ -1,38 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__left">
-                            <ul>
-                                
-                                <li>전통주의 모든것, 934마켓 </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-shopping-bag"></i></a>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="${pageContext.request.contextPath}/home/login"><i class="fa fa-user"></i> 로그인</a>
-                            </div>
-                        </div>
-                   </div>
-                </div>
-            </div>
-        </div>
-        <div class="container center" >
+
+        <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="${pageContext.request.contextPath}/home/intro"><img src="${pageContext.request.contextPath}/resources/img/logo.png" style=""></a>
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
+            
+
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
@@ -47,7 +24,7 @@
                                 </ul>
                             </li>                                              
                             <li><a href="${pageContext.request.contextPath}/notice/noticeList">이벤트</a></li>
-                            <li><a href="${pageContext.request.contextPath}/#">마이페이지</a></li>
+                            <li><a href="${pageContext.request.contextPath}/customer/customerOne">마이페이지</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -56,5 +33,4 @@
                 <i class="fa fa-bars"></i>
             </div>
         </div>
-    </header>
-    <!-- Header Section End -->
+

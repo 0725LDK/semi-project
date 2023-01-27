@@ -33,7 +33,7 @@
 							$('#goodsPrice').focus();
 							return;
 						}
-						if($('#goodsContent').val() != $('#pwCheck').val())
+						if($('#goodsContent').val() == '')
 						{
 							alert('상품설명을 입력하세요');
 							$('#goodsContent').focus();
