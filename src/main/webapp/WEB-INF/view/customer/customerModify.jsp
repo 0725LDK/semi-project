@@ -6,23 +6,30 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link href="../resources/css/bootstrap.form.css" rel="stylesheet">
-<title>934마켓 회원 정보 수정 | 전통주의 모든것, 934마켓</title>
+<!-- 메인 네비메뉴 -->
+<jsp:include page="/inc/customerCss.jsp"></jsp:include>
+<title>934마켓 회원정보 수정 | 전통주의 모든것, 934마켓</title>
 </head>
 <body>
-	<!-- 네비메뉴 -->
+	<!-- 상단 네비메뉴 -->
 	<div>
-		<jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>	
+		<jsp:include page="/inc/mainNavMenu.jsp"></jsp:include>
 	</div>	
+	
+	<!-- 카테고리 네비메뉴 -->
+	<div>
+	   <jsp:include page="/inc/customerOneNavMenu.jsp"></jsp:include>   
+	</div>   
 	
 	<!-- 회원정보 -->
 	<main>
 		<div class="container d-flex flex-column">
 			<div class="row pt-5">
-				<div class="col-lg-6 mx-auto d-table">
+				<div class="col-lg-6 mx-auto d-table"><br><br>
+					<div class="text-center">
+						<h2>회원정보 수정</h2><br>
+					</div>
 					<div class="card">
-						<div class="card-header text-center">
-							<h2>회원정보(수정)</h2>
-						</div>
 						<div class="card-body">
 							<div class="m-sm-3 text-center">
 								<form onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerModify" method="post">
@@ -52,7 +59,7 @@
 											<td><input type="text" id="customerPhone" oninput="autoHyphen(this)" name="customerPhone" value="${loginCustomer.customerPhone}" class="form-control"></td>
 										</tr>
 									</table>
-									<button type="submit" class="btn btn-success" style="width:300px;">변경하기</button>
+									<button type="submit" class="primary-btn border-0" style="width:300px;">변경하기</button>
 								</form>
 							</div>
 						</div>
@@ -61,6 +68,12 @@
 			</div>
 		</div>
 	</main>
+	<br><br><br><br><br><br><br>
+	
+	<!-- Footer 네비 -->
+	<div>
+		<jsp:include page="/inc/customerFooter.jsp"></jsp:include>
+	</div>
 </body>
 <script>
 	//전화번호 입력시 - 자동입력 (000-0000-0000), 숫자만 입력가능
