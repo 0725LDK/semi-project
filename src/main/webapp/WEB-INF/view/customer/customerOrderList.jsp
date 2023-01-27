@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +57,7 @@
 						<td>${o.customerId }</td>
 						<td>${o.address }</td>
 						<td>${o.orderQuantity }</td>
-						<td>${o.orderPrice }</td>
+						<td><fmt:formatNumber value="${o.orderPrice}" pattern="#,###"/>원</td>
 						<td>
 							${o.orderState }
 							<c:if test="${o.orderState == '배송완료'}">

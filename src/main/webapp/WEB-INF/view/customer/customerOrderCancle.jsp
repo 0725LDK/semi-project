@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 
     <!-- 고객 주문 취소/환불 리스트 -->
     <div class="text-center">
-		<br><h2>주문 취소/환불</h2>
+		<br><h2>취소/환불내역</h2>
 	</div>
     <section class="shoping-cart spad">
         <div class="container">
@@ -53,7 +54,7 @@
 							<td>${o.customerId }</td>
 							<td>${o.address }</td>
 							<td>${o.orderQuantity }</td>
-							<td>${o.orderPrice }</td>
+							<td><fmt:formatNumber value="${o.orderPrice}" pattern="#,###"/>원</td>
 							<td>${o.orderState }</td>
 						</tr>
 				</c:forEach>
