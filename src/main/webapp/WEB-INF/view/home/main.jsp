@@ -119,11 +119,11 @@
 								<td>
 									<div>
 										<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${n.goodsCode}">
-											<img src="${pageContext.request.contextPath}/upload/${n.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+											<img src="${pageContext.request.contextPath}/upload/${n.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 										</a>
 										<div class="featured__item__text">
-											<h6>${n.goodsName}</h6>							
-											<h5>${n.goodsPrice}원</h5>
+											<h5>${n.goodsName}</h5>					
+											<h6>${n.goodsPrice}원</h6>
 										</div>
 											<c:if test="${n.soldout == 'Y'}">
 												<span value="${n.soldout}" id="soldout">품절</span>
@@ -170,11 +170,11 @@
 								<td>
 									<div>
 										<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${h.goodsCode}">
-											<img src="${pageContext.request.contextPath}/upload/${h.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+											<img src="${pageContext.request.contextPath}/upload/${h.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 										</a>
 										<div class="featured__item__text">
-											<h6>${h.goodsName}</h6>							
-											<h5>${h.goodsPrice}원</h5>
+											<h5>${h.goodsName}</h5>																
+											<h6>${h.goodsPrice}원</h6>
 										</div>
 											<c:if test="${h.soldout == 'Y'}">
 												<span value="${h.soldout}" id="soldout">품절</span>

@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<style>
+	
+	 a:link { color: white; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: white; text-decoration: none;}
+	 
+</style>	
+
 <div class="container center">
     <div class="row">
         <div class="col-lg-3">
-            <div class="header__logo">
-                <a href="${pageContext.request.contextPath}/home/intro"><img src="${pageContext.request.contextPath}/resources/img/logo.png" style=""></a>
-            </div>
+
         </div>
         <div class="col-lg-8">
             <nav class="header__menu">

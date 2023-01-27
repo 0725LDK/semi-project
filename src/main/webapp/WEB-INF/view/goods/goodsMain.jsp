@@ -21,11 +21,9 @@
 	.center {
 	  margin-left: auto;
 	  margin-right: auto;
+	  text-align:center
 	}
-	.section {
-	  margin-left: auto;
-	  margin-right: auto;
-	}
+
 	 a:link { color: red; text-decoration: none;}
 	 a:visited { color: black; text-decoration: none;}
 	 a:hover { color: blue; text-decoration: underline;}
@@ -46,35 +44,40 @@
 	<!-- 배너 네비메뉴 -->
 	<jsp:include page="/inc/banner.jsp"></jsp:include>
 
-
-
-    <!-- 검색 시작 -->
 	<br>
+
+    <!-- 검색창 시작 -->
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-3">
+                </div>
+                <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-							<form method="get" action="${pageContext.request.contextPath}/goods/goodsMain">
+                            <form method="get" action="${pageContext.request.contextPath}/goods/goodsMain">
+                                <div class="hero__search__categories">
+                                    934 Market
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
 								<c:if test="${goodsSearch != null}">
 									<input class="box" type="text" name="goodsSearch" value="${goodsSearch}">
 								</c:if>
 								<c:if test="${goodsSearch  == null}">
 									<input class="box" type="text" name="goodsSearch" placeholder="상품명을 검색하세요.">
 								</c:if>
-								<button class="site-btn" type="submit">검색</button>
-							</form>	
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- 검색 끝 -->
+    <!-- 검색창 끝 --> 
 
-    
-    <!-- 신상품 Begin -->
+    <!-- 전체상품 Begin -->
     <section class="featured spad">
         <div class="container">
             <div class="row">
@@ -83,7 +86,7 @@
                         <h2>전체상품</h2>
                     </div>
 				</div>                    
-				<div class="center">				
+				<div align="center">				
 					<table>
 						<tr>
 							<!-- 
@@ -105,9 +108,9 @@
 									<c:if test="${m.soldout == 'Y'}">
 										<div class="soldout">
 											<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${m.goodsCode}">
-												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 											</a>
-											<div class="featured__item__text">
+											<div class="featured__item__text text-center">
 												<h5>${m.goodsName}</h5>
 												<div value="${m.soldout}" class="soldout">품절</div>
 											</div>
@@ -116,7 +119,7 @@
 									<c:if test="${m.soldout == 'N'}">
 										<div>
 											<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${m.goodsCode}">
-												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 											</a>
 											<div class="featured__item__text">
 												<h5>${m.goodsName}</h5>												
@@ -133,30 +136,26 @@
         </div>
     </section>
     <!-- Featured Section End -->
-    
-    <!-- Hero Section Begin -->
-    
-        <div class="container">
-            <div class="row">
 
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    934 Market
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="상품명을 입력하세요.">
-                                <button type="submit" class="site-btn">검색</button>
-                            </form>
-                        </div>
-					</div>
-                </div>
-            </div>
-        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
         
    
+   
+   
+
 
 	<!-- Footer 네비 -->
 	<div>
