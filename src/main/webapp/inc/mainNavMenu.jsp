@@ -8,7 +8,7 @@
                    <div class="col-lg-6 col-md-6">
                        <div class="header__top__left">
                            <ul>
-                               <li><a href="${pageContext.request.contextPath}/home/intro">전통주의 모든것,</a></li>
+                               <li><a href="${pageContext.request.contextPath}/home/intro"><img src="${pageContext.request.contextPath}/resources/img/m.png" alt="" width="70" height="30"></a></li>
                                <li><a href="${pageContext.request.contextPath}/home/main">934마켓</a></li>
                            </ul>
                        </div>

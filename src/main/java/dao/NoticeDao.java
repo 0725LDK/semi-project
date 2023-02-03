@@ -125,7 +125,7 @@ public class NoticeDao {
 		return row;
 	}
 	
-	// 공지 삭제 (품절)
+	// 공지 삭제
 	public int deleteNotice(Connection conn, Notice notice) throws Exception {
 		String sql = "DELETE FROM notice WHERE notice_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);

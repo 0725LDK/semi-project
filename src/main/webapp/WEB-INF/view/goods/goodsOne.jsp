@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <title>934마켓 전체상품 | 전통주의 모든것, 934마켓</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -17,18 +17,20 @@
 
 <!-- 메인 네비메뉴 -->
 <jsp:include page="/inc/customerCss.jsp"></jsp:include>
-	
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <style>
-	.soldout{
-		pointer-events : none;
-	}	
+
 	.center {
 	  margin-left: auto;
 	  margin-right: auto;
 	}
 	
+	input {
+  width:110px;
+  height:30px;
+  
 
 </style>
 
@@ -56,8 +58,7 @@
 			return true;
 		}
 		
-		
-		
+
 	</script>
 
 </head>
@@ -69,13 +70,16 @@
 
 	<!-- 카테고리 네비메뉴 -->
 	<jsp:include page="/inc/goodsListNavMenu.jsp"></jsp:include>
-
+	
 	<!-- 배너 네비메뉴 -->
 	<jsp:include page="/inc/banner.jsp"></jsp:include>
 
 
+	<br>
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
+    <form action="${pageContext.request.contextPath}/customer/customerOrder" method="get">
+    	<input type="hidden" name="goodsCode" value="${map.goodsCode}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -84,155 +88,78 @@
                             <img class="product__details__pic__item--large"
                                 src="${pageContext.request.contextPath}/upload/${map.filename}" alt="">
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>${map.goodsName}</h3>
+                        <h3>${map.goodsName}</h3>					
                         <p>#${map.goodsContent}</p>
-
-                        <div class="product__details__price"><input type="number" name="goodsPrice" id="goodPrice" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${map.goodsPrice}" /> readonly="readonly" hidden="hidden">${map.goodsPrice}원</div>
-<fmt:formatNumber type="number" maxFractionDigits="3" value="${map.goodsPrice}" />
-
-                        
+                        <div class="product__details__price">
+                        	<input type="number" name="goodsPrice" id="goodPrice" value="${map.goodsPrice}" readonly="readonly" style="border:none">원
+                        </div>
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                               <div class="pro-qty"> 
+                                    <input type="number" name="goodsQuantity" id="goodsQuantity" min="0">
+                               </div>
+                            </div>
+                        </div>
+                        총 가격(￦) <input type="text" name="totalPrice" id="totalPrice" style="border:none">
+                       
+                        <div>
+                        <br>
+                        <button type="submit"  class="primary-btn">구매하기</button>
+                        <button type="button" onclick="return submit2(this.form);" class="heart-icon"><span class="icon_heart_alt"></span>장바구니</button>
+                        </div>
                         <ul>
                             <li><b>주종</b> <span>${map.categoryName}</span></li>
                             <li><b>도수</b> <span>${map.goodsAlcohol}%</span></li>
-                            <li><b>용량</b> <span>${map.goodsLiter}ml</span></li>
+                            <li><b>용량</b> <span>${map.goodsLiter}ml</span></li>                            
                         </ul>
-                            <br>
-                            <span>유통기한: 병입일로부터 30일</span>
-                            <br>
-                            <span>보관방법: 세워서 냉장보관 (10˚C)</span>
-
-                        
-                          <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1" name="goodsQuantity" id="goodsQuantity">
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#" class="primary-btn">구매하기</a>
-                        <a href="#" class="primary-btn"><i class="bi-alarm" style="font-size: 1rem; color: cornflowerblue;"></i></a>
                     </div>
                 </div>
+               
                 <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                    aria-selected="false">리뷰</a>
                             </li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p></p>
+									<c:forEach var="m" items="${list}">
+										<div>
+											<div>
+												<span>고객 아이디 : ${m.customerId}</span>
+											</div>
+											<div>
+												<p>
+													댓글 내용 : ${m.reviewMemo}
+												</p>
+											</div>
+											<div>
+												<span>댓글 작성일 : ${m.createdate}</span>
+											</div>			
+										</div>
+									</c:forEach>
                                 </div>
                             </div>
-          
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+      </form>
     </section>
-    <!-- Product Details Section End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<form action="${pageContext.request.contextPath}/customer/customerOrder" method="get">
-		<input type="hidden" name="goodsCode" value="${map.goodsCode}">
-		<table>
-			<tr>
-				<td rowspan="10">
-					<img src="${pageContext.request.contextPath}/upload/${map.filename}" width="200" height="250">
-				</td>
-				<th>${map.goodsName}</th>
-			</tr>
-			<tr>
-				<td>${map.goodsContent}</td>		
-			</tr>
-			<tr>
-				<th>주종: ${map.categoryName}</th>	
-	
-			</tr>
-			<tr>
-				<th>도수: ${map.goodsAlcohol}%</th>	
-	
-			</tr>
-			<tr>
-				<th>용량: ${map.goodsLiter}ml</th>	
-	
-			</tr>
-			<tr>
-				<th>판매 가격: <input type="number" name="goodsPrice" id="goodPrice" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${map.goodsPrice}" />" readonly="readonly" ><fmt:formatNumber type="number" maxFractionDigits="3" value="${map.goodsPrice}" /></th>
-			</tr>		
-			<tr>
-				<th>
-					수량 :  <input type="number" name="goodsQuantity" id="goodsQuantity">병
-				</th>
-			</tr>	
-			<tr>
-				<th>
-					총 가격(￦) : <input type="text" name="totalPrice" id="totalPrice" value="">원 
-				</th>
-			</tr>
-		</table>	
-		<button type="button" onclick="return submit2(this.form);">장바구니</button>		
-		<button type="submit">구매하기</button>
-	</form>
-
-
-
-
-	<h4>고객 리뷰</h4>
-	<c:forEach var="m" items="${list}">
-		<div>
-			<div>
-				<span>고객 아이디 : ${m.customerId}</span>
-			</div>
-			<div>
-				<p>
-					댓글 내용 : ${m.reviewMemo}
-				</p>
-			</div>
-			<div>
-				<span>댓글 작성일 : ${m.createdate}</span>
-			</div>			
-		</div>
-	</c:forEach>	
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Product Details Section End -->	
 
 	<!-- Footer 네비 -->
 	<div>
 		<jsp:include page="/inc/customerFooter.jsp"></jsp:include>
 	</div>
-	
-	
+
+
 </body>
 </html>
