@@ -20,18 +20,57 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
+  
 <style>
 
-	.center {
+.center {
 	  margin-left: auto;
 	  margin-right: auto;
 	}
 	
-	input {
-  width:110px;
-  height:30px;
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+  width: 270px;
+}	
+.button2 {
+  background-color: #4CAF50; 
+  color: white; 
+  width: 270px;
+}	
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+#goodsQuantity {
+  width: 100px;
+  height: 50px;
+  font-size: 30px;
   
-
+ }
+#totalPrice {
+  width: 180px;
+  height: 50px;
+  font-size: 50px;
+  border:none;
+ }
 </style>
 
 
@@ -59,6 +98,7 @@
 		}
 		
 
+
 	</script>
 
 </head>
@@ -79,81 +119,58 @@
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
     <form action="${pageContext.request.contextPath}/customer/customerOrder" method="get">
-    	<input type="hidden" name="goodsCode" value="${map.goodsCode}">
+    	<input type="hidden" name="goodsCode" value="${map.goodsCode}">    
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
-                        <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="${pageContext.request.contextPath}/upload/${map.filename}" alt="">
+                        <div>
+                            <img src="${pageContext.request.contextPath}/upload/${map.filename}" width="530" height="660">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>${map.goodsName}</h3>					
+                        <h3>${map.goodsName}</h3>                        
                         <p>#${map.goodsContent}</p>
-                        <div class="product__details__price">
-                        	<input type="number" name="goodsPrice" id="goodPrice" value="${map.goodsPrice}" readonly="readonly" style="border:none">원
-                        </div>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                               <div class="pro-qty"> 
-                                    <input type="number" name="goodsQuantity" id="goodsQuantity" min="0">
-                               </div>
-                            </div>
-                        </div>
-                        총 가격(￦) <input type="text" name="totalPrice" id="totalPrice" style="border:none">
-                       
-                        <div>
-                        <br>
-                        <button type="submit"  class="primary-btn">구매하기</button>
-                        <button type="button" onclick="return submit2(this.form);" class="heart-icon"><span class="icon_heart_alt"></span>장바구니</button>
-                        </div>
+						<strong>주종: ${map.categoryName}</strong><br>
+						<strong>도수: ${map.goodsAlcohol}%</strong><br>
+						<strong>용량: ${map.goodsLiter}ml</strong><br>
+						배송기간:2일 이내 배송<br>
+						<br>
+						<strong>판매가격:</strong><br>                       	
+   						<div class="product__details__price"><fmt:formatNumber value="${map.goodsPrice}" pattern="#,###원" /></div>                          						
+	                    	<input type="number" name="goodsPrice" id="goodPrice" value="${map.goodsPrice}"   hidden="hidden"> 						
+ 						<strong>유통기한: 유통기한 없음</strong><br>
+						<strong>보관방법: 상온 보관 가능</strong><br>                                     
                         <ul>
-                            <li><b>주종</b> <span>${map.categoryName}</span></li>
-                            <li><b>도수</b> <span>${map.goodsAlcohol}%</span></li>
-                            <li><b>용량</b> <span>${map.goodsLiter}ml</span></li>                            
+                        	<li>
+                        		<div class="product__details__quantity">                         	                         
+                       				<input type="number" name="goodsQuantity" id="goodsQuantity" min="1" max="10" value="1" style="text-align:center"> 
+                        		</div>
+	                        </li>
+	                        <li>
+	                        	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	                        	총 가격(￦)&emsp; <input type="text" name="totalPrice" id="totalPrice" readonly="readonly" style="text-align:center" value="${map.goodsPrice}">                       
+                       		</li>
                         </ul>
-                    </div>
-                </div>
-               
-                <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">리뷰</a>
-                            </li>
-                        </ul>
-                            <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <div class="product__details__tab__desc">
-									<c:forEach var="m" items="${list}">
-										<div>
-											<div>
-												<span>고객 아이디 : ${m.customerId}</span>
-											</div>
-											<div>
-												<p>
-													댓글 내용 : ${m.reviewMemo}
-												</p>
-											</div>
-											<div>
-												<span>댓글 작성일 : ${m.createdate}</span>
-											</div>			
-										</div>
-									</c:forEach>
-                                </div>
-                            </div>
-                        </div>
+                        <br>
+                        <div>
+                        	<button type="button" onclick="return submit2(this.form);" class="button button1">장바구니</button>
+                        	<button type="submit" class="button button2">구매하기</button>
+                        </div>   
                     </div>
                 </div>
             </div>
         </div>
-      </form>
+    	</form>
     </section>
-    <!-- Product Details Section End -->	
+    
+    <!-- Product Details Section End -->
+
+
+               
+
 
 	<!-- Footer 네비 -->
 	<div>

@@ -8,12 +8,6 @@
 <!-- 메인 네비메뉴 -->
 <jsp:include page="/inc/customerCss.jsp"></jsp:include>
 
-<style type="text/css">
- a:link { color: red; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
- a:hover { color: blue; text-decoration: underline;}
-
-</style>
 
 </head>
 <body>

@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>934마켓 | 전통주의 모든것, 934마켓</title>
-<!-- 메인 네비메뉴 -->
+<!-- css 네비메뉴 -->
 <jsp:include page="/inc/customerCss.jsp"></jsp:include>
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 
 <style>
 	.soldout{
@@ -19,9 +21,6 @@
 	  margin-right: auto;
 	}
 	  
-	 a:link { color: red; text-decoration: none;}
-	 a:visited { color: black; text-decoration: none;}
-	 a:hover { color: blue; text-decoration: underline;}
 </style>
 
 </head>
@@ -123,7 +122,7 @@
 										</a>
 										<div class="featured__item__text">
 											<h5>${n.goodsName}</h5>					
-											<h6>${n.goodsPrice}원</h6>
+											<h6><fmt:formatNumber value="${n.goodsPrice}" pattern="#,###원" /></h6>
 										</div>
 											<c:if test="${n.soldout == 'Y'}">
 												<span value="${n.soldout}" id="soldout">품절</span>
@@ -174,7 +173,7 @@
 										</a>
 										<div class="featured__item__text">
 											<h5>${h.goodsName}</h5>																
-											<h6>${h.goodsPrice}원</h6>
+											<h6><fmt:formatNumber value="${h.goodsPrice}" pattern="#,###원" /></h6>											
 										</div>
 											<c:if test="${h.soldout == 'Y'}">
 												<span value="${h.soldout}" id="soldout">품절</span>

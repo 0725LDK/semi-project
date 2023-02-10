@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,7 @@
 									<c:if test="${m.soldout == 'Y'}">
 										<div class="soldout">
 											<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${m.goodsCode}">
-												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 											</a>
 											<div class="featured__item__text">
 												<h5>${m.goodsName}</h5>
@@ -80,11 +81,11 @@
 									<c:if test="${m.soldout == 'N'}">
 										<div>
 											<a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${m.goodsCode}">
-												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-bottom: 10px;">
+												<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="250" style="margin-left: 20px; margin-top: 20px; margin-bottom: 10px;">
 											</a>
 											<div class="featured__item__text">
 												<h5>${m.goodsName}</h5>												
-												<h6>${m.goodsPrice}원</h6>
+												<h6><fmt:formatNumber value="${m.goodsPrice}" pattern="#,###원" /></h6>													
 											</div>
 										</div>
 									</c:if>						

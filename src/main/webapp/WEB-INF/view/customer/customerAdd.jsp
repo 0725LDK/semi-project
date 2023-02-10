@@ -19,8 +19,11 @@
 			<div class="col-lg-6 mx-auto d-table">
 				<div class="card">
 					<div class="card-header text-center">
-						<h2>회원가입</h2>
-					</div>
+					<h3>
+						<a href="${pageContext.request.contextPath}/home/main">
+					    	<img src="${pageContext.request.contextPath}/resources/img/m.png" alt="" width="150" height="60">
+					 	</a>  
+					</h3> 					</div>
 					<div class="card-body">
 						<div class="m-sm-3 text-center">
 							<form method="post" onsubmit="return check()" action="${pageContext.request.contextPath}/customer/customerAdd">

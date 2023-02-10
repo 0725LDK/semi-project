@@ -66,9 +66,10 @@
 	                                    </td>
 	                                    <td><input type="text" name="goodsName" value="${map.goodsName}" style="border:0 solid black;text-align:center;"></td>
 	                                    <td><input type="text" name="orderQuantity" value="${goodsQuantity}" style="border:0 solid black;text-align:center;"></td>
-	                                    <td><input type="text" name="orderPrice" id="orderPrice" value="${totalPrice}" style="border:0 solid black;text-align:center;"></td>
+	                                    <td><input type="text" name="orderPrice" id="orderPrice" value="<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원" style="border:0 solid black;text-align:center;"></td>
 	                                	<td>
 											<input name="usedPoint" id="usedPoint" value="${customer.point}" readonly="readonly"><br>
+											<br>
 											<button type="button" id="pointUse">포인트 사용</button>
 										</td>
 	                                </tr>
@@ -118,7 +119,7 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>총 수량 <input value="${goodsQuantity}개" style="border:0; background: transparent; text-align:right; width:400px" readonly="readonly"></li>
-                            <li>총 가격 <input name="orderPrice" id="orderPrice" value="${totalPrice}" style="border:0; background: transparent; text-align:right; width:400px" readonly="readonly"></li>
+                            <li>총 가격 <input name="orderPrice" id="orderPrice" value="<fmt:formatNumber value="${totalPrice}" pattern="#,###"/>원" style="border:0; background: transparent; text-align:right; width:400px" readonly="readonly"></li>
                         </ul>
                         <button type="submit" form="form" class="primary-btn col-lg-12" style="color:white;" >구매하기</button>
                     </div>

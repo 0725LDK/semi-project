@@ -44,7 +44,7 @@
 								<p class="card-title">상품 리스트</p>
 								<div align="right">
 									<button type="button" class="btn btn-light" >
-										<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">삼품 추가</a>
+										<a href="${pageContext.request.contextPath}/emp/empGoodsAdd">상품 추가</a>
 									</button>
 								</div><br>
 								<div class="row">

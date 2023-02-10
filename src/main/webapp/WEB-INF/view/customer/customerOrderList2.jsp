@@ -113,14 +113,13 @@
 			return false;
 		}
 	}
-	
-	// 구매취소 포인트 지급 확인
-	$(function(){
-		$("#orderCancle").click(function(){
-			if(!confirm('주문취소시 사용된 포인트는 반환되지 않습니다')){
-				return false;
-			}
-		});
-	});	
+	function check() {
+		// 포인트 구매시
+		if($('#orderCancle').val() == '') {
+			alert("포인트 구매후 주문취소시 포인트는 반환되지 않습니다");
+			$('#orderCancle').focus();
+			return false;
+		}
+	}
 </script>
 </html>

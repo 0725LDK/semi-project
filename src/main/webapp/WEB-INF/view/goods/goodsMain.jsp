@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,10 +24,6 @@
 	  margin-right: auto;
 	  text-align:center
 	}
-
-	 a:link { color: red; text-decoration: none;}
-	 a:visited { color: black; text-decoration: none;}
-	 a:hover { color: blue; text-decoration: underline;}
 
 </style>
 
@@ -123,7 +120,7 @@
 											</a>
 											<div class="featured__item__text">
 												<h5>${m.goodsName}</h5>												
-												<h6>${m.goodsPrice}원</h6>
+												<h6><fmt:formatNumber value="${m.goodsPrice}" pattern="#,###원" /></h6>											
 											</div>
 										</div>
 									</c:if>						
