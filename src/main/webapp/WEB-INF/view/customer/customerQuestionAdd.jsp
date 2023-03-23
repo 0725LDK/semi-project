@@ -36,8 +36,7 @@
 										<tr>
 											<td>주문번호</td>
 											<td><input type="text" name="ordersCode" value="${ordersCode}" readonly="readonly" class="form-control"></td>
-										</tr>
-										
+										</tr>									
 										<tr>
 											<td>카테고리</td>
 											<td>
@@ -55,6 +54,7 @@
 											<td><textarea rows="4" cols="40" id="questionMemo" name="questionMemo" class="form-control"></textarea></td>
 										</tr>
 									</table>
+									<br><br>
 									<button type="submit" class="primary-btn border-0" style="width:300px;">문의하기</button>
 								</form>
 							</div>

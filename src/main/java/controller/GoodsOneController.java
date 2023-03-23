@@ -14,7 +14,8 @@ import service.GoodsService;
 
 @WebServlet("/goods/goodsOne")
 public class GoodsOneController extends HttpServlet {
-
+	private GoodsService goodsService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
@@ -31,24 +32,24 @@ public class GoodsOneController extends HttpServlet {
 		
 	*/	
 		// goodsOne
-		int goodsCode = 0;	
+		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		int goodsPrice = 0;
-		if(request.getParameter("goodsCode") != null){
-			goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
-		}
+
 		System.out.println(goodsCode + "<-- GoodsOneController goodsCode"); 
 		
-		GoodsService goodsService = new GoodsService();
+		this.goodsService = new GoodsService();
 	    HashMap<String, Object> map = goodsService.getGoodsOne(goodsCode);
-	    ArrayList<HashMap<String, Object>> list = goodsService.getGoodsReview(goodsCode);
+	    ArrayList<HashMap<String, Object>> review = goodsService.getGoodsReview(goodsCode);
+	    System.out.println(review+"<---review값");
 		
-
-		goodsPrice = (int)(map.get("goodsPrice"));	
+	    goodsPrice = (int)(map.get("goodsPrice"));	
 		System.out.println(goodsPrice+"<---goodsOneController goodsPrice 값");
 		
 		request.setAttribute("map", map); // 상품 상세페이지
 		request.setAttribute("goodsPrice", goodsPrice);
-		request.setAttribute("list", list); // 상품 리뷰
+		request.setAttribute("review", review); // 상품 리뷰
+		System.out.println(review+"<---review값");
+		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsOne.jsp").forward(request, response);
 

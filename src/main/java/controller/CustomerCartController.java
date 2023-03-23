@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,6 +20,7 @@ import vo.Customer;
 @WebServlet("/customer/customerCart")
 public class CustomerCartController extends HttpServlet {
 	private CartService cartService;
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		// 로그인 상태일때 장바구니

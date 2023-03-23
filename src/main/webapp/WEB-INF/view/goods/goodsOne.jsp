@@ -161,16 +161,43 @@ input[type=number]::-webkit-outer-spin-button {
                         </div>   
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">리뷰</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+	                        <div class="row">
+		                        <c:forEach var="review" items="${review}">
+		                            <div class="col-md-6 col-lg-2">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="name" value="${review.customerId}" readonly="readonly" style="border: none; background: transparent;">
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6 col-lg-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="reviewMemo" value="${review.reviewMemo}" readonly="readonly" style="border: none; background: transparent;">
+		                                </div>
+		                            </div>
+		                            ${review.createdate}
+	                            </c:forEach>
+	                        </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     	</form>
     </section>
-    
     <!-- Product Details Section End -->
-
-
-               
-
 
 	<!-- Footer 네비 -->
 	<div>
